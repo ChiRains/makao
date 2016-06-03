@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.snakerext.dao.mysql.mapper.ProcessExecutorMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="ProcessExecutor">  
+        select * from `snakerext_process_executor` limit #{start},#{count}
+    </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `snakerext_process_executor`
+    </select>
+    
+    <delete id="deleteByMap">
+        delete FROM `snakerext_process_executor`
+        <where>
+            <if test="processId != null">
+                AND processId = #{processId}
+            </if>
+            <if test="taskName != null">
+                AND taskName = #{taskName}
+            </if>
+            <if test="type != null">
+                AND type = #{type}
+            </if>
+            <if test="memberId != null">
+                AND memberId = #{memberId}
+            </if>
+            <if test="id == null and processId == null and taskName == null and type == null and memberId == null">
+                AND 1 = 0
+            </if>
+        </where>
+    </delete>
+    
+     <select id="listByProcessIdAndTaskName" parameterType="java.util.HashMap" resultType="ProcessExecutor">  
+        select * from `snakerext_process_executor` where 1=1
+        <if test="processId != null">
+        	and `processId` = #{processId}
+        </if>
+        <if test="taskName != null">
+        	and `taskName` = #{taskName}
+        </if>
+    </select>
+</mapper>

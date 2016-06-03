@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.publicdata.dao.mysql.mapper.DistrictMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="District">  
+        select * from `publicdata_district`
+          where 1 = 1 
+        <if test="name != null">
+        	and `name` like concat('%',#{name},'%') 
+        </if>
+        <if test="provinceId > 0">
+        	and `provinceId` = #{provinceId} 
+        </if>
+        <if test="cityId > 0">
+        	and `cityId` = #{cityId} 
+        </if>        
+        order by `provinceId`,`cityId` limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `publicdata_district`  where 1 = 1 
+         <if test="name != null">
+        	and `name` like concat('%',#{name},'%') 
+        </if>
+        <if test="provinceId > 0">
+        	and `provinceId` = #{provinceId} 
+        </if>
+        <if test="cityId > 0">
+        	and `cityId` = #{cityId} 
+        </if> 
+    </select> 
+    
+    <select id="getByName" parameterType="String" resultType="District">  
+        select * from `publicdata_district` where `name`=#{name}
+    </select>
+    
+    <select id="listByCity" parameterType="Long" resultType="District">  
+        select * from `publicdata_district` where `cityId` = #{cityId}
+    </select>
+</mapper>

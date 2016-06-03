@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.publicservice.dao.mysql.mapper.CommonQuestionMapper">  
+
+	<!-- 分页查询对象列表 -->        
+    <select id="list4query" parameterType="java.util.HashMap" resultType="CommonQuestion">  
+        select * from `publicservice_common_question` 
+        order by sort asc, id desc 
+        limit #{start}, #{count}
+    </select>  
+    
+    <!-- 查询总的记录数 -->  
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `publicservice_common_question`
+    </select> 
+    
+     <select id="listBySortNo" parameterType="java.util.HashMap" resultType="CommonQuestion">  
+        select * from `publicservice_common_question` 
+        where sort = #{sort}
+    </select>
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.publicservice.dao.mysql.mapper.MessageMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="Message">  
+        select * from `${table_name}` limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `${table_name}`
+    </select> 
+        
+    <select id="listByReceiver" parameterType="java.util.HashMap" resultType="Message">  
+        <![CDATA[select `id`,`title`,`time`,`state`,`classify` from `${table_name}` where `receiver`=#{receiver} and `state` <> 3]]>  
+       	<if test="classify > 0">
+        	and classify=#{classify}
+        </if>
+        order by field(state,1,2),time desc limit #{start},#{count}
+    </select>   
+    
+    <select id="countByReceiver" parameterType="java.util.HashMap" resultType="Integer">  
+        <![CDATA[select count(*) from `${table_name}` where `receiver`=#{receiver} and `state` <> 3 ]]> 
+        <if test="classify > 0">
+        	and classify=#{classify}
+        </if>
+    </select>
+    
+    <select id="countUnreadByReceiver" parameterType="java.util.HashMap" resultType="Integer">  
+        <![CDATA[select count(*) from `${table_name}` where `receiver`=#{receiver} and `state` = 1 ]]> 
+        <if test="classify > 0">
+        	and classify=#{classify}
+        </if>
+    </select>
+    
+    <select id="listContentByReceiver" parameterType="java.util.HashMap" resultType="Message">  
+        <![CDATA[select `id`,`title`, `content`,`time`,`state`,`classify` from `${table_name}` where `receiver`=#{receiver} and `state` <> 3]]>  
+        <if test="classify > 0">
+        	and classify=#{classify}
+        </if>
+        order by field(state,1,2),time desc limit #{start},#{count}
+    </select>         
+</mapper>

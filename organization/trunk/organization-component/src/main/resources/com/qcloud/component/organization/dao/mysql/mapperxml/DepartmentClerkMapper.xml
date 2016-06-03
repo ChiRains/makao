@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.organization.dao.mysql.mapper.DepartmentClerkMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="DepartmentClerk">  
+        select * from `organization_department_clerk` where 1=1
+        <if test="departmentId != null">
+        	and `departmentId` = #{departmentId}
+        </if>
+        limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `organization_department_clerk` where 1=1
+        <if test="departmentId != null">
+        	and `departmentId` = #{departmentId}
+        </if>
+    </select>
+    
+    <select id="listByDepartment" parameterType="Long" resultType="DepartmentClerk">  
+        select * from `organization_department_clerk` where 1=1 and `departmentId` = #{departmentId}      
+    </select>  
+    
+    <select id="getBelongsDepartment" parameterType="Long" resultType="DepartmentClerk">  
+        select * from `organization_department_clerk` where 1=1 and `clerkId`=#{clerkId} and `type`=1
+    </select>  
+        
+    <delete id="deleteByMap">
+        delete FROM `organization_department_clerk`
+        <where>
+            <if test="clerkId != null">
+                AND clerkId = #{clerkId}
+            </if>
+            <if test="departmentId != null">
+                AND departmentId = #{departmentId}
+            </if>
+            <if test="clerkId == null and departmentId == null">
+                AND 1 = 0
+            </if>
+        </where>
+    </delete>
+</mapper>

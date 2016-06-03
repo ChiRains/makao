@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.processtask.dao.mysql.mapper.TaskedMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="Tasked">  
+        select * from `mvprocesstask_tasked` where 1 = 1
+        <if test="clerkId > 0">
+            AND `clerkId` = #{clerkId}
+        </if>
+        <if test="type != null">
+            AND `type` = #{type}
+        </if>
+        <if test="clerkType != null">
+            AND `clerkType` = #{clerkType}
+        </if>
+        <if test="applyType != null">
+            AND `applyType` = #{applyType}
+        </if>
+        <if test="formInstCode != null">
+            AND `formInstCode` like concat('%',#{formInstCode},'%') 
+        </if>
+        <if test="ownerName != null">
+        	AND `ownerName` like concat('%',#{ownerName},'%')
+        </if>
+        <if test="status > 0">
+        	 AND `status` = #{status}
+        </if>
+        <if test="departmentId > 0">
+        	AND `departmentId` = #{departmentId}
+        </if>
+        <if test="clerkName != null">and `clerkName` like concat('%',#{clerkName},'%') </if>
+        <if test="idCard != null">and `idCard` like concat('%',#{idCard},'%')</if>
+        <if test="companyName != null">and `companyName` like concat('%',#{companyName},'%')</if>
+        <if test="companyCode != null">and `companyCode` like concat('%',#{companyCode},'%')</if>
+        <if test="plateNumber != null">and `plateNumber` like concat('%',#{plateNumber},'%')</if>
+        <if test="applyTimeFront !=null and applyTimeBack !=null">and applyTime BETWEEN #{applyTimeFront} AND #{applyTimeBack}</if>
+        limit #{start},#{count}
+    </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `mvprocesstask_tasked` where 1 = 1
+        <if test="clerkId > 0">
+            AND `clerkId` = #{clerkId}
+        </if>
+        <if test="type != null">
+            AND `type` = #{type}
+        </if> 
+        <if test="clerkType != null">
+            AND `clerkType` = #{clerkType}
+        </if>
+        <if test="applyType != null">
+            AND `applyType` = #{applyType}
+        </if>
+        <if test="formInstCode != null">
+            AND `formInstCode` like concat('%',#{formInstCode},'%') 
+        </if>
+        <if test="ownerName != null">
+        	AND `ownerName` like concat('%',#{ownerName},'%')
+        </if>
+        <if test="status > 0">
+        	 AND `status` = #{status}
+        </if>
+        <if test="departmentId > 0">
+        	AND `departmentId` = #{departmentId}
+        </if>
+        <if test="clerkName != null">and `clerkName` like concat('%',#{clerkName},'%') </if>
+        <if test="idCard != null">and `idCard` like concat('%',#{idCard},'%')</if>
+        <if test="companyName != null">and `companyName` like concat('%',#{companyName},'%')</if>
+        <if test="companyCode != null">and `companyCode` like concat('%',#{companyCode},'%')</if>
+        <if test="plateNumber != null">and `plateNumber` like concat('%',#{plateNumber},'%')</if>
+        <if test="applyTimeFront !=null and applyTimeBack !=null">and applyTime BETWEEN #{applyTimeFront} AND #{applyTimeBack}</if>     
+    </select> 
+    
+     <select id="getByWorkitem" parameterType="java.util.HashMap" resultType="Tasked">
+        select * from `mvprocesstask_tasked` where 1 = 1 and `workitemId`=#{workitemId}
+     </select>
+     
+     <select id="listTaskedByProcessInst" parameterType="String" resultType="Tasked">
+        select * from `mvprocesstask_tasked` where 1 = 1 and processInstId = #{processInstId} order by `dealTime` desc
+     </select>
+     
+     <select id="listTaskedByFormInstanceId" parameterType="String" resultType="Tasked">
+        select * from `mvprocesstask_tasked` where 1 = 1 and `formInstanceId` = #{formInstanceId} order by `applyTime` desc
+     </select>
+</mapper>

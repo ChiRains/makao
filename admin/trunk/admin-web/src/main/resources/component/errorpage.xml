@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pirates:errorpage xmlns:pirates="http://www.qi-cloud.com/schema/pirates"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.qi-cloud.com/schema/pirates 
+    http://www.qi-cloud.com/schema/pirates-0.1.xsd">
+		
+	<pirates:error url="/admin/login.do" page="/JsonView" >
+		<pirates:exception type="AdminException" statusCode="201" log="false" />
+	</pirates:error>
+	
+	<pirates:error url="/admin/add.do" page="/JsonView" >
+		<pirates:exception type="AdminException" statusCode="202" log="false" />
+	</pirates:error>
+	
+	<pirates:error url="/admin/edit.do" page="/JsonView" >
+		<pirates:exception type="AdminException" statusCode="203" log="false" />
+	</pirates:error>
+	
+	<pirates:error url="/admin/delete.do" page="/JsonView" >
+		<pirates:exception type="AdminException" statusCode="204" log="false" />
+	</pirates:error>
+	
+	<pirates:error url="/admin/enable.do" page="/JsonView" >
+		<pirates:exception type="AdminException" statusCode="205" log="false" />
+	</pirates:error>
+		
+	<pirates:error url="/admin/resetPsw.do" page="/JsonView" >
+		<pirates:exception type="AdminException" statusCode="206" log="false" />
+	</pirates:error>
+	
+	<pirates:error url="/admin/modify.do" page="/JsonView" >
+		<pirates:exception type="AdminException" statusCode="207" log="false" />
+	</pirates:error>	
+</pirates:errorpage>

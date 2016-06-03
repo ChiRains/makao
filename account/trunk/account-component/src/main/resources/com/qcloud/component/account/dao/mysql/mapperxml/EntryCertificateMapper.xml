@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.account.dao.mysql.mapper.EntryCertificateMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="EntryCertificate">  
+        select * from `account_entry_certificate` limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `account_entry_certificate`
+    </select> 
+    
+    <select id="getByAccount" parameterType="String" resultType="EntryCertificate">  
+        select * from `account_entry_certificate` where account = #{account}
+    </select>      
+    
+    <select id="listByGroup" parameterType="String" resultType="EntryCertificate">  
+        select * from `account_entry_certificate` where `group` = #{group}
+    </select>      
+</mapper>

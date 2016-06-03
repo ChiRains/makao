@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.processtask.dao.mysql.mapper.TaskingMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="Tasking">  
+        select * from `processtask_tasking` where 1 = 1 and `clerkId`=#{clerkId}
+        <if test="type != null">
+            AND `type` = #{type}
+        </if>
+        <if test="creatorName != null">
+            AND `creatorName` LIKE CONCAT('%',#{creatorName},'%')
+        </if>  
+        <if test="departmantName != null">
+            AND `departmantName` LIKE CONCAT('%',#{departmantName},'%') 
+        </if>  
+        <if test="processName != null">
+            AND `processName` LIKE CONCAT('%',#{processName},'%') 
+        </if>            
+        <if test="myApply == 1">
+            AND `creator` = `clerkId`
+        </if> 
+        <if test="myApply == 2">           
+			<![CDATA[ AND `creator` <> `clerkId` ]]>
+        </if>            
+        order by `applyTime` desc limit #{start},#{count}
+    </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `processtask_tasking` where 1 = 1 and `clerkId`=#{clerkId}
+        <if test="type != null">
+            AND `type` = #{type}
+        </if>
+        <if test="creatorName != null">
+            AND `creatorName` LIKE CONCAT('%',#{creatorName},'%')
+        </if>  
+        <if test="departmantName != null">
+            AND `departmantName` LIKE CONCAT('%',#{departmantName},'%') 
+        </if>  
+        <if test="processName != null">
+            AND `processName` LIKE CONCAT('%',#{processName},'%') 
+        </if>      
+       <if test="myApply == 1">
+            AND `creator` = `clerkId`
+        </if> 
+        <if test="myApply == 2">           
+			<![CDATA[ AND `creator` <> `clerkId` ]]>
+        </if>  
+    </select> 
+    
+    <select id="getByWorkitem" parameterType="String" resultType="Tasking">  
+        select * from `processtask_tasking` where 1 = 1 and `workitemId`=#{workitemId}
+    </select>  
+    
+    <select id="getNextExecutor" parameterType="java.util.HashMap" resultType="Tasking">
+    	 select * from `processtask_tasking` where 1 = 1 and `formInstanceId`=#{formInstanceId}
+    </select>
+    
+</mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pirates:errorpage xmlns:pirates="http://www.qi-cloud.com/schema/pirates"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.qi-cloud.com/schema/pirates 
+    http://www.qi-cloud.com/schema/pirates-0.1.xsd">
+		
+	<pirates:error url="/grant/grant.do" page="/JsonView" >
+		<pirates:exception type="PermissionException" statusCode="201" log="false" />
+	</pirates:error>
+	
+</pirates:errorpage>

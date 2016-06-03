@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.publicdata.dao.mysql.mapper.ExpressMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="Express">  
+        select * from `publicdata_express` limit #{start},#{count}
+    </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `publicdata_express`
+    </select> 
+    
+     <select id="getByCode" parameterType="java.util.HashMap" resultType="Express">  
+        select * from `publicdata_express`
+        where 1=1
+        and `code`=#{code}
+        limit 1
+    </select>  
+</mapper>

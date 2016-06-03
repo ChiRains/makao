@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.publicdata.dao.mysql.mapper.PopularSearchesMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="PopularSearches">  
+        select * from `publicdata_popular_searches` limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `publicdata_popular_searches`
+    </select> 
+    
+    <select id="listTop" parameterType="java.util.HashMap" resultType="PopularSearches">  
+         select * from `publicdata_popular_searches` where `type` = #{type} order by `sort` desc,`times` desc limit 0,#{number}
+    </select>          
+    
+    <select id="getByKeywords" parameterType="java.util.HashMap" resultType="PopularSearches">  
+         select * from `publicdata_popular_searches` where `type` = #{type} and `keywords` = #{keywords} order by `times` desc limit 0,1
+    </select>        
+</mapper>

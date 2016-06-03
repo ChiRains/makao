@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.organization.dao.mysql.mapper.UsergroupUserMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="UsergroupUser">  
+        select * from `organization_usergroup_user` limit #{start},#{count}
+    </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `organization_usergroup_user`
+    </select> 
+    
+    <select id="getUserByGroupId" parameterType="java.util.HashMap" resultType="UsergroupUser">
+     select * from `organization_usergroup_user` where `groupId`=#{groupId}
+    </select>
+    
+    <delete id="deleteByGroupId" parameterType="java.util.HashMap">
+    	delete from `organization_usergroup_user` where `groupId`=#{groupId}
+    </delete>
+    
+</mapper>

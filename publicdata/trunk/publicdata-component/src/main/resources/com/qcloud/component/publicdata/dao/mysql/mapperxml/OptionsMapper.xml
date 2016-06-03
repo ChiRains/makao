@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.publicdata.dao.mysql.mapper.OptionsMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="Options">  
+        select * from `publicdata_options` where 1 = 1
+        <if test="questionnaireId!=null">
+        	and `questionnaireId`=#{questionnaireId}
+        </if>
+        <if test="questionId!=null">
+        	and `questionId`=#{questionId}
+        </if>
+        limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `publicdata_options` where 1 = 1
+        <if test="questionnaireId!=null">
+        	and `questionnaireId`=#{questionnaireId}
+        </if>
+        <if test="questionId!=null">
+        	and `questionId`=#{questionId}
+        </if>
+    </select> 
+    
+    <select id="listByQuestionnaire" parameterType="Long" resultType="Options">  
+        select * from `publicdata_options` where questionnaireId = #{questionnaireId}
+    </select>     
+    
+    <select id="listByQuestion" parameterType="Long" resultType="Options">  
+        select * from `publicdata_options` where questionId = #{questionId}
+    </select>     
+</mapper>

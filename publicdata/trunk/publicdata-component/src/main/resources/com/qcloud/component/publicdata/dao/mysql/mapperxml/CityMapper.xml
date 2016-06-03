@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.publicdata.dao.mysql.mapper.CityMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="City">  
+        select * from `publicdata_city` 
+        where 1 = 1 
+        <if test="name != null">
+        	and `name` like concat('%',#{name},'%') 
+        </if>
+        <if test="provinceId > 0">
+        	and `provinceId` = #{provinceId} 
+        </if>
+         order by `provinceId` limit #{start},#{count}
+    </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `publicdata_city`  where 1 = 1 
+        <if test="name != null">
+        	and `name` like concat('%',#{name},'%') 
+        </if>
+        <if test="provinceId > 0">
+        	and `provinceId` = #{provinceId} 
+        </if>
+    </select> 
+    
+    <select id="getByName" parameterType="String" resultType="City">  
+        select * from `publicdata_city` where `name`=#{name}
+    </select>
+    
+    <select id="listByProvince" parameterType="Long" resultType="City">  
+        select * from `publicdata_city` where `provinceId`=#{provinceId}
+    </select>
+    
+</mapper>

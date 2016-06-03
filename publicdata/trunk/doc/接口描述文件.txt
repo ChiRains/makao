@@ -1,0 +1,176 @@
+组件publicdata接口
+
+1.  获取省份列表
+
+URL：  
+/province/list.do
+
+参数：  
+无
+
+返回值
+{
+    "status": 200,
+    "message": "查询成功",
+    "data": {
+        "provinceList": [
+            "广东",
+            "广西",
+            "湖北",
+            "新疆",
+            "湖南",
+            "辽宁"
+        ]
+    }
+}
+
+2.  获取市列表
+URL：
+/city/listByProvince.do?province=广东
+
+参数：
+province	省
+
+返回值：
+{
+    "status": 200,
+    "message": "查询成功",
+    "data": {
+        "cityList": [
+            "广州",
+            "珠海",
+            "深圳",
+            "梅州"
+        ]
+    }
+}
+
+
+3.  获取区列表
+URL：
+/district/listByCity.do?city=珠海
+
+参数
+city   市
+
+返回值
+{"status":200,"message":"查询成功","data":{"districtList":["香洲"]}}
+
+3.  获取分类列表
+URL：
+/classify/listByType.do?type=2
+
+参数  		
+type  	类别,其中1为商家分类,2为商城商品分类,如type为商家ID，可以获取到商家商品分类
+
+返回值
+{
+    "status": 200,
+    "message": "获取分类成功",
+    "data": {
+        "classifyList": [
+            {
+                "id": 9999999000000204,
+                "name": "A",
+                "image": "/file/get.do?uid=9465F4415FD34214BD0F7CACC618A867",
+                "childrenList": [
+                    {
+                        "id": 9999999000000208,
+                        "name": "A1",
+                        "image": "",
+                        "childrenList": [
+                            {
+                                "id": 9999999000000210,
+                                "name": "A11",
+                                "image": "",
+                                "childrenList": []
+                            },
+                            {
+                                "id": 9999999000000212,
+                                "name": "A12",
+                                "image": "",
+                                "childrenList": []
+                            },
+                            {
+                                "id": 9999999000000212,
+                                "name": "A13",
+                                "image": "",
+                                "childrenList": [
+                                    {
+                                        "id": 9999999000000800,
+                                        "name": "123",
+                                        "image": "",
+                                        "childrenList": []
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "id": 9999999000000208,
+                        "name": "A2",
+                        "image": "",
+                        "childrenList": [
+                            {
+                                "id": 9999999000000212,
+                                "name": "A21",
+                                "image": "",
+                                "childrenList": []
+                            },
+                            {
+                                "id": 9999999000000214,
+                                "name": "A22",
+                                "image": "",
+                                "childrenList": []
+                            },
+                            {
+                                "id": 9999999000000216,
+                                "name": "A23",
+                                "image": "",
+                                "childrenList": []
+                            }
+                        ]
+                    },
+                    {
+                        "id": 9999999000000208,
+                        "name": "A3",
+                        "image": "",
+                        "childrenList": []
+                    }
+                ]
+            },
+            {
+                "id": 9999999000000204,
+                "name": "B",
+                "image": "",
+                "childrenList": [
+                    {
+                        "id": 9999999000000400,
+                        "name": "b1",
+                        "image": "",
+                        "childrenList": []
+                    },
+                    {
+                        "id": 9999999000000402,
+                        "name": "B2",
+                        "image": "",
+                        "childrenList": []
+                    }
+                ]
+            },
+            {
+                "id": 9999999000000206,
+                "name": "C",
+                "image": "",
+                "childrenList": []
+            },
+            {
+                "id": 9999999000000600,
+                "name": "aaa",
+                "image": "",
+                "childrenList": []
+            }
+        ]
+    }
+}
+

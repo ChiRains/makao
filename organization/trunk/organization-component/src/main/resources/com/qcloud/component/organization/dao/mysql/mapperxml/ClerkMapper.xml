@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.organization.dao.mysql.mapper.ClerkMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="Clerk">  
+        select * from `organization_clerk` where 1 = 1 and `enable`=1
+        <if test="name != null">
+        	and `name` like concat('%',#{name},'%') 
+        </if>
+        limit #{start},#{count}
+    </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `organization_clerk` where 1 = 1 and `enable`=1
+        <if test="name != null">
+        	and `name` like concat('%',#{name},'%') 
+        </if>
+    </select>
+    
+	<select id="getByMobile" parameterType="java.util.HashMap" resultType="Clerk">
+		select * from `organization_clerk` where `mobile`=#{mobile} limit #{start},#{count}
+	</select>
+	
+	<select id="getByIdCard" parameterType="String" resultType="Clerk">
+		select * from `organization_clerk` where `idCard`=#{idCard}
+	</select>
+	
+	<select id="getByJobEmail" parameterType="String" resultType="Clerk">
+		select * from `organization_clerk` where `jobEmail`=#{jobEmail}
+	</select>
+	
+	<select id="listAllByMap" parameterType="java.util.HashMap" resultType="Clerk">  
+        select * from `organization_clerk` where 1=1 and `enable`=1
+        <if test="name != null">
+            AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+    </select>
+    
+    <select id="listByName" parameterType="java.util.HashMap" resultType="Clerk">  
+        select * from `organization_clerk` where 1=1 and `enable`=1
+        <if test="name != null">
+            AND name LIKE CONCAT('%',#{name},'%')
+        </if>
+    </select>
+    <update id="editEnable" parameterType="java.util.HashMap">
+    	update `organization_clerk` set `enable`=0 where `id`=#{id}
+    </update>
+</mapper>

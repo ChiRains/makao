@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.organization.dao.mysql.mapper.ClerkPostMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="ClerkPost">  
+        select * from `organization_clerk_post` where `postId`=#{postId} limit #{start},#{count}
+    </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `organization_clerk_post` where `postId`=#{postId}
+    </select> 
+    
+    <select id="listByClerk" parameterType="java.util.HashMap" resultType="ClerkPost">  
+        select * from `organization_clerk_post` where `clerkId`=#{clerkId}
+    </select>
+    
+    <delete id="deleteByMap">
+        delete FROM `organization_clerk_post`
+        <where>
+            <if test="clerkId != null">
+                AND clerkId = #{clerkId}
+            </if>
+            <if test="postId != null">
+                AND postId = #{postId}
+            </if>
+            <if test="clerkId == null and postId == null">
+                AND 1 = 0
+            </if>
+        </where>
+    </delete>
+    
+    
+</mapper>

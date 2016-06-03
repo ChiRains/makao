@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.metadata.dao.mysql.mapper.MetadataMapper">        
+	
+	<insert id="insert" parameterType="java.util.HashMap">  
+        insert into `metadata_${table}`(        
+        <foreach collection="paramList" item="item" separator=",">
+			`${item.name}`
+		</foreach>        
+        )values(
+        <foreach collection="paramList" item="item" separator=",">
+			#{item.value}
+		</foreach>        
+        )
+    </insert>
+	
+	<delete id="delete" parameterType="java.util.HashMap">  
+        delete from `metadata_${table}` where `${primaryField}` = #{primaryValue}
+    </delete>
+
+	<update id="update" parameterType="java.util.HashMap">  
+        update `metadata_${table}` set 
+        <foreach collection="paramList" item="item" separator=",">
+			`${item.name}` = #{item.value}
+		</foreach>  
+        where `${primaryField}` = #{primaryValue}
+    </update>
+  
+    <select id="list" parameterType="java.util.HashMap" resultType="java.util.HashMap">  
+        select * from `metadata_${table}` where 1=1
+        <foreach collection="paramList" item="item" separator=",">
+			and `${item.name}` = #{item.value}
+		</foreach>            
+    </select>
+    
+    <select id="get" parameterType="java.util.HashMap" resultType="java.util.HashMap">  
+        select * from `metadata_${table}` where `${primaryField}` = #{primaryValue}          
+    </select>
+</mapper>

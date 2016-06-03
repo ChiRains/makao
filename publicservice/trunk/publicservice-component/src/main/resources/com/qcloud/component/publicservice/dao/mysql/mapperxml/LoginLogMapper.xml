@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.publicservice.dao.mysql.mapper.LoginLogMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="LoginLog">  
+        select * from `publicservice_login_log` limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `publicservice_login_log`
+    </select> 
+    
+     <select id="list" parameterType="java.util.HashMap" resultType="LoginLog">  
+        select * from `publicservice_login_log`
+        where 1=1
+        	 and `consumerId`=#{consumerId} and `consumerType`=#{consumerType} and `operate`=#{operate}
+        order by  time desc
+        limit 10
+    </select>  
+</mapper>

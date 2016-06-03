@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.metadata.dao.mysql.mapper.FieldMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="Field">  
+        select * from `metadata_field` where 1=1
+        <if test="tableId != null and tableId != 0">
+        	and `tableId` = #{tableId}
+        </if>
+        limit #{start},#{count}
+    </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">
+        select count(*) from `metadata_field` where 1=1
+        <if test="tableId != null and tableId != 0">
+        	and `tableId` = #{tableId}
+        </if>
+    </select>
+    
+    <select id="list4query2" parameterType="java.util.HashMap" resultType="Field">  
+        select * from `metadata_field` where 1=1
+        <if test="tableId != null and tableId != 0">
+        	and `tableId` = #{tableId}
+        </if>
+    </select>
+    
+     <select id="listByTable" parameterType="Long" resultType="Field">  
+        select * from `metadata_field` where `tableId` = #{tableId}
+    </select> 
+    
+    <select id="listByMap" parameterType="java.util.HashMap" resultType="Field">  
+        select * from `metadata_field` where 1=1
+        <if test="tableId != null">
+        	and `tableId` = #{tableId}
+        </if>
+        <if test="name != null">
+        	and `name` = #{name}
+        </if>
+    </select>
+</mapper>

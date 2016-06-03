@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.organization.dao.mysql.mapper.PostRoleMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="PostRole">  
+        select * from `organization_post_role` limit #{start},#{count}
+    </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `organization_post_role`
+    </select> 
+    
+      <select id="listAllByMap" parameterType="java.util.HashMap" resultType="PostRole">  
+        select * from `organization_post_role` where 1=1
+         <if test="roleId != null">
+        	and `roleId` = #{roleId}
+        </if>
+        <if test="postId != null">
+        	and `postId` = #{postId}
+        </if>
+    </select> 
+    
+    <select id="listByPost" parameterType="java.util.HashMap" resultType="PostRole">  
+        select * from `organization_post_role` where `postId`=#{postId}
+    </select>
+    
+     <delete id="deleteByMap">
+        delete FROM `organization_post_role`
+        <where>
+            <if test="roleId != null">
+                AND roleId = #{roleId}
+            </if>
+            <if test="postId != null">
+                AND postId = #{postId}
+            </if>
+            <if test="roleId == null and postId == null">
+                AND 1 = 0
+            </if>
+        </where>
+    </delete>
+</mapper>

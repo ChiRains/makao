@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+	<!-- 模块URL列表 标签-->
+	<module-list code="publicservice-pirates-url-list">
+		<item module="publicservice" name="关于我们" url="/aboutusConfig/getHtmlAboutus.do" parameterCode="">
+	    	<![CDATA[					
+				<style>img{width:100%;} </style><p><img src="http://vmall.exy365.com/file/get.do?uid=A009441BDB0D4D4EAFA5DDABACA779DE" _src="/file/get.do?uid=A009441BDB0D4D4EAFA5DDABACA779DE" style="text-align: center; white-space: normal;"/></p>	
+			]]>
+		</item>	
+		
+		<item module="publicservice" name="帮助说明" url="/helpConfig/getHtmlHelp.do" parameterCode="">
+	    	<![CDATA[								
+				<style>img{width:100%;} </style><p><img src="http://vmall.exy365.com/file/get.do?uid=023862B1168747A48A490DC60050BE41" _src="/file/get.do?uid=023862B1168747A48A490DC60050BE41" style="text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=D8267DC2F045431DAF4EC3FEA305F500" _src="/file/get.do?uid=D8267DC2F045431DAF4EC3FEA305F500" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=E4FA8693069344B384085F844DAFBAC7" _src="/file/get.do?uid=E4FA8693069344B384085F844DAFBAC7" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=436E39F3E7534227A4C2C4BC95E3A7B0" _src="/file/get.do?uid=436E39F3E7534227A4C2C4BC95E3A7B0" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=0AD96EE7D8B4419DB9256E9B176A86FC" _src="/file/get.do?uid=0AD96EE7D8B4419DB9256E9B176A86FC" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=B9EB906A869E45B5855E64A5246DBFEB" _src="/file/get.do?uid=B9EB906A869E45B5855E64A5246DBFEB" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=128C9FB337CB43E5AFB80C3E4BA14A25" _src="/file/get.do?uid=128C9FB337CB43E5AFB80C3E4BA14A25" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=88DCD52AA6D14C10912FAF65F1F66755" _src="/file/get.do?uid=88DCD52AA6D14C10912FAF65F1F66755" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=43AE45AFFE3E4D2B9FBAA9213D9FA126" _src="/file/get.do?uid=43AE45AFFE3E4D2B9FBAA9213D9FA126" style="line-height: 1.5; text-align: center; white-space: normal;"/></p>	
+			]]>
+		</item>	
+		
+		<item module="publicservice" name="协议" url="/protocolConfig/getHtmlProtocol.do" parameterCode="">
+	    	<![CDATA[								
+				<style>img{width:100%;} </style><p><img src="http://vmall.exy365.com/file/get.do?uid=6A544AD67BC7446DB6CDB8A9776C6BFD" _src="/file/get.do?uid=6A544AD67BC7446DB6CDB8A9776C6BFD" style="text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=40746A5B876E4EF69DE861B65C5DCFD1" _src="/file/get.do?uid=40746A5B876E4EF69DE861B65C5DCFD1" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=FD18A4A04EC94A88A4ACF015C376E631" _src="/file/get.do?uid=FD18A4A04EC94A88A4ACF015C376E631" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=4188B2F8CAE34E078B2DFAAE744BEA3F" _src="/file/get.do?uid=4188B2F8CAE34E078B2DFAAE744BEA3F" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=4A6FFFCA640649F381485A86385DC8B5" _src="/file/get.do?uid=4A6FFFCA640649F381485A86385DC8B5" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=F37A00EE657A465CABBEB12E782C6927" _src="/file/get.do?uid=F37A00EE657A465CABBEB12E782C6927" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=CD3069A7AFBE4526853F9B8F783A044A" _src="/file/get.do?uid=CD3069A7AFBE4526853F9B8F783A044A" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=76B49EC87BDA43FC857C03D41773AE40" _src="/file/get.do?uid=76B49EC87BDA43FC857C03D41773AE40" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=B2871C630F7A4FBE9B028220E9F9D9AB" _src="/file/get.do?uid=B2871C630F7A4FBE9B028220E9F9D9AB" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><img src="http://vmall.exy365.com/file/get.do?uid=8671B3A6CE12456C8A0471F95E4E0CAF" _src="/file/get.do?uid=8671B3A6CE12456C8A0471F95E4E0CAF" style="line-height: 1.5; text-align: center; white-space: normal;"/></p><p><br/></p>	
+			]]>
+		</item>	
+		
+		<item module="publicservice" name="常见问题列表" url="/commonQuestion/listCommonQuestion.do" parameterCode="" returnFieldCode="return_commonQuestion_getCommonQuestion">
+	    	<![CDATA[								
+			   {
+				  "status" : 200,
+				  "message" : "",
+				  "data" : {
+				    "list" : [ {
+				      "id" : 1010016000010002,
+				      "title" : "怎么退货农产品，你想知道吗？赶快提问题；\r\n提的好有奖品；\r\n奖品限时限量等你拿！！",
+				      "answer" : "<p>单据上退货，<span style=\"color: rgb(255, 0, 0); background-color: rgb(255, 255, 255);\"><em><strong><span style=\"font-size:16px\">有人</span></strong></em></span>会来收</p>",
+				      "sort" : 0
+				    }, {
+				      "id" : 1010016000010001,
+				      "title" : "怎么购买农产品",
+				      "answer" : "直接下单。然后我们有人配送",
+				      "sort" : 1
+				    }, {
+				      "id" : 1010016000010202,
+				      "title" : "怎么批发农产品",
+				      "answer" : "批发就是批量的购买。。。。",
+				      "sort" : 3
+				    }, {
+				      "id" : 1010016000010203,
+				      "title" : "4",
+				      "answer" : "4",
+				      "sort" : 4
+				    } ]
+				  }
+				}
+			]]>
+		</item>	
+		<item module="publicservice" name="常见问题" url="/commonQuestion/getCommonQuestion.do" parameterCode="publicservice_commonQuestion_getCommonQuestion" returnFieldCode="commonQuestion_getCommonQuestion_return">
+	    	<![CDATA[
+			{
+			  "status" : 200,
+			  "message" : "",
+			  "data" : {
+			    "result" : {
+			      "id" : 1010016000010001,
+			      "title" : "怎么购买农产品",
+			      "answer" : "直接下单。然后我们有人配送",
+			      "sort" : 1
+			    }
+			  }
+			}
+			]]>
+		</item>			
+		
+		<item module="publicservice" name="关于我们" url="/aboutusConfig/getAboutus.do" parameterCode="" returnFieldCode="aboutusConfig_getAboutus_return">
+	    	<![CDATA[					
+				{
+				  "status" : 200,
+				  "message" : "",
+				  "data" : {
+				    "aboutus" : ""
+				  }
+			    }	
+			]]>
+		</item>	
+		
+		<item module="publicservice" name="帮助说明" url="/helpConfig/getHelp.do" parameterCode="" returnFieldCode="aboutusConfig_getHelp_return">
+	    	<![CDATA[								
+				{
+				  "status" : 200,
+				  "message" : "",
+				  "data" : {
+				    "help" : ""
+				  }
+				}	
+			]]>
+		</item>	
+		
+		<item module="publicservice" name="协议" url="/protocolConfig/getProtocol.do" parameterCode="" returnFieldCode="aboutusConfig_getProtocol_return">
+	    	<![CDATA[								
+				{
+				  "status" : 200,
+				  "message" : "",
+				  "data" : {
+				    "protocolConfig" : ""
+				  }
+			   }	
+			]]>
+		</item>						
+	</module-list>
+	<!-- 模块URL列表 标签-->
+	
+	<!-- 模块URL明细-->
+	
+	
+		
+	<module-list code="return_commonQuestion_getCommonQuestion">
+		<item key="id">常见问题id</item>
+		<item key="title">问题标题</item>
+		<item key="answer">问题的回答内容</item>
+		<item key="sort">排序</item>
+	</module-list>
+	<module-list code="publicservice_commonQuestion_getCommonQuestion">
+		<item key="id">常见问题id</item>
+	</module-list>
+	<module-list code="commonQuestion_getCommonQuestion_return">
+		<item key="id">常见问题id</item>
+		<item key="title">问题标题</item>
+		<item key="answer">问题的回答内容</item>
+		<item key="sort">排序</item>
+	</module-list>
+	
+	<module-list code="aboutusConfig_getAboutus_return">
+		<item key="aboutus">关于我们</item>
+	</module-list>		
+	
+	<module-list code="aboutusConfig_getHelp_return">
+		<item key="help">帮助</item>
+	</module-list>	
+	
+	<module-list code="aboutusConfig_getProtocol_return">
+		<item key="protocolConfig">协议</item>
+	</module-list>	
+	<!-- 模块URL明细-->	
+</xml>

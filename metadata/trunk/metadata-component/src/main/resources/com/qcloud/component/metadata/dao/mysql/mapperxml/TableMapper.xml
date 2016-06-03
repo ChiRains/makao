@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.metadata.dao.mysql.mapper.TableMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="Table">  
+        select * from `metadata_table` where 1=1
+        <if test="label != null">
+            AND label LIKE CONCAT('%',#{label},'%')
+        </if>
+        <if test="name != null and name != ''">
+            AND name  LIKE CONCAT('%',#{name},'%')
+        </if>
+        limit #{start},#{count}
+    </select>
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `metadata_table` where 1=1
+        <if test="label != null">
+            AND label LIKE CONCAT('%',#{label},'%')
+        </if>
+        <if test="name != null and name != ''">
+            AND name  LIKE CONCAT('%',#{name},'%')
+        </if>
+    </select>
+    
+    <select id="listByName" resultType="Table">  
+        select * from `metadata_table` where `name` = #{name}
+    </select> 
+</mapper>

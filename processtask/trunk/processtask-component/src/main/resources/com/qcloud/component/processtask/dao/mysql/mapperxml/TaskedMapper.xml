@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.processtask.dao.mysql.mapper.TaskedMapper">          
+     <select id="list4query" parameterType="java.util.HashMap" resultType="Tasked">  
+        select * from `processtask_tasked` where 1 = 1 and `clerkId`=#{clerkId}
+        <if test="type != null">
+            AND `type` = #{type}
+        </if>
+        <if test="creatorName != null">
+            AND `creatorName` LIKE CONCAT('%',#{creatorName},'%')
+        </if>  
+        <if test="departmantName != null">
+            AND `departmantName` LIKE CONCAT('%',#{departmantName},'%')
+        </if>  
+        <if test="processName != null">
+            AND `processName` LIKE CONCAT('%',#{processName},'%')
+        </if>      
+        <if test="myApply == 1">
+            AND `creator` = `clerkId` and `processState` = 1
+        </if> 
+        <if test="myApply == 2">
+            AND `creator` = `clerkId` and (`processState` = 2 or `processState` = 3)
+        </if>
+        <if test="myApply == 3">           
+			<![CDATA[ AND `creator` <> `clerkId` ]]>
+        </if>  
+        order by `dealTime` desc limit #{start},#{count}
+     </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `processtask_tasked` where 1 = 1 and `clerkId`=#{clerkId}
+        <if test="type != null">
+            AND `type` = #{type}
+        </if>      
+           <if test="creatorName != null">
+            AND `creatorName` LIKE CONCAT('%',#{creatorName},'%')
+        </if>  
+        <if test="departmantName != null">
+            AND `departmantName` LIKE CONCAT('%',#{departmantName},'%')
+        </if>  
+        <if test="processName != null">
+            AND `processName` LIKE CONCAT('%',#{processName},'%')
+        </if>    
+        <if test="myApply == 1">
+            AND `creator` = `clerkId` and `processState` = 1
+        </if> 
+        <if test="myApply == 2">
+            AND `creator` = `clerkId` and (`processState` = 2 or `processState` = 3)
+        </if>
+        <if test="myApply == 3">           
+			<![CDATA[ AND `creator` <> `clerkId` ]]>
+        </if>  
+     </select> 
+    
+     <select id="listTaskedByProcessInst" parameterType="String" resultType="Tasked">  
+        select * from `processtask_tasked` where 1 = 1 and processInstId = #{processInstId} order by `dealTime` desc
+     </select>
+    
+     <select id="getByWorkitem" parameterType="java.util.HashMap" resultType="Tasked">  
+        select * from `processtask_tasked` where 1 = 1 and `workitemId`=#{workitemId}
+     </select>
+</mapper>
