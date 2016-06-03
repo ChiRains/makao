@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.DriverVehicleMapper">
+	<select id="list4query" parameterType="java.util.HashMap"
+		resultType="DriverVehicle">
+		select * from `macaovehicle_driver_vehicle` where 1=1
+		<if test="formInstCode != null">
+			and `formInstCode`=#{formInstCode}
+		</if>
+		<if test="carOwnerId > 0">
+			and `carOwnerId`=#{carOwnerId}
+		</if>
+		<if test="state > 0">
+			and `state`=#{state}
+		</if>
+		<if test="groupByStr != null">
+			group by ${groupByStr}
+		</if>
+		limit #{start},#{count}
+	</select>
+
+	<select id="count4query" parameterType="java.util.HashMap"
+		resultType="Integer">
+		select count(*) from (select * from `macaovehicle_driver_vehicle` where 1=1
+		<if test="formInstCode != null">
+			and `formInstCode`=#{formInstCode}
+		</if>
+		<if test="carOwnerId > 0">
+			and `carOwnerId`=#{carOwnerId}
+		</if>
+		<if test="state > 0">
+			and `state`=#{state}
+		</if>
+		<if test="groupByStr != null">
+			group by ${groupByStr}
+		</if>
+		)mdv
+	</select>
+
+	<select id="getByFormInstCode" parameterType="java.util.HashMap" resultType="DriverVehicle">
+		select * from `macaovehicle_driver_vehicle` where
+		`formInstCode`=#{formInstCode}
+	</select>
+
+	<!-- 根据query对象 -->
+	<select id="listByQuery" parameterType="java.util.HashMap" resultType="DriverVehicle">
+		select * from `macaovehicle_driver_vehicle` where 1=1
+		<if test="formInstCode!=null">
+			and `formInstCode`=#{formInstCode}
+		</if>
+		<if test="carOwnerId > 0">
+			and `carOwnerId`=#{carOwnerId}
+		</if>
+		<if test="type > 0">
+			and `type`=#{type}
+		</if>
+		<if test="state > 0">
+			and state=#{state}
+		</if>
+		<if test="vehicleId > 0">
+			and vehicleId=#{vehicleId}
+		</if>
+		<if test="driverId > 0">
+			and driverId=#{driverId}
+		</if>
+		<if test="ric != null">
+			and `ric`=#{ric}
+		</if>
+		<if test="driverIc != null">
+			and `driverIc`=#{driverIc}
+		</if>
+		<if test="formInstanceId > 0">
+			and `formInstanceId`=#{formInstanceId}
+		</if>
+		<if test="groupByStr != null">
+			group by ${groupByStr}
+		</if>
+	</select>
+	
+	<select id="getListByDriverId" parameterType="java.util.HashMap" resultType="DriverVehicle">
+		select * from `macaovehicle_driver_vehicle` where `driverId`=#{driverId} and `type`=#{type} 
+	</select>
+	
+	<select id="getListByFormInstanceId" parameterType="java.util.HashMap" resultType="DriverVehicle">
+		select * from `macaovehicle_driver_vehicle` where `formInstanceId`=#{formInstanceId}
+	</select>
+	
+	<select id="getListByVehicleId" parameterType="java.util.HashMap" resultType="DriverVehicle">
+		select * from `macaovehicle_driver_vehicle` where `vehicleId`=#{vehicleId} and `type`=#{type}
+	</select>
+	
+	<select id="getListByDriverIc" parameterType="java.util.HashMap" resultType="DriverVehicle">
+		select * from `macaovehicle_driver_vehicle` where `driverIc`=#{driverIc} and `type`=#{type}
+	</select>
+	
+	<select id="countAllVehicle" parameterType="java.util.HashMap" resultType="Integer">
+		SELECT COUNT(DISTINCT vehicleId) FROM `macaovehicle_driver_vehicle` WHERE `carOwnerId` = #{carOwnerId}
+	</select>
+	
+</mapper>

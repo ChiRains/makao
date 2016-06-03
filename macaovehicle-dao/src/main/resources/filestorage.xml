@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+	<module-list code="FileWarehouseUriIpLimit">
+		<item url="/filewarehouse/add.do">url_filewarehouse_add</item>
+		<item url="/filewarehouse/get.do">url_filewarehouse_get</item>
+		<item url="/fileinformation/get.do">url_fileinformation_get</item>
+	</module-list>
+	<module-list code="url_filewarehouse_add">		
+	</module-list>
+	<module-list code="url_filewarehouse_get">		
+	</module-list>
+	<module-list code="url_fileinformation_get">
+	</module-list>
+</xml>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process displayName="澳门车辆通关申请" name="carApprove">
+<start displayName="start1" layout="58,-617,-1,-1" name="start1">
+<transition g="" name="transition1" offset="0,0" to="apply"/>
+</start>
+<end displayName="end1" layout="445,-320,-1,-1" name="end1"/>
+<task assignee="qc_executor" autoExecute="Y" displayName="车辆申请" layout="35,-530,-1,-1" name="apply" performType="ANY" taskType="Major">
+<transition g="" name="transition6" offset="0,0" to="cmcpre"/>
+</task>
+<task assignee="qc_cmcpre" autoExecute="Y" displayName="管委会预审" layout="38,-436,-1,-1" name="cmcpre" performType="ANY" taskType="Major">
+<transition g="" name="transition2" offset="0,0" to="decision1"/>
+</task>
+<decision displayName="decision1" layout="166,-432,-1,-1" name="decision1">
+<transition displayName="审批不通过" expr="#approve==2" g="" name="transition9" offset="0,0" to="end1"/>
+<transition displayName="审批通过" expr="#approve==1" g="" name="transition3" offset="0,2" to="carInspection"/>
+</decision>
+<task assignee="qc_cmc" autoExecute="Y" displayName="管委会现场审批" layout="597,-438,120,52" name="cmc" performType="ANY" taskType="Major">
+<transition g="" name="transition4" offset="0,0" to="decision2"/>
+</task>
+<decision displayName="decision2" layout="774,-438,-1,-1" name="decision2">
+<transition displayName="审批通过" expr="#approve==1" g="" name="transition5" offset="0,0" to="police"/>
+<transition displayName="审批不通过" expr="#approve==2" g="" name="transition10" offset="0,0" to="end1"/>
+</decision>
+<task assignee="qc_police" autoExecute="Y" displayName="交警现场审批" layout="1004,-441,-1,-1" name="police" performType="ANY" taskType="Major">
+<transition g="" name="transition8" offset="0,0" to="end1"/>
+</task>
+<task assignee="qc_carInspection" autoExecute="Y" displayName="澳门车检" layout="326,-436,-1,-1" name="carInspection" performType="ANY" taskType="Major">
+<transition g="" name="transition7" offset="0,0" to="decision4"/>
+</task>
+<decision displayName="decision4" layout="466,-434,-1,-1" name="decision4">
+<transition displayName="审批通过" expr="#approve==1" g="" name="transition14" offset="0,0" to="cmc"/>
+<transition displayName="审批不通过" expr="#approve==2" g="" name="transition15" offset="0,0" to="end1"/>
+</decision>
+</process>

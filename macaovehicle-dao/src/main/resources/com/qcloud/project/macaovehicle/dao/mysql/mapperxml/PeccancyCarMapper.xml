@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.PeccancyCarMapper">          
+	    <select id="list4query" parameterType="java.util.HashMap" resultType="PeccancyCar">  
+	        select * from `macaovehicle_peccancy_car`  where 1=1
+	        <if test=" outsidePlate!=null">
+				and outsidePlate like concat('%',#{outsidePlate},'%')		
+			</if> 
+			<if test=" temporaryPlate!=null">
+				and temporaryPlate like concat('%',#{temporaryPlate},'%')		
+			</if> 
+			<if test=" code!=null">
+				and code like concat('%',#{code},'%')		
+			</if>
+			<if test=" carOwnerId !=null">
+				and carOwnerId =#{carOwnerId}	
+			</if>  
+	        limit #{start},#{count}
+	    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `macaovehicle_peccancy_car` where 1=1
+       <if test=" outsidePlate!=null">
+			and outsidePlate like concat('%',#{outsidePlate},'%')		
+		</if> 
+		<if test=" temporaryPlate!=null">
+			and temporaryPlate like concat('%',#{temporaryPlate},'%')		
+		</if> 
+		<if test=" code!=null">
+			and code like concat('%',#{code},'%')		
+		</if> 
+		<if test=" carOwnerId !=null">
+			and carOwnerId =#{carOwnerId}		
+		</if>  
+        
+    </select> 
+</mapper>

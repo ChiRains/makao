@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process displayName="添加驾驶员" name="carPilot">
+<start displayName="start1" layout="462,8,-1,-1" name="start1">
+<transition g="" name="transition1" offset="0,0" to="apply"/>
+</start>
+<task assignee="qc_policepilot" autoExecute="Y" displayName="交警现场审批" layout="430,181,117,54" name="police" performType="ANY" taskType="Major">
+<transition g="" name="transition2" offset="0,0" to="end1"/>
+</task>
+<end displayName="end1" layout="466,275,-1,-1" name="end1"/>
+<task assignee="qc_executor" autoExecute="Y" displayName="添加驾驶员申请" layout="429,90,116,57" name="apply" performType="ANY" taskType="Major">
+<transition g="" name="transition3" offset="0,0" to="police"/>
+</task>
+</process>

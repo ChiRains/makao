@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process displayName="续期申请" name="renewal">
+<start displayName="start1" layout="50,21,-1,-1" name="start1">
+<transition g="" name="transition1" offset="0,0" to="apply"/>
+</start>
+<task assignee="qc_executor" autoExecute="Y" displayName="车辆续期申请" layout="19,137,111,51" name="apply" performType="ANY" taskType="Major">
+<transition g="" name="transition2" offset="0,0" to="gwhyjb"/>
+</task>
+<task assignee="qc_gwhyjb" autoExecute="Y" displayName="管委会窗口审批" layout="188,138,118,50" name="gwhyjb" performType="ANY" taskType="Major">
+<transition g="" name="transition3" offset="0,0" to="decision1"/>
+</task>
+<decision displayName="decision1" layout="362,139,-1,-1" name="decision1">
+<transition displayName="审批通过" expr="#approve==1" g="" name="transition4" offset="0,0" to="jjyjzb"/>
+<transition displayName="审批不通过" expr="#approve==2" g="" name="transition5" offset="0,0" to="end1"/>
+</decision>
+<task assignee="qc_jjyjzb" autoExecute="Y" displayName="交警窗口审批" layout="500,136,-1,-1" name="jjyjzb" performType="ANY" taskType="Major">
+<transition g="" name="transition6" offset="0,0" to="end1"/>
+</task>
+<end displayName="end1" layout="454,293,-1,-1" name="end1"/>
+</process>

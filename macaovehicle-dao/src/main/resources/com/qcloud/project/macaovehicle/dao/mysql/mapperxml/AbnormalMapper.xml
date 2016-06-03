@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.AbnormalMapper">
+	<select id="list4query" parameterType="java.util.HashMap"
+		resultType="Abnormal">
+		select * from `macaovehicle_abnormal` where 1=1
+		<if test="carCardId != null">
+			and `carCardId` = #{carCardId}
+		</if>
+		<if test="monitorId != null">
+			and `monitorId` = #{monitorId}
+		</if>
+		<if test="ocrPlate != null">
+			and `ocrPlate` = #{ocrPlate}
+		</if>
+		order by `happenedTime` desc 
+		limit #{start},#{count}
+	</select>
+
+	<select id="count4query" parameterType="java.util.HashMap"
+		resultType="Integer">
+		select count(*) from `macaovehicle_abnormal` where 1=1
+		<if test="carCardId != null">
+			and `carCardId` = #{carCardId}
+		</if>
+		<if test="ocrPlate != null">
+			and `ocrPlate` = #{ocrPlate}
+		</if>
+	</select>
+
+	<select id="list" parameterType="java.util.HashMap" resultType="Abnormal">
+		select * from `macaovehicle_abnormal`
+		where 1=1
+
+		order by `happenedTime` desc
+		limit #{start},#{count}
+	</select>
+
+	<select id="count" parameterType="java.util.HashMap" resultType="Integer">
+		select count(*) from `macaovehicle_abnormal`
+		where 1=1
+	</select>
+	
+	<select id="countToday" parameterType="java.util.HashMap" resultType="Integer">
+		select count(*) from `macaovehicle_abnormal`
+		where date(happenedTime) = curdate()
+	</select>
+	
+	<select id="statisticRecord" parameterType="java.util.HashMap"
+		resultType="Abnormal">
+		select * from `macaovehicle_abnormal`
+		where 1=1
+		<if test="startTime !=null and startTime !=''">
+			and `happenedTime` between #{startTime} and #{endTime}
+		</if>
+		<if test="type !=0">
+			and `eventType` =#{type}
+		</if>
+		order by `happenedTime` desc
+	</select>
+
+</mapper>

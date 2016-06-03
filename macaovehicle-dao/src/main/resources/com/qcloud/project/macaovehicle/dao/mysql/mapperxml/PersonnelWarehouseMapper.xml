@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.PersonnelWarehouseMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="PersonnelWarehouse">  
+        select * from `macaovehicle_personnel_warehouse` limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `macaovehicle_personnel_warehouse`
+    </select> 
+    
+    <select id="getByRegister" parameterType="java.util.HashMap" resultType="PersonnelWarehouse">
+    	select * from `macaovehicle_personnel_warehouse` 
+    	where 1=1  and `name`=#{name} and `mobile`=#{mobile} and `idcardNumber`=#{idcardNumber} limit 1
+    </select>
+</mapper>

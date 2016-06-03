@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.OnestopCarRecordMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="OnestopCarRecord">  
+        select * from `macaovehicle_onestop_car_record` where 1=1
+        <if test="dCardid != null">
+    		and `dCardid`=#{dCardid}
+    	</if>
+    	<if test="vCardid != null">
+    		and `vCardid`=#{vCardid}
+    	</if>
+    	<if test="type > 0">
+    		and `type`=#{type}
+    	</if>
+    	<if test="groupByStr != null">
+	    	group by ${groupByStr}
+    	</if>
+    	<if test="orderBy != null">
+	    	order by ${orderBy}
+    	</if>
+        limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from (select * from `macaovehicle_onestop_car_record` where 1=1
+        <if test="dCardid != null">
+    		and `dCardid`=#{dCardid}
+    	</if>
+    	<if test="vCardid != null">
+    		and `vCardid`=#{vCardid}
+    	</if>
+    	<if test="type > 0">
+    		and `type`=#{type}
+    	</if>
+    	<if test="groupByStr != null">
+	    	group by ${groupByStr}
+    	</if>
+    	)mocr
+    </select> 
+    
+    <select id="getByMap" parameterType="java.util.HashMap" resultType="OnestopCarRecord">  
+        select * from `macaovehicle_onestop_car_record` where 1=1
+        <if test="dCardid != null">
+    		and `dCardid`=#{dCardid}
+    	</if>
+    	<if test="vCardid != null">
+    		and `vCardid`=#{vCardid}
+    	</if>
+    	<if test="date != null">
+    		and `date`=#{date}
+    	</if>
+    	order by `date` desc
+        limit #{start},#{count}
+    </select>  
+    
+    <select id="getCountByMap" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `macaovehicle_onestop_car_record` where 1=1
+        <if test="type > 0">
+    		and `type`=#{type}
+    	</if>
+    	<if test="date != null">
+    		and DATE_FORMAT(date,'%Y-%m-%d')=#{date}
+    	</if>
+    </select>  
+    
+</mapper>

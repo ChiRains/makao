@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+	<!-- 模块URL列表 标签 -->
+	<module-list code="macaovehicle-pirates-url-list">
+	
+	<item module="macaovehicle" name="澳门会员注册" url="/macaoUser/register.do"
+			parameterCode="macaovehicle_registerUser">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "注册成功",
+	  "data" : {
+	  }
+	}
+     ]]></item>
+     
+	<item module="macaovehicle" name="获取我的信息" url="/carOwner/myInfo.do"
+			parameterCode="">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "",
+	  "data" : {
+	    "carOwner" : {
+	      "id" : 1010012000010402,
+	      "name" : "ryuma",
+	      "mobile" : "15876309014",
+	      "sexStr" : "男",
+	      "headImage" : "",
+	      "idcardNumber" : "441823121112111211",
+	      "address" : "广东省珠海市唐家",
+	      "residence" : "广东清远",
+	      "idcardBack" : "",
+	      "idcardFace" : "",
+	      "type" : 1,
+	      "typeStr" : "务工人员",
+	      "workersVO" : {
+	        "id" : 1010012000010001,
+	        "carOwnerId" : 1010012000010402,
+	        "company" : "程序猿星球",
+	        "fixedLine" : "400-400-400",
+	        "address" : "就不告诉你",
+	        "phone" : "12345678911",
+	        "consignee" : "程序猿老大",
+	        "position" : "程序猿鼓励师",
+	        "workCertificate" : ""
+	      },
+	      "housersVO" : null,
+	      "enterprisersVO" : null
+	    }
+	  }
+	}
+     ]]></item>
+     
+     <item module="macaovehicle" name="修改我的信息" url="/macaoUser/edit.do"
+			parameterCode="macaovehicle_macaoUser_edit">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "修改信息成功",
+	  "data" : {
+	  }
+	}
+     ]]></item>
+     
+     <item module="macaovehicle" name="添加我的驾驶员" url="/driver/add.do"
+			parameterCode="macaovehicle_driver_add">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "添加驾驶员信息成功",
+	  "data" : {
+	  }
+	}
+     ]]></item>
+     
+      <item module="macaovehicle" name="修改我的驾驶员" url="/driver/edit.do"
+			parameterCode="macaovehicle_driver_edit">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "修改驾驶员信息成功",
+	  "data" : {
+	  }
+	}
+     ]]></item>
+     
+    <item module="macaovehicle" name="获取我的驾驶员（单个）" url="/driver/get.do"
+			parameterCode="macaovehicle_driver_get">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "获取驾驶员信息成功",
+	  "data" : {
+	    "driver" : {
+	      "id" : 1010012000010201,
+	      "carOwnerId" : 1010012000010402,
+	      "licenseNumber" : "SJ45678",
+	      "licenseImage" : "",
+	      "driverName" : "程序猿",
+	      "driverPhone" : "15876309014",
+	      "driverIdCard" : "441823199999991234",
+	      "driverAddress" : "不告诉你啊"
+	    }
+	  }
+	}
+    ]]></item>
+    
+     <item module="macaovehicle" name="获取我的驾驶员（列表）" url="/driver/list.do"
+			parameterCode="macaovehicle_driver_get">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "获取驾驶员信息成功",
+	  "data" : {
+	    "result" : [ {
+	      "id" : 1010012000010201,
+	      "carOwnerId" : 1010012000010402,
+	      "licenseNumber" : "SJ45678",
+	      "licenseImage" : "",
+	      "driverName" : "程序猿",
+	      "driverPhone" : "15876309014",
+	      "driverIdCard" : "441823199999991234",
+	      "driverAddress" : "不告诉你啊"
+	    } ]
+	  }
+	}
+    ]]></item>
+
+
+	<item module="macaovehicle" name="添加我的车辆信息" url="/vehicle/add.do"
+			parameterCode="macaovehicle_vehicle_add">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "添加车辆信息成功",
+	  "data" : {
+	    
+	  }
+	}
+    ]]></item>
+    
+    <item module="macaovehicle" name="修改我的车辆信息" url="/vehicle/edit.do"
+			parameterCode="macaovehicle_vehicle_edit">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "修改加车辆信息成功",
+	  "data" : {
+	    
+	  }
+	}
+    ]]></item>
+    
+    <item module="macaovehicle" name="获取我的车辆信息（列表）" url="/vehicle/list.do"
+			parameterCode="">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "获取驾驶员信息成功",
+	  "data" : {
+		"result" : [ 
+		 ]
+	  }
+	}
+    ]]></item>
+    
+    <item module="macaovehicle" name="获取我的车辆信息（单个）" url="/vehicle/get.do"
+			parameterCode="macaovehicle_vehicle_get">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "获取车辆信息成功",
+	  "data" : {
+	    
+	  }
+	}
+    ]]></item>
+    
+    <item module="macaovehicle" name="出入境记录列表查询" url="/clearanceRecord/list.do"
+			parameterCode="macaovehicle_clearanceRecord_list">
+	<![CDATA[
+	{
+	  "status" : 200,
+	  "message" : "",
+	  "data" : {
+	    "total" : 1,
+	    "result" : [ {
+	      "id" : 1010012000010202,
+	      "carCardNumber" : "1001",
+	      "driverCardNumber" : "1002",
+	      "time" : "2015-12-04 17:20:22",
+	      "channel" : "关口1",
+	      "type" : 1,
+	      "typeStr" : "出境"
+	    } ],
+	    "next" : false,
+	    "pageSize" : 10,
+	    "pageNum" : 1
+	  }
+	}
+    ]]></item>
+    
+     <item module="macaovehicle" name="异常记录列表查询" url="/abnormal/list.do"
+			parameterCode="macaovehicle_abnormal_list">
+	<![CDATA[
+   {
+	  "status" : 200,
+	  "message" : "",
+	  "data" : {
+	    "total" : 1,
+	    "result" : [ {
+	      "id" : 1010012000010001,
+	      "monitorId" : "1001",
+	      "monitorName" : "第一检测",
+	      "happenedTime" : "2015-12-0414:10:22",
+	      "carCardId" : "1001",
+	      "driverCardId" : "1002",
+	      "rfPlate" : "abc",
+	      "ocrPlate" : "abc",
+	      "eventType" : "1",
+	      "picture" : "RG5F45SD1FE21SFDQWE4SDF0SDF",
+	      "alarmNum" : 1,
+	      "color" : "红色",
+	      "models" : "大型客车"
+	    } ],
+	    "next" : false,
+	    "pageSize" : 10,
+	    "pageNum" : 1
+	  }
+	}
+    ]]></item>
+    
+
+	</module-list>
+
+	<module-list code="macaovehicle_macaoUser_edit">	
+		<item key="name">姓名</item>	
+		<item key="password">密码</item> 
+		<item key="sex">性别1男2女3不详</item>		
+		<item key="mobile">手机号</item>
+		<item key="email">邮箱</item>
+		<item key="code">验证码</item>
+		<item key="idcardNumber">身份证号码</item>	
+		<item key="address">居住地址</item> 
+		<item key="residence">户口所在地</item>
+		<item key="idcardBack">身份证正面</item>
+		<item key="idcardFace">身份证反面</item>	
+		<item key="type">1务工2购房3企业4人才5购地</item> 
+		
+		<item key="workers.company">工作单位</item>
+		<item key="workers.fixedLine">单位电话</item>
+		<item key="workers.address">单位地址</item>	
+		<item key="workers.phone">联系人电话</item> 
+		<item key="workers.consignee">联系人姓名</item>
+		<item key="workers.position">职位</item>
+		<item key="workers.workCertificate">工作证明 </item>	
+		
+		<item key="housers.property">房屋性质</item> 
+		<item key="housers.application">规划用途</item>
+		<item key="housers.situation">共有情况</item>
+		<item key="housers.code">房屋编号</item> 
+		<item key="housers.time">登记时间</item>
+		<item key="housers.located">房屋坐落</item>
+		<item key="housers.structure">房屋结构</item> 
+		<item key="housers.floor">层数</item>
+		<item key="housers.buildArea">建筑面积(㎡)</item>
+		<item key="housers.totalArea">套内建筑面积(㎡)</item> 
+		
+		<item key="enterprisers.company">公司名称</item>
+		<item key="enterprisers.code">公司代码</item>
+		<item key="enterprisers.operate">经营范围</item> 
+		<item key="enterprisers.scale">企业规模</item>
+		<item key="enterprisers.represent">法人代表</item>
+		<item key="enterprisers.phone">联系电话</item>
+		<item key="enterprisers.address">地址</item> 
+		<item key="enterprisers.time">成立时间</item>
+		<item key="enterprisers.license">营业执照(图片)</item>
+		<item key="enterprisers.tax">缴税证明</item>
+		<item key="enterprisers.letter">承诺书</item> 
+		
+		<item key="talent.company">工作单位</item>
+		<item key="talent.fixedLine">单位电话</item>
+		<item key="talent.address">单位地址</item>	
+		<item key="talent.phone">联系人电话</item> 
+		<item key="talent.consignee">联系人姓名</item>
+		<item key="talent.position">职位</item>
+		<item key="talent.workCertificate">工作证明 </item>
+		
+		<item key="purchase.company">公司名称</item>
+		<item key="purchase.code">公司代码</item>
+		<item key="purchase.operate">经营范围</item> 
+		<item key="purchase.scale">企业规模</item>
+		<item key="purchase.represent">法人代表</item>
+		<item key="purchase.phone">联系电话</item>
+		<item key="purchase.address">地址</item> 
+		<item key="purchase.time">成立时间</item>
+		<item key="purchase.license">营业执照(图片)</item>  
+		<item key="purchase.tax">缴税证明</item>
+		<item key="purchase.letter">承诺书</item> 
+		<item key="purchase.contract">合同</item>
+		
+	</module-list>
+	
+	
+	<module-list code="macaovehicle_driver_add">	
+		<item key="licenseNumber">驾驶证号码</item>	
+		<item key="licenseImage">行驶证图片</item> 
+		<item key="driverName">司机姓名</item>
+		<item key="driverPhone">司机电话</item>
+		<item key="driverIdCard">身份证号码</item>	
+		<item key="driverAddress">居住地址</item> 
+		<item key="licenseValidTime">驾驶证有效期</item>	
+		<item key="quasi">准驾车型</item> 
+		<item key="idcardFace">身份证正面</item>
+		<item key="idcardBack">身份证反面</item>
+		<item key="hvps">回乡证编号</item>	
+		<item key="hvpsImage">回乡证拍照</item> 
+		<item key="passport">护照</item> 
+		<item key="passportImage">护照图片</item>
+		<item key="inchImage">一寸免冠照片</item>
+		<item key="birthday">出生日期</item>	
+		<item key="sex">性别</item> 
+		
+	</module-list>
+	
+	<module-list code="macaovehicle_driver_edit">
+		<item key="id">ID</item>		
+		<item key="licenseNumber">驾驶证号码</item>	
+		<item key="licenseImage">行驶证图片</item> 
+		<item key="driverName">司机姓名</item>
+		<item key="driverPhone">司机电话</item>
+		<item key="driverIdCard">身份证号码</item>	
+		<item key="driverAddress">居住地址</item> 
+		<item key="licenseValidTime">驾驶证有效期</item>	
+		<item key="quasi">准驾车型</item> 
+		<item key="idcardFace">身份证正面</item>
+		<item key="idcardBack">身份证反面</item>
+		<item key="hvps">回乡证编号</item>	
+		<item key="hvpsImage">回乡证拍照</item> 
+		<item key="passport">护照</item> 
+		<item key="passportImage">护照图片</item>
+		<item key="inchImage">一寸免冠照片</item>
+		<item key="birthday">出生日期</item>	
+		<item key="sex">性别</item> 
+	</module-list>
+	
+	
+	<module-list code="macaovehicle_driver_get">
+		<item key="id">ID</item>		
+	</module-list>
+	
+	
+	<module-list code="macaovehicle_vehicle_add">
+		<item key="plateNumber">车牌号</item>		
+		<item key="licenseNumber">行驶证号码</item>		
+		<item key="licenseImage">行驶证拍照</item>		
+		<item key="specification">规格型号：（X6，X5...）</item>		
+		<item key="brand">品牌（宝马，奥迪...）</item>		
+		<item key="models">车型：1小车2货车</item>	
+			
+		<item key="ownerName">车主姓名</item>
+		<item key="ownerPhone">车主电话</item>		
+		<item key="authority">发证机关</item>		
+		<item key="buyTime">购置时间</item>		
+		<item key="ownerAddress">车主地址</item>		
+		<item key="engineNumber">发动机号</item>		
+		<item key="frameNumber">车架号</item>		
+		<item key="steeringWheel">方向盘 1左2右</item>
+		<item key="startTime">启用年份</item>		
+		
+		<item key="weight">车重</item>		
+		<item key="length">车长</item>		
+		<item key="height">车高</item>		
+		<item key="width">车宽</item>		
+		<item key="color">颜色</item>		
+		<item key="type">燃料种类 1汽油2柴油</item>
+		<item key="seat">吨位/座</item>		
+		<item key="capacity">容量</item>		
+		<item key="backupWheel">备胎个数</item>		
+		<item key="faceWheel">前轮个数</item>		
+		<item key="backWheel">后轮个数</item>		
+		<item key="registTime">注册时间</item>		
+		<item key="faceImage">车辆正面拍照</item>		
+		<item key="leftfaceImage">车辆左侧45度（前）拍照</item>
+		<item key="rightfaceImage">车辆右侧45度（前）拍照</item>		
+		<item key="leftbackImage">车辆左侧45度（后）拍照</item>		
+		<item key="rightbackImage">车辆右侧45度（后）拍照</item>		
+		
+	</module-list>
+	
+	<module-list code="macaovehicle_vehicle_edit">
+		<item key="id">ID</item>		
+		<item key="plateNumber">车牌号</item>		
+		<item key="licenseNumber">行驶证号码</item>		
+		<item key="licenseImage">行驶证拍照</item>		
+		<item key="specification">规格型号：（X6，X5...）</item>		
+		<item key="brand">品牌（宝马，奥迪...）</item>		
+		<item key="models">车型：1小车2货车</item>	
+			
+		<item key="ownerName">车主姓名</item>
+		<item key="ownerPhone">车主电话</item>		
+		<item key="authority">发证机关</item>		
+		<item key="buyTime">购置时间</item>		
+		<item key="ownerAddress">车主地址</item>		
+		<item key="engineNumber">发动机号</item>		
+		<item key="frameNumber">车架号</item>		
+		<item key="steeringWheel">方向盘 1左2右</item>
+		<item key="startTime">启用年份</item>		
+		
+		<item key="weight">车重</item>		
+		<item key="length">车长</item>		
+		<item key="height">车高</item>		
+		<item key="width">车宽</item>		
+		<item key="color">颜色</item>		
+		<item key="type">燃料种类 1汽油2柴油</item>
+		<item key="seat">吨位/座</item>		
+		<item key="capacity">容量</item>	
+		
+		<item key="backupWheel">备胎个数</item>		
+		<item key="faceWheel">前轮个数</item>		
+		<item key="backWheel">后轮个数</item>		
+		<item key="registTime">注册时间</item>		
+		<item key="faceImage">车辆正面拍照</item>		
+		<item key="leftfaceImage">车辆左侧45度（前）拍照</item>
+		<item key="rightfaceImage">车辆右侧45度（前）拍照</item>		
+		<item key="leftbackImage">车辆左侧45度（后）拍照</item>		
+		<item key="rightbackImage">车辆右侧45度（后）拍照</item>		
+		
+	</module-list>
+	
+	
+	<module-list code="macaovehicle_vehicle_get">
+		<item key="id">ID</item>		
+	</module-list>
+	
+	
+	<module-list code="macaovehicle_clearanceRecord_list">
+		<item key="type">1出境2入境</item>		
+		<item key="pageNum">页码</item>	
+		<item key="pageSize">每页显示数量</item>			
+	</module-list>
+	
+	
+	<module-list code="macaovehicle_abnormal_list">
+		<item key="pageNum">页码</item>	
+		<item key="pageSize">每页显示数量</item>			
+	</module-list>
+	
+	
+	
+</xml>

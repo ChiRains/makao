@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.ApprovalResultsMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="ApprovalResults">  
+        select * from `macaovehicle_approval_results` where 1=1
+        <if test="state > 0">
+        	and `state` = #{state}
+        </if>
+        limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `macaovehicle_approval_results`
+    </select> 
+    
+    <update id="updateResultState" parameterType="java.util.HashMap">
+    	update `macaovehicle_approval_results` 
+    	set `state`=#{state} where `id`=#{id}
+    </update>
+    
+    <select id="getResultByCardNumber" parameterType="java.util.HashMap"  resultType="ApprovalResults">
+    	select * from `macaovehicle_approval_results` 
+    	where 1=1
+    	and `cardNumber`=#{cardNumber}
+    	and `type`=#{type}
+    </select>
+    
+    <select id="getResultByAppointmentNumber" parameterType="java.util.HashMap"  resultType="ApprovalResults">
+    	select * from `macaovehicle_approval_results` 
+    	where 1=1 and `appointmentNumber`=#{appointmentNumber}
+    	limit 1
+    </select>
+    
+    <select id="listByState" parameterType="java.util.HashMap"  resultType="ApprovalResults">
+    	select * from `macaovehicle_approval_results` 
+    	where 1=1 and `state`=#{state}
+    </select>
+    
+     <select id="listByType" parameterType="java.util.HashMap"  resultType="ApprovalResults">
+    	select * from `macaovehicle_approval_results` 
+    	where 1=1 and `type`=#{type}
+    </select>
+    
+    <select id="getListByFormInstanceId" parameterType="java.util.HashMap"  resultType="ApprovalResults">
+    	select * from `macaovehicle_approval_results` 
+    	where 1=1 and `formInstanceId`=#{formInstanceId}
+    </select>
+    
+    <select id="getListByFormInstCode" parameterType="java.util.HashMap"  resultType="ApprovalResults">
+    	select * from `macaovehicle_approval_results` 
+    	where 1=1 and `formInstCode`=#{formInstCode}
+    </select>
+    
+</mapper>

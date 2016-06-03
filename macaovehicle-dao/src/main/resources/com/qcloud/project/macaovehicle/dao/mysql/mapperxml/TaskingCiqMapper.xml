@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.TaskingCiqMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="TaskingCiq">  
+        select * from `macaovehicle_tasking_ciq` where 1=1 and `status` != 0
+        <if test="ciqStatus > 0">
+        	and `ciqStatus` = #{ciqStatus}
+        </if>
+        <if test="statusIgnore > 0">
+        	and `status` != #{statusIgnore}
+        </if>
+        <if test="status > 0">
+        	and `status` = #{status}
+        </if>
+        <if test="type != null">
+        	and `type` = #{type}
+        </if>
+        <if test="applyType != null">
+            AND `applyType` = #{applyType}
+        </if>
+        <if test="formInstCode != null">
+            AND `formInstCode` like concat('%',#{formInstCode},'%') 
+        </if>
+        <if test="ownerName != null">
+        	AND `ownerName` like concat('%',#{ownerName},'%')
+        </if>
+        <if test="clerkName != null">and `clerkName` like concat('%',#{clerkName},'%') </if>
+        <if test="idCard != null">and `idCard` like concat('%',#{idCard},'%')</if>
+        <if test="companyName != null">and `companyName` like concat('%',#{companyName},'%')</if>
+        <if test="companyCode != null">and `companyCode` like concat('%',#{companyCode},'%')</if>
+        <if test="plateNumber != null">and `plateNumber` like concat('%',#{plateNumber},'%')</if>
+        <if test="applyTimeFront !=null and applyTimeBack !=null">and applyTime BETWEEN #{applyTimeFront} AND #{applyTimeBack}</if>
+        limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `macaovehicle_tasking_ciq` where 1=1 and `status` != 0
+          <if test="ciqStatus > 0">
+        	and `ciqStatus` = #{ciqStatus}
+        </if>
+        <if test="statusIgnore > 0">
+        	and `status` != #{statusIgnore}
+        </if>
+        <if test="status > 0">
+        	and `status` = #{status}
+        </if>
+        <if test="type != null">
+        	and `type` = #{type}
+        </if>
+        <if test="applyType != null">
+            AND `applyType` = #{applyType}
+        </if>
+        <if test="formInstCode != null">
+            AND `formInstCode` like concat('%',#{formInstCode},'%') 
+        </if>
+        <if test="ownerName != null">
+        	AND `ownerName` like concat('%',#{ownerName},'%')
+        </if>
+        <if test="clerkName != null">and `clerkName` like concat('%',#{clerkName},'%') </if>
+        <if test="idCard != null">and `idCard` like concat('%',#{idCard},'%')</if>
+        <if test="companyName != null">and `companyName` like concat('%',#{companyName},'%')</if>
+        <if test="companyCode != null">and `companyCode` like concat('%',#{companyCode},'%')</if>
+        <if test="plateNumber != null">and `plateNumber` like concat('%',#{plateNumber},'%')</if>
+        <if test="applyTimeFront !=null and applyTimeBack !=null">and applyTime BETWEEN #{applyTimeFront} AND #{applyTimeBack}</if>
+    </select>
+    
+     <select id="getByFormInstanceId" parameterType="java.util.HashMap" resultType="TaskingCiq">  
+        select * from `macaovehicle_tasking_ciq` where 1=1 and `formInstanceId` = #{formInstanceId}
+        limit #{start},#{count}
+    </select>
+    
+     <select id="listAllByState" parameterType="java.util.HashMap" resultType="TaskingCiq">  
+        select * from `macaovehicle_tasking_ciq` where 1=1 and `status` = #{status}
+    </select>
+</mapper>

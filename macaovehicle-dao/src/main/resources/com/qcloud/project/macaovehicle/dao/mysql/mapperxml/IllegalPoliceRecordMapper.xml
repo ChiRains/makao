@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.IllegalPoliceRecordMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="IllegalPoliceRecord">  
+        select * from `macaovehicle_illegal_police_record` where 1=1
+        <if test="carOwnerId > 0">
+			and `carOwnerId` =#{carOwnerId}	
+		</if>
+		<if test="plateNumber != null">
+        	and `plateNumber` like concat('%',#{plateNumber},'%')
+        </if>
+        <if test="tplateNumber != null">
+        	and `tplateNumber` like concat('%',#{tplateNumber},'%')
+        </if>
+         <if test="departmentId > 0">
+			and `departmentId` =#{departmentId}	
+		</if>
+		<if test="applyTimeFront !=null and applyTimeBack !=null">
+       		and `createTime` BETWEEN #{applyTimeFront} AND #{applyTimeBack}
+        </if>
+        limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `macaovehicle_illegal_police_record` where 1=1
+         <if test="carOwnerId > 0">
+			and `carOwnerId` =#{carOwnerId}	
+		</if>
+		<if test="plateNumber != null">
+        	and `plateNumber` like concat('%',#{plateNumber},'%')
+        </if>
+        <if test="tplateNumber != null">
+        	and `tplateNumber` like concat('%',#{tplateNumber},'%')
+        </if>
+         <if test="departmentId > 0">
+			and `departmentId` =#{departmentId}	
+		</if>
+		<if test="applyTimeFront !=null and applyTimeBack !=null">
+       		and `createTime` BETWEEN #{applyTimeFront} AND #{applyTimeBack}
+        </if>
+    </select>
+     
+</mapper>

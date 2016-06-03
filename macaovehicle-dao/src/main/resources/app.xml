@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 根节点的名字必须是xml -->
+<xml>
+	<module-list code="loginIndex">
+		<item name="loginLogo">/qcloud-admin/assets/images/logo.png</item>
+		<item name="loginMessage">©旗云科技</item>
+	</module-list>
+	
+	<module-list code="pirates-file-service-mode">
+	<item>sdk</item>
+	</module-list>
+
+	<!-- 可以配置多个module-list,code属性不能为空,不能重复,系统发现重复,会后来者居上 -->
+	<module-list code="clerk_account_type">
+		<item key="mobile" enable="true">手机作账号</item>
+		<item key="email" enable="true">Emall做账号</item>
+		<item key="idCard" enable="true">idCard</item>
+	</module-list>
+
+	<module-list code="clerk-default-password">
+		<item key="pwd">123456</item>
+	</module-list>
+
+	<!-- <module-list code="mailSenderInfo"> <item key="mailServerHost">smtp.163.com</item> 
+		<item key="mailServerPort">25</item> <item key="username">qi_cloud_zoro@163.com</item> 
+		<item key="password">fmtfebhftbvralch</item> <item key="fromAddress">qi_cloud_zoro@163.com</item> 
+		</module-list> -->
+
+	<module-list code="hasEmailCode">
+		<item key="code" enable="true">666666</item>
+	</module-list>
+
+	<!-- 220.249.243.176  smtp.qq.com-->
+	<!--  
+	<module-list code="mailSenderInfo">
+		<item key="mailServerHost">220.249.243.176</item>
+		<item key="mailServerPort">25</item>
+		<item key="username">995914546@qq.com</item>
+		<item key="password">just520=iloveu</item>
+		<item key="fromAddress">995914546@qq.com</item>
+		<item key="mailLocalhost">tgsp.hengqin.gov.cn</item>
+		<item key="mailDebug">false</item>
+	</module-list>
+	-->
+	
+	<module-list code="mailSenderInfo">
+		<item key="mailServerHost">smtp.exmail.qq.com</item>
+		<item key="mailServerPort">25</item>
+		<item key="username">shiliew@qi-cloud.com</item>
+		<item key="password">YTg1OTUxOTdAcWktY2xvdWQuY29t</item>
+		<item key="fromAddress">shiliew@qi-cloud.com</item>
+		<item key="mailLocalhost">tgsp.hengqin.gov.cn</item>
+		<item key="mailDebug">false</item>
+	</module-list>
+
+
+	<!-- <module-list code="mailSenderInfo"> <item key="mailServerHost">smtp.126.com</item> 
+		<item key="mailServerPort">25</item> <item key="username">qcloud_vip@126.com</item> 
+		<item key="password">keticrcujdfpnqaf</item> <item key="fromAddress">qcloud_vip@126.com</item> 
+		</module-list> -->
+	<!-- <module-list code="mailSenderInfo"> <item key="mailServerHost">smtp.163.com</item> 
+		<item key="mailServerPort">25</item> <item key="username">qcloud_vip@163.com</item> 
+		<item key="password">tmupmkwuvakjprae</item> <item key="fromAddress">qcloud_vip@163.com</item> 
+		</module-list> -->
+
+	<module-list code="qi-cloud-FormEventCodeList">
+		<item>carapprove</item>
+		<item>carpilot</item>
+		<item>supplement</item>
+		<item>renewal</item>
+	</module-list>
+
+	<module-list code="carapprove">
+		<item type="saveBefore" beanId="approveTaskUserChecker">检查任务执行人是否合法</item>
+		<item type="formatBefore" beanId="snakerActivityNameEvent">获取流程定义活动名称</item>
+		<item type="formatBefore" beanId="notionFillEvent">车辆申请信息处理</item>
+		<item type="formatBefore" beanId="vehicleApproveEvent">车辆申请信息处理</item>
+		<item type="formatBefore" beanId="vehicleApproveTimeEvent">申请时间</item>
+		<item type="saveBefore" beanId="startProcessFormEvent">启动流程</item>
+		<item type="saveAfter" beanId="createTaskFormEvent4Save">创建待办任务</item>
+		<item type="saveAfter" beanId="trySendNextActivityFormEvent">创建待办任务</item>
+		<item type="submitBefore" beanId="approveTaskUserChecker">检查任务执行人是否合法</item>
+		<item type="submitAfter" beanId="doneTaskFormEvent">办结任务</item>
+		<!-- <item type="submitAfter" beanId="vehicleApproveResultEvent">计算审批结果</item>  -->		
+		<item type="submitAfter" beanId="notionApproveResultEvent">审批结果</item>
+<!-- 		<item type="submitAfter" beanId="processMessageEvent">发站内信</item> -->
+		<item type="submitAfter" beanId="processProgressEvent">流程状态</item>
+		<item type="submitAfter" beanId="sendNextActivityFormEvent">发送下一步</item>
+		<item type="submitAfter" beanId="createTaskFormEvent4Submit">产生新任务</item>
+		<item type="submitAfter" beanId="vehicleApproveSuccessEvent">记录申请成功数据</item>
+	</module-list>
+	
+	<module-list code="carpilot">
+		<item type="saveBefore" beanId="approveTaskUserChecker">检查任务执行人是否合法</item>
+		<item type="formatBefore" beanId="snakerActivityNameEvent">获取流程定义活动名称</item>
+		<item type="formatBefore" beanId="notionFillEvent">车辆申请信息处理</item>
+		<item type="formatBefore" beanId="pilotApproveEvent">添加驾驶员处理</item>
+		<item type="formatBefore" beanId="vehicleApproveTimeEvent">申请时间</item>
+		<item type="saveBefore" beanId="startProcessFormEvent">启动流程</item>
+		<item type="saveAfter" beanId="createTaskFormEvent4Save">创建待办任务</item>
+		<item type="saveAfter" beanId="trySendNextActivityFormEvent">创建待办任务</item>
+		<item type="submitBefore" beanId="approveTaskUserChecker">检查任务执行人是否合法</item>
+		<item type="submitAfter" beanId="doneTaskFormEvent">办结任务</item>
+		<item type="submitAfter" beanId="notionApproveResultEvent">审批结果</item>
+		<item type="submitAfter" beanId="processProgressEvent">流程状态</item>
+		<item type="submitAfter" beanId="sendNextActivityFormEvent">发送下一步</item>
+		<item type="submitAfter" beanId="createTaskFormEvent4Submit">产生新任务</item>
+		<item type="submitAfter" beanId="pilotSuccessEvent">记录申请成功数据</item>
+	</module-list>
+	
+	<module-list code="supplement">
+		<item type="saveBefore" beanId="approveTaskUserChecker">检查任务执行人是否合法</item>
+		<item type="formatBefore" beanId="snakerActivityNameEvent">获取流程定义活动名称</item>
+		<item type="formatBefore" beanId="notionFillEvent">车辆申请信息处理</item>
+		<item type="formatBefore" beanId="supplementEvent">补办临时号牌处理</item>
+		<item type="formatBefore" beanId="vehicleApproveTimeEvent">申请时间</item>
+		<item type="saveBefore" beanId="startProcessFormEvent">启动流程</item>
+		<item type="saveAfter" beanId="createTaskFormEvent4Save">创建待办任务</item>
+		<item type="saveAfter" beanId="trySendNextActivityFormEvent">创建待办任务</item>
+		<item type="submitBefore" beanId="approveTaskUserChecker">检查任务执行人是否合法</item>
+		<item type="submitAfter" beanId="doneTaskFormEvent">办结任务</item>
+		<item type="submitAfter" beanId="notionApproveResultEvent">审批结果</item>
+		<item type="submitAfter" beanId="processProgressEvent">流程状态</item>
+		<item type="submitAfter" beanId="sendNextActivityFormEvent">发送下一步</item>
+		<item type="submitAfter" beanId="createTaskFormEvent4Submit">产生新任务</item>
+		<item type="submitAfter" beanId="supplementSuccessEvent">记录申请成功数据</item>
+	</module-list>
+	
+	<module-list code="renewal">
+		<item type="saveBefore" beanId="approveTaskUserChecker">检查任务执行人是否合法</item>
+		<item type="formatBefore" beanId="snakerActivityNameEvent">获取流程定义活动名称</item>
+		<item type="formatBefore" beanId="notionFillEvent">车辆申请信息处理</item>
+		<item type="formatBefore" beanId="renewalEvent">续期处理</item>
+		<item type="formatBefore" beanId="vehicleApproveTimeEvent">申请时间</item>
+		<item type="saveBefore" beanId="startProcessFormEvent">启动流程</item>
+		<item type="saveAfter" beanId="createTaskFormEvent4Save">创建待办任务</item>
+		<item type="saveAfter" beanId="trySendNextActivityFormEvent">创建待办任务</item>
+		<item type="submitBefore" beanId="approveTaskUserChecker">检查任务执行人是否合法</item>
+		<item type="submitAfter" beanId="doneTaskFormEvent">办结任务</item>
+		<item type="submitAfter" beanId="notionApproveResultEvent">审批结果</item>
+		<item type="submitAfter" beanId="processProgressEvent">流程状态</item>
+		<item type="submitAfter" beanId="sendNextActivityFormEvent">发送下一步</item>
+		<item type="submitAfter" beanId="createTaskFormEvent4Submit">产生新任务</item>
+		<item type="submitAfter" beanId="renewalSuccessEvent">记录申请成功数据</item>
+	</module-list>
+	
+	<module-list code="qi-cloud-UniqueCodeGeneratorConfig">
+		<item>pirates-form-inst-code</item>
+		<item>pirates-form-indicators-code</item>
+		<item>pirates-form-loss-code</item>
+	</module-list>
+
+	<module-list code="pirates-form-inst-code">
+		<item type="string">TGSQ</item>
+		<item type="time">yyyyMMdd</item>
+		<item type="number">0000</item>
+	</module-list>
+	
+	<module-list code="pirates-form-indicators-code">
+		<item type="string">GB</item>
+		<item type="time">yyyyMMdd</item>
+		<item type="number">0000</item>
+	</module-list>	
+	
+	<module-list code="pirates-form-loss-code">
+		<item type="string">GS</item>
+		<item type="time">yyyyMMdd</item>
+		<item type="number">0000</item>
+	</module-list>
+
+	<module-list code="qi-cloud-ExecutorVariableCalculator">
+		<item process="carApprove">vehicleApproveResultEvent</item>
+		<item process="renewal">vehicleApproveResultEvent</item>
+		<item process="supplement">vehicleApproveResultEvent</item>
+		<item process="carpilot">vehicleApproveResultEvent</item>
+	</module-list>
+
+	<module-list code="qi-cloud-FormNotionProcessTaskMapping">
+		<!-- 申请流程 -->
+		<item form="carapprove" acticity="cmcpre">qc_notion_cmcpre</item>
+		<item form="carapprove" acticity="cmc">qc_notion_cmc</item>
+		<item form="carapprove" acticity="police">qc_notion_police</item>
+		<item form="carapprove" acticity="carInspection">qc_notion_carInspection</item>
+		
+		<!-- 添加驾驶员 -->
+		<item form="carpilot" acticity="police">qc_notion_policepilot</item>
+		
+		<!-- 补办临时号牌 -->
+		<item form="supplement" acticity="xqpolicepilot">qc_notion_xqpolicepilot</item>
+		
+		<!-- 续期申请 -->
+		<item form="renewal" acticity="gwhyjb">qc_notion_gwhyjb</item>
+		<item form="renewal" acticity="jjyjzb">qc_notion_jjyjzb</item>
+		
+	</module-list>
+</xml>

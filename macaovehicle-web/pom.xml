@@ -1,0 +1,81 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.qcloud.project</groupId>
+		<artifactId>macaovehicle</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>macaovehicle-web</artifactId>
+	<packaging>war</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.qcloud.project</groupId>
+			<artifactId>macaovehicle-service</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.qcloud.pirates</groupId>
+			<artifactId>pirates-web</artifactId>
+			<version>${pirates.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.qcloud.pirates</groupId>
+			<artifactId>pirates-test</artifactId>
+			<version>${pirates.version}</version>
+			<scope>test</scope>
+		</dependency>		
+		<dependency>
+			<groupId>com.qcloud.component</groupId>
+			<artifactId>piratesship-web</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.qcloud.component</groupId>
+			<artifactId>account-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.qcloud.component</groupId>
+			<artifactId>account-component</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.qcloud.component</groupId>
+			<artifactId>metadata-web</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.qcloud.component</groupId>
+			<artifactId>snaker-web</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.qcloud.component</groupId>
+			<artifactId>snakerext-web</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.qcloud.component</groupId>
+			<artifactId>form-web</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.qcloud.component</groupId>
+			<artifactId>mvprocesstask-web</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.qcloud.component</groupId>
+			<artifactId>organization-web</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>			
+	</dependencies>
+</project>

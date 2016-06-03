@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.CarOwnerIndicatorsMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="CarOwnerIndicators">  
+        select * from `macaovehicle_car_owner_indicators` limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `macaovehicle_car_owner_indicators`
+    </select>
+    
+    <select id="getByVehicleId" parameterType="java.util.HashMap" resultType="CarOwnerIndicators">  
+        select * from `macaovehicle_car_owner_indicators` where `vehicleId` = #{vehicleId} limit #{start},#{count}
+    </select>
+    
+     <select id="getByCarOwnerId" parameterType="java.util.HashMap" resultType="CarOwnerIndicators">  
+        select * from `macaovehicle_car_owner_indicators` where `carOwnerId` = #{carOwnerId} limit #{start},#{count}
+    </select>
+</mapper>

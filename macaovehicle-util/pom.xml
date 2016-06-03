@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.qcloud.project</groupId>
+		<artifactId>macaovehicle</artifactId>
+		<version>1.0.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>macaovehicle-util</artifactId>
+	
+	<dependencies>
+		<dependency>
+			<groupId>com.qcloud.project</groupId>
+			<artifactId>macaovehicle-model</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.qcloud.project</groupId>
+			<artifactId>macaovehicle-exception</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.qcloud.pirates</groupId>
+			<artifactId>pirates-data</artifactId>
+			<version>${pirates.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.qcloud.pirates</groupId>
+			<artifactId>pirates-test</artifactId>
+			<version>${pirates.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.qcloud.component</groupId>
+			<artifactId>filesdk-component</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>

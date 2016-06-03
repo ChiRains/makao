@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<process displayName="补办临时号牌" name="supplement">
+<start displayName="start1" layout="43,58,-1,-1" name="start1">
+<transition g="" name="transition1" offset="0,0" to="apply"/>
+</start>
+<task assignee="qc_executor" autoExecute="Y" displayName="补办临时号牌申请" layout="107,169,125,49" name="apply" performType="ANY" taskType="Major">
+<transition g="" name="transition2" offset="0,0" to="xqpolicepilot"/>
+</task>
+<task assignee="qc_xqpolicepilot" autoExecute="Y" displayName="交警审批" layout="364,76,-1,-1" name="xqpolicepilot" performType="ANY" taskType="Major">
+<transition g="" name="transition3" offset="0,0" to="end1"/>
+</task>
+<end displayName="end1" layout="605,190,-1,-1" name="end1"/>
+</process>

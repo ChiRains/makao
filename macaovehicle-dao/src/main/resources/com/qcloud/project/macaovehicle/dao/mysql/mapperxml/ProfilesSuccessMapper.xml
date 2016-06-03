@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.ProfilesSuccessMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="ProfilesSuccess">  
+        select * from `macaovehicle_profiles_success` where 1=1
+        <if test="carOwnerId > 0">
+			and `carOwnerId`=#{carOwnerId}
+		</if>
+		<if test="vehicleId > 0">
+			and `vehicleId`=#{vehicleId}
+		</if>
+		<if test="driverId > 0">
+			and `driverId`=#{driverId}
+		</if>
+		<if test="vEnable != null">
+			and `vEnable`=#{vEnable}
+		</if>
+		<if test="dEnable != null">
+			and `dEnable`=#{dEnable}
+		</if>
+		<!-- 境外车牌号 -->
+		<if test="plateNumber != null">
+			and `plateNumber` like CONCAT('%','${plateNumber}','%' ) 
+		</if>
+		<!-- 驾驶员姓名 -->
+		<if test="driverName != null">
+			and `driverName` like CONCAT('%','${driverName}','%')
+		</if>
+		<!-- 驾驶员身份证 -->
+		<if test="driverIdCard != null">
+			and `driverIdCard` like CONCAT('%','${driverIdCard}','%')
+		</if>
+		<!-- 驾驶员身份证 (idcardNumber, 来自carOwner)-->
+		<if test="idcardNumber != null">
+			and `driverIdCard` like CONCAT('%','${idcardNumber}','%')
+		</if>
+		<!-- 驾驶证号码 -->
+		<if test="licenseNumber != null">
+			and `licenseNumber` like CONCAT('%','${licenseNumber}','%' ) 
+		</if>
+		<!-- 车辆型号 -->
+		<if test="models != null">
+			and `models` like CONCAT('%','${models}','%' ) 
+		</if>
+		<!-- 性别 -->
+		<if test="sex > 0">
+			and `sex` = ${sex}
+		</if>
+		<!-- 国籍(1,境内；2，境外) -->
+		<if test="nation > 0">
+			and `nation` = ${nation}
+		</if>
+		<if test="groupByStr != null">
+			group by ${groupByStr}
+		</if>
+        limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from (select * from `macaovehicle_profiles_success` where 1=1
+        <if test="carOwnerId > 0">
+			and `carOwnerId`=#{carOwnerId}
+		</if>
+		<if test="vehicleId > 0">
+			and `vehicleId`=#{vehicleId}
+		</if>
+		<if test="driverId > 0">
+			and `driverId`=#{driverId}
+		</if>
+		<if test="vEnable != null">
+			and `vEnable`=#{vEnable}
+		</if>
+		<if test="dEnable != null">
+			and `dEnable`=#{dEnable}
+		</if>
+		<!-- 境外车牌号 -->
+		<if test="plateNumber != null">
+			and `plateNumber` like CONCAT('%','${plateNumber}','%' ) 
+		</if>
+		<!-- 驾驶员姓名 -->
+		<if test="driverName != null">
+			and `driverName` like CONCAT('%','${driverName}','%')
+		</if>
+		<!-- 驾驶员身份证 -->
+		<if test="driverIdCard != null">
+			and `driverIdCard` like CONCAT('%','${driverIdCard}','%')
+		</if>
+		<!-- 驾驶员身份证 (idcardNumber, 来自carOwner)-->
+		<if test="idcardNumber != null">
+			and `driverIdCard` like CONCAT('%','${idcardNumber}','%')
+		</if>
+		<!-- 驾驶证号码 -->
+		<if test="licenseNumber != null">
+			and `licenseNumber` like CONCAT('%','${licenseNumber}','%' ) 
+		</if>
+		<!-- 车辆型号 -->
+		<if test="models != null">
+			and `models` like CONCAT('%','${models}','%' ) 
+		</if>
+		<!-- 发证机关 -->
+		<if test="authority != null">
+			and `authority` like CONCAT('%','${authority}','%')
+		</if>
+		<!-- 性别 -->
+		<if test="sex > 0">
+			and `sex` = ${sex}
+		</if>
+		<!-- 国籍(1,境内；2，境外) -->
+		<if test="nation > 0">
+			and `nation` = ${nation}
+		</if>
+		<if test="groupByStr != null">
+			group by ${groupByStr}
+		</if>
+		)mps
+    </select> 
+    
+    <select id="listByDriverId" parameterType="java.util.HashMap" resultType="ProfilesSuccess">  
+        select * from `macaovehicle_profiles_success` where 1=1 and `driverId` = #{driverId}
+    </select>
+    
+    <select id="pageByGroup" parameterType="java.util.HashMap" resultType="map">  
+        select *,count(*) as vCount from `macaovehicle_profiles_success` where 1=1
+        <if test="carOwnerId > 0">
+			and `carOwnerId`=#{carOwnerId}
+		</if>
+		<if test="vehicleId > 0">
+			and `vehicleId`=#{vehicleId}
+		</if>
+		<if test="driverId > 0">
+			and `driverId`=#{driverId}
+		</if>
+		<if test="groupByStr != null">
+			group by ${groupByStr}
+		</if>
+        limit #{start},#{count}
+    </select>
+    
+    <select id="countByGroup" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from (select * from `macaovehicle_profiles_success` where 1=1
+        <if test="carOwnerId > 0">
+			and `carOwnerId`=#{carOwnerId}
+		</if>
+		<if test="vehicleId > 0">
+			and `vehicleId`=#{vehicleId}
+		</if>
+		<if test="driverId > 0">
+			and `driverId`=#{driverId}
+		</if>
+		<if test="groupByStr != null">
+			group by ${groupByStr}
+		</if>
+		)mps
+    </select>
+    
+    <select id="listByQuery" parameterType="java.util.HashMap" resultType="ProfilesSuccess">  
+        select * from `macaovehicle_profiles_success` where 1=1
+        <if test="carOwnerId > 0">
+			and `carOwnerId`=#{carOwnerId}
+		</if>
+		<if test="vehicleId > 0">
+			and `vehicleId`=#{vehicleId}
+		</if>
+		<if test="driverId > 0">
+			and `driverId`=#{driverId}
+		</if>
+		<if test="vEnable != null">
+			and `vEnable`=#{vEnable}
+		</if>
+		<if test="dEnable != null">
+			and `dEnable`=#{dEnable}
+		</if>
+		<if test="groupByStr != null">
+			group by ${groupByStr}
+		</if>
+    </select>
+    
+</mapper>

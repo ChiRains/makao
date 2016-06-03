@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 根节点的名字必须是xml -->
+<xml>
+	<module-list code="pirates-module">
+	    <item name="config">用户中心</item>
+	    <item name="pirates">框架</item>	
+	    <item name="lisence">许可协议</item>
+	    <item name="filestorage">文件仓库</item>
+	</module-list>		
+</xml>

@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.qcloud.project</groupId>
+	<artifactId>macaovehicle</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>macaovehicle-model</module>
+		<module>macaovehicle-dao</module>
+		<module>macaovehicle-util</module>
+		<module>macaovehicle-service</module>
+		<module>macaovehicle-exception</module>
+		<module>macaovehicle-web</module>
+		<module>macaovehicle-governmentweb</module>		
+	</modules>
+
+	<parent>
+		<groupId>com.qcloud</groupId>
+		<artifactId>depend-webapp</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<properties>
+		<pirates.version>1.0-SNAPSHOT</pirates.version>
+		<project.version>1.0.0-SNAPSHOT</project.version>
+	</properties>
+</project>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.ProcessProgressMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="ProcessProgress">  
+        select * from `macaovehicle_process_progress` where 1=1
+        <if test="carOwnerId > 0">
+        	and `carOwnerId` = #{carOwnerId}
+        </if>
+        <if test="type > 0">
+        	and `type` = #{type}
+        </if>
+        limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `macaovehicle_process_progress` where 1=1
+          <if test="carOwnerId > 0">
+        	and `carOwnerId` = #{carOwnerId}
+        </if>
+        <if test="type > 0">
+        	and `type` = #{type}
+        </if>
+    </select> 
+    
+    <select id="listByCarOwnerId" parameterType="java.util.HashMap" resultType="ProcessProgress">  
+        select * from `macaovehicle_process_progress` where `carOwnerId` = #{carOwnerId} limit #{start},#{count}
+    </select>
+    
+    <select id="getMaxByFormInstCode" parameterType="java.util.HashMap" resultType="ProcessProgress">
+        select * from `macaovehicle_process_progress` where `formInstCode` = #{formInstCode}
+        order by `progressState` desc
+        limit #{start},#{count}
+    </select>
+    
+    <select id="getMap" parameterType="java.util.HashMap" resultType="ProcessProgress">
+        select * from `macaovehicle_process_progress` where 1=1
+        <if test="formInstanceId > 0">
+        and `formInstanceId`=#{formInstanceId}
+        </if>
+        <if test="carOwnerId > 0">
+        and `carOwnerId`=#{carOwnerId}
+        </if>
+        <if test="type > 0">
+        and type=#{type}
+        </if>
+        limit #{start},#{count}
+    </select>
+    
+    
+    <!-- 根据query对象查询 -->
+     <select id="listByquery" parameterType="java.util.HashMap" resultType="ProcessProgress">  
+        select * from `macaovehicle_process_progress` where 1=1
+        <if test="state > 0">
+        	and state=#{state}
+        </if>
+        <if test="type > 0">
+        	and type=#{type}
+        </if>
+        <if test="carOwnerId > 0">
+        	and carOwnerId=#{carOwnerId}
+        </if>
+    </select>  
+    
+    <select id="getByFormInstanceId" parameterType="java.util.HashMap" resultType="ProcessProgress">  
+        select * from `macaovehicle_process_progress` where 1=1 and `formInstanceId`=#{formInstanceId}
+        limit #{start},#{count}
+    </select> 
+    
+</mapper>

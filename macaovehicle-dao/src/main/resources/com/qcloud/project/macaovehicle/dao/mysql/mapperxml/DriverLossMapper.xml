@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.DriverLossMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="DriverLoss">  
+        select * from `macaovehicle_driver_loss` where 1=1
+        <if test="formInstCode != null">
+            AND `formInstCode` like concat('%',#{formInstCode},'%') 
+        </if>
+        <if test="newDriverIc != null">
+        	and `newDriverIc` like concat('%',#{newDriverIc},'%')
+        </if>
+        <if test="applyTimeFront !=null and applyTimeBack !=null">
+       		and recordTime BETWEEN #{applyTimeFront} AND #{applyTimeBack}
+        </if>
+        limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `macaovehicle_driver_loss` where 1=1
+          <if test="formInstCode != null">
+            AND `formInstCode` like concat('%',#{formInstCode},'%') 
+        </if>
+        <if test="newDriverIc != null">
+        	and `newDriverIc` like concat('%',#{newDriverIc},'%')
+        </if>
+        <if test="applyTimeFront !=null and applyTimeBack !=null">
+       		and recordTime BETWEEN #{applyTimeFront} AND #{applyTimeBack}
+        </if>
+    </select> 
+    
+    <select id="getByDriverId" parameterType="java.util.HashMap" resultType="DriverLoss">  
+        select * from `macaovehicle_driver_loss` where `driverId`=#{driverId} limit 1
+    </select>  
+</mapper>

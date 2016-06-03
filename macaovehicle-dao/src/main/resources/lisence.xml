@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 根节点的名字必须是xml -->
+<xml>
+	<module-list code="pirates-framework-lisence">
+		<item project="macaovehicle">PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHhtbD4KPG1vZHVsZS1saXN0IGNvZGU9InBpcmF0ZXMtbGlzZW5jZSI+CjxpdGVtIG5hbWU9InByb2plY3QiIHZhbHVlPSJtYWNhb3ZlaGljbGUiPumhueebrjwvaXRlbT4KPGl0ZW0gbmFtZT0iZGF0ZSIgdmFsdWU9IjIwMjUtMTItMzEgMjM6NTk6NTkiPuacieaViOacnzwvaXRlbT4KPC9tb2R1bGUtbGlzdD4KPC94bWw+</item>
+	</module-list>
+</xml>

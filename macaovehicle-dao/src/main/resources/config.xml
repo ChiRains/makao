@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 根节点的名字必须是xml -->
+<xml>
+	<module-list code="macao-inside-message">
+		<item code="topic_integral_income" name="积分收入-标题">积分收入-标题</item>
+		<item code="topic_integral_output" name="积分支出-标题">积分支出-标题</item>
+	</module-list>
+</xml>
