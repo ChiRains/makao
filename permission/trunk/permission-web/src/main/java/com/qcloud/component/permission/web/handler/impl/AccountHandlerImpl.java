@@ -3,7 +3,6 @@ package com.qcloud.component.permission.web.handler.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.h2.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.qcloud.component.permission.model.Account;
