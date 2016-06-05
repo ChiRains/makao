@@ -1,4 +1,4 @@
-﻿package com.qcloud.component.organization.web.vo;
+package com.qcloud.component.organization.web.vo;
 
 public class ClerkVO {
 
