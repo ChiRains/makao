@@ -13,7 +13,7 @@
 			<groupId>com.qcloud.pirates</groupId>
 			<artifactId>pirates-test</artifactId>
 			<version>${pirates.version}</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.qcloud.component</groupId>

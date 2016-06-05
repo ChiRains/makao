@@ -1,35 +1,57 @@
-set "home=G:/qcloud/java"
+cd ..
+cd ..
+set "home=%cd%"
 
 cd %home%
-cd component/processtask/trunk/processtask-api
+cd account/trunk
 call mvn install
 
 cd %home%
-cd component/organization/trunk
+cd permission/trunk
 call mvn install
 
 cd %home%
-cd component/metadata/trunk
+cd admin/trunk
 call mvn install
 
 cd %home%
-cd component/form/trunk
+cd processtask/trunk/processtask-api
 call mvn install
 
 cd %home%
-cd component/snaker/trunk
+cd publicdata/trunk
 call mvn install
 
 cd %home%
-cd component/mvprocesstask/trunk
+cd publicservice/trunk
 call mvn install
 
 cd %home%
-cd component/snakerext/trunk
+cd organization/trunk
 call mvn install
 
 cd %home%
-cd project/macaovehicle/trunk
+cd metadata/trunk
+call mvn install
+
+cd %home%
+cd form/trunk
+call mvn install
+
+cd %home%
+cd snaker/trunk
+call mvn install
+
+cd %home%
+cd mvprocesstask/trunk
+call mvn install
+
+cd %home%
+cd snakerext/trunk
+call mvn install
+
+cd %home%
+cd macaovehicle
 call mvn package
 
 pause
