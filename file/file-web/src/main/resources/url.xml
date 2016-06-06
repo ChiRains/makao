@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml>
+	<!-- 模块URL列表 标签-->
+	<module-list code="file-pirates-url-list">
+		<item module="file" name="获取图片配置" url="/fileInformation/get.do" parameterCode="file_fileInformation_get">
+	    	<![CDATA[			
+			{
+			  "status" : 200,
+			  "message" : "查询成功",
+			  "data" : {
+			    "url" : "http://file-dev.qi-cloud.net/file/get.do?uid=37B932AD88E14A2DBC3160864047F33B.png"
+			  }
+			}
+			]]>
+		</item>	
+	</module-list>
+	<!-- 模块URL列表 标签-->
+	
+	<!-- 模块URL明细-->			
+	<module-list code="file_fileInformation_get">
+		<item key="code">图片编码</item>
+	</module-list>		
+	<!-- 模块URL明细-->	
+</xml>

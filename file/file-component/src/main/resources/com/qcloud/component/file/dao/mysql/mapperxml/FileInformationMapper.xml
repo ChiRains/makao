@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.file.dao.mysql.mapper.FileInformationMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="FileInformation">  
+        select * from `file_file_information` limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `file_file_information`
+    </select> 
+    
+    <select id="getByCode" parameterType="java.util.HashMap" resultType="FileInformation">  
+        select * from `file_file_information`
+        where `code` =#{code}
+    </select>
+</mapper>
