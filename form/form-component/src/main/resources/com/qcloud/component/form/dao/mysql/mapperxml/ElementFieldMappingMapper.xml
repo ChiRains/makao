@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.form.dao.mysql.mapper.ElementFieldMappingMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="ElementFieldMapping">  
+        select * from `form_element_field_mapping` limit #{start},#{count}
+    </select>  
+    
+     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `form_element_field_mapping`
+    </select>
+    
+    <select id="listAll2" parameterType="java.util.HashMap" resultType="ElementFieldMapping">  
+        select * from `form_element_field_mapping` where 1=1
+        <if test="elementId != null">
+        	and `elementId` = #{elementId}
+        </if>
+        <if test="fieldId != null">
+        	and `fieldId` = #{fieldId}
+        </if>
+    </select>
+    
+    <select id="getByElement" parameterType="Long" resultType="ElementFieldMapping">  
+        select * from `form_element_field_mapping` where elementId = #{elementId}
+    </select> 
+    
+    <delete id="deleteByMap">
+        delete FROM `form_element_field_mapping`
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="elementId != null">
+                AND elementId = #{elementId}
+            </if>
+            <if test="fieldId != null">
+                AND fieldId = #{fieldId}
+            </if>
+            <if test="id == null and elementId == null and fieldId == null">
+                AND 1 = 0
+            </if>
+        </where>
+    </delete>
+</mapper>
