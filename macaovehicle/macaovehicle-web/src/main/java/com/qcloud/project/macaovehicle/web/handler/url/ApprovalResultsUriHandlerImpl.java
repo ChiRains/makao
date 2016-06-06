@@ -10,14 +10,14 @@ public class ApprovalResultsUriHandlerImpl extends AbstractUriHandler {
     public List<String> whiteNameUris() {
 
         List<String> list = new ArrayList<String>();
-//        list.add("/approvalResults/list.do");
-//        list.add("/approvalResults/addResults.do");
-//        //
-//        list.add("/approvalResults/countryRecord.do");
-//        list.add("/approvalResults/borderRecord.do");
-//        list.add("/approvalResults/haikwanRecord.do");
-//        list.add("/approvalResults/notThrough.do");
-//        list.add("/approvalResults/bothThrough.do");
+        // list.add("/approvalResults/list.do");
+        // list.add("/approvalResults/addResults.do");
+        // //
+        // list.add("/approvalResults/countryRecord.do");
+        // list.add("/approvalResults/borderRecord.do");
+        // list.add("/approvalResults/haikwanRecord.do");
+        // list.add("/approvalResults/notThrough.do");
+        // list.add("/approvalResults/bothThrough.do");
         return list;
     }
 
@@ -34,6 +34,14 @@ public class ApprovalResultsUriHandlerImpl extends AbstractUriHandler {
         list.add("/approvalResults/haikwanRecord.do");
         list.add("/approvalResults/notThrough.do");
         list.add("/approvalResults/bothThrough.do");
+        return list;
+    }
+
+    @Override
+    public List<String> permissionUris() {
+
+        List<String> list = new ArrayList<String>();
+        list.add("/admin/approvalResults/list.do");
         return list;
     }
 }

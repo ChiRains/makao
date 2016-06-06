@@ -11,14 +11,14 @@ import com.qcloud.component.permission.model.Resources;
 
 public interface ResourcesMapper {
 
-	@Insert("insert into `permission_resources`(`id`,`name`,`code`,`uri`)"
-			+ " values(#{id},#{name},#{code},#{uri})")
+	@Insert("insert into `permission_resources`(`id`,`name`,`code`,`uri`,`classifyId`)"
+			+ " values(#{id},#{name},#{code},#{uri},#{classifyId})")
 	public void insert(Resources resources);
 
 	@Select("select * from `permission_resources` where `id`=#{id}")
 	public Resources get(Long id);
 
-	@Update("update `permission_resources` set `name`=#{name},`code`=#{code},`uri`=#{uri} where `id`=#{id}")
+	@Update("update `permission_resources` set `name`=#{name},`code`=#{code},`uri`=#{uri},`classifyId`=#{classifyId} where `id`=#{id}")
 	public void update(Resources resources);
 
 	@Delete("delete from `permission_resources` where `id`=#{id}")
@@ -29,4 +29,7 @@ public interface ResourcesMapper {
 
 	@Select("select count(*) from `permission_resources`")
 	public int count4page();
+	
+	@Select("select * from `permission_resources` where `classifyId`= #{classifyId} limit 0,1")
+    public Resources getByClassifyId(Long classifyId);
 }

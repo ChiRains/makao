@@ -16,16 +16,20 @@ public class Resources {
 	
 	//请求地址
 	private String uri;		
+	
+	//分类id
+	private long classifyId;		
 
 	public Resources(){
 	
 	}
 
-	public Resources(long id,String name,String code,String uri){
+	public Resources(long id,String name,String code,String uri,long classifyId){
 		this.id = id;		
 		this.name = name;		
 		this.code = code;		
 		this.uri = uri;		
+		this.classifyId = classifyId;		
 	}
 	
 	public void setId(long id) {
@@ -58,6 +62,14 @@ public class Resources {
 
 	public String getUri() {
 		return uri;
+	}	
+		
+	public void setClassifyId(long classifyId) {
+		this.classifyId = classifyId;
+	}
+
+	public long getClassifyId() {
+		return classifyId;
 	}	
 		
 }

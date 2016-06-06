@@ -28,4 +28,15 @@ public class RoleClientImpl implements RoleClient {
         }
         return list;
     }
+
+    @Override
+    public Long registerRole(String name, String desc, long parentGrantRoleId) {
+
+        Role role = new Role();
+        role.setName(name);
+        role.setDesc(desc);
+        role.setParentGrantRoleId(parentGrantRoleId);
+        roleService.add(role);
+        return role.getId();
+    }
 }
