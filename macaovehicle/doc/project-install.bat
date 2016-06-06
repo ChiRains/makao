@@ -3,11 +3,11 @@ cd ..
 set "home=%cd%"
 
 cd %home%
-cd account/trunk
+cd account
 call mvn install
 
 cd %home%
-cd permission/trunk
+cd permission
 call mvn install
 
 cd %home%
@@ -15,39 +15,43 @@ cd admin/trunk
 call mvn install
 
 cd %home%
-cd processtask/trunk/processtask-api
+cd processtask/processtask-api
 call mvn install
 
 cd %home%
-cd publicdata/trunk
+cd publicdata
 call mvn install
 
 cd %home%
-cd publicservice/trunk
+cd publicservice
 call mvn install
 
 cd %home%
-cd organization/trunk
+cd file
 call mvn install
 
 cd %home%
-cd metadata/trunk
+cd organization
 call mvn install
 
 cd %home%
-cd form/trunk
+cd metadata
 call mvn install
 
 cd %home%
-cd snaker/trunk
+cd form
 call mvn install
 
 cd %home%
-cd mvprocesstask/trunk
+cd snaker
 call mvn install
 
 cd %home%
-cd snakerext/trunk
+cd mvprocesstask
+call mvn install
+
+cd %home%
+cd snakerext
 call mvn install
 
 cd %home%
