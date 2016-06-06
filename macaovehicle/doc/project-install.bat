@@ -11,7 +11,7 @@ cd permission
 call mvn install
 
 cd %home%
-cd admin/trunk
+cd admin
 call mvn install
 
 cd %home%
