@@ -7,4 +7,6 @@ public interface RoleClient {
     List<QRole> listRoles();
 
     Long registerRole(String name, String desc, long parentGrantRoleId);
+
+    Long grantRolePermission(long permissionId, long roleId);
 }

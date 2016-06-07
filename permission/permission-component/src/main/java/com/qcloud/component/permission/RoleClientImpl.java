@@ -6,13 +6,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.qcloud.component.permission.entity.RoleEntity;
 import com.qcloud.component.permission.model.Role;
+import com.qcloud.component.permission.model.RolePermission;
+import com.qcloud.component.permission.service.RolePermissionService;
 import com.qcloud.component.permission.service.RoleService;
 
 @Service
 public class RoleClientImpl implements RoleClient {
 
     @Autowired
-    private RoleService roleService;
+    private RoleService           roleService;
+
+    @Autowired
+    private RolePermissionService rolePermissionService;
 
     @Override
     public List<QRole> listRoles() {
@@ -38,5 +43,15 @@ public class RoleClientImpl implements RoleClient {
         role.setParentGrantRoleId(parentGrantRoleId);
         roleService.add(role);
         return role.getId();
+    }
+
+    @Override
+    public Long grantRolePermission(long permissionId, long roleId) {
+
+        RolePermission rolePermission = new RolePermission();
+        rolePermission.setPermissionId(permissionId);
+        rolePermission.setRoleId(roleId);
+        rolePermissionService.add(rolePermission);
+        return rolePermission.getId();
     }
 }

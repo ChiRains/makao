@@ -109,4 +109,7 @@
 	<pirates:uriHandler class="com.qcloud.project.macaovehicle.web.handler.url.DriverCancelUriHandlerImpl"></pirates:uriHandler>
 	
 	<pirates:uriHandler class="com.qcloud.project.macaovehicle.web.handler.url.VehicleCancelUriHandlerImpl"></pirates:uriHandler>
+	
+	<pirates:uriHandler class="com.qcloud.project.macaovehicle.web.handler.url.MacClerkUriHandlerImpl"></pirates:uriHandler>
+	
 </beans>

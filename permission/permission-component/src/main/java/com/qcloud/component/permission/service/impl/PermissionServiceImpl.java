@@ -63,4 +63,10 @@ public class PermissionServiceImpl implements PermissionService {
 
         return permissionDao.getByMenu(menuId);
     }
+
+    @Override
+    public Permission getByTargetId(int type, long targetId) {
+
+        return permissionDao.getByTargetId(type, targetId);
+    }
 }

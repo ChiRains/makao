@@ -129,7 +129,7 @@ public class TaskingBorderController {
         Page<TaskingBorder> page = taskingBorderService.page(query, start, PAGE_SIZE);
         List<TaskingBorderVO> volist = taskingBorderHandler.toVOList(page.getData());
         FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());
-        view.addObject("list", volist);
+        view.setList(volist);
         return view;
     }
 
@@ -153,7 +153,7 @@ public class TaskingBorderController {
         Page<TaskingBorder> page = taskingBorderService.page(query, start, PAGE_SIZE);
         List<TaskingBorderVO> volist = taskingBorderHandler.toVOList(page.getData());
         FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());
-        view.addObject("list", volist);
+        view.setList(volist);
         return view;
     }
 

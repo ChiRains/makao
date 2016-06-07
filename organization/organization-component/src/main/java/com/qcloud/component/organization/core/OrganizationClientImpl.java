@@ -466,4 +466,22 @@ public class OrganizationClientImpl implements OrganizationClient {
         }
         return list;
     }
+
+    @Override
+    public Long registClerk(Clerk clerk, Long departmentId, String password) {
+
+        Department department = departmentService.get(departmentId);
+        AssertUtil.assertNotNull(department, "部门不存在." + departmentId);
+        clerkService.add(clerk);
+        //
+        if (StringUtils.isNotEmpty(password)) {
+            clerkService.changePwd(clerk.getId(), password);
+        }
+        DepartmentClerk departmentClerk = new DepartmentClerk();
+        departmentClerk.setType(DepartmentClerkType.BELONGS.getKey());
+        departmentClerk.setClerkId(clerk.getId());
+        departmentClerk.setDepartmentId(departmentId);
+        departmentClerkService.add(departmentClerk);
+        return clerk.getId();
+    }
 }

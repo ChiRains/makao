@@ -24,4 +24,6 @@ public interface PermissionDao extends ISimpleDao<Permission, Long> {
     public Page<Permission> page(int start, int size);
 
     public Permission getByMenu(Long menuId);
+
+    public Permission getByTargetId(int type, long targetId);
 }

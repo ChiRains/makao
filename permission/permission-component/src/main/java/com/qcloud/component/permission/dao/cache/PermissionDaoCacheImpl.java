@@ -67,4 +67,10 @@ public class PermissionDaoCacheImpl implements PermissionDao {
 
         return permissionDaoMysqlImpl.getByMenu(menuId);
     }
+
+    @Override
+    public Permission getByTargetId(int type, long targetId) {
+
+        return permissionDaoMysqlImpl.getByTargetId(type, targetId);
+    }
 }

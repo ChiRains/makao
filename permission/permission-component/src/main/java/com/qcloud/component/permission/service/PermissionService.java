@@ -19,4 +19,6 @@ public interface PermissionService {
     List<Permission> list(List<Long> keys);
 
     public Permission getByMenu(Long menuId);
+
+    public Permission getByTargetId(int type, long targetId);
 }

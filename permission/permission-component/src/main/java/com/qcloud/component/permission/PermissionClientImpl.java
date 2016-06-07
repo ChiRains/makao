@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.qcloud.component.permission.entity.PermissionEntity;
 import com.qcloud.component.permission.entity.RoleEntity;
 import com.qcloud.component.permission.model.Account;
 import com.qcloud.component.permission.model.AccountRole;
@@ -17,6 +18,7 @@ import com.qcloud.component.permission.service.AccountRoleService;
 import com.qcloud.component.permission.service.AccountService;
 import com.qcloud.component.permission.service.AuthenticationService;
 import com.qcloud.component.permission.service.MenuService;
+import com.qcloud.component.permission.service.PermissionService;
 import com.qcloud.component.permission.service.ResourcesService;
 import com.qcloud.component.permission.service.RoleService;
 import com.qcloud.pirates.util.AssertUtil;
@@ -41,6 +43,9 @@ public class PermissionClientImpl implements PermissionClient {
 
     @Autowired
     AccountRoleService    accountRoleService;
+
+    @Autowired
+    PermissionService     permissionService;
 
     @Override
     public boolean hasPermission(String account, String uri) {
@@ -128,5 +133,17 @@ public class PermissionClientImpl implements PermissionClient {
         roleEntity.setId(role.getId());
         roleEntity.setName(role.getName());
         return roleEntity;
+    }
+
+    @Override
+    public QPermission getPermission(int type, long targetId) {
+
+        Permission permission = permissionService.getByTargetId(type, targetId);
+        PermissionEntity entity = new PermissionEntity();
+        entity.setId(permission.getId());
+        entity.setType(permission.getType());
+        entity.setName(permission.getName());
+        entity.setTargetId(permission.getTargetId());
+        return entity;
     }
 }

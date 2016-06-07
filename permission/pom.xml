@@ -19,6 +19,6 @@
 
 	<properties>
 		<pirates.version>1.0-SNAPSHOT</pirates.version>
-		<component.version>1.0.0-SNAPSHOT</component.version>
+		<component.version>1.0.1-SNAPSHOT</component.version>
 	</properties>
 </project>

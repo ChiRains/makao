@@ -33,11 +33,14 @@ public class Clerk {
     // 账号组别
     private String accountGroup;
 
+    // 工号
+    private String laborNumber;
+
     public Clerk() {
 
     }
 
-    public Clerk(long id, String name, String mobile, String jobEmail, String idCard, int sex, String headImage, int enable, String accountGroup) {
+    public Clerk(long id, String name, String mobile, String jobEmail, String idCard, int sex, String headImage, int enable, String accountGroup, String laborNumber) {
 
         this.id = id;
         this.name = name;
@@ -48,6 +51,7 @@ public class Clerk {
         this.headImage = headImage;
         this.enable = enable;
         this.accountGroup = accountGroup;
+        this.laborNumber = laborNumber;
     }
 
     public void setId(long id) {
@@ -148,5 +152,15 @@ public class Clerk {
     public void setInside(String inside) {
 
         this.inside = inside;
+    }
+
+    public String getLaborNumber() {
+
+        return laborNumber;
+    }
+
+    public void setLaborNumber(String laborNumber) {
+
+        this.laborNumber = laborNumber;
     }
 }

@@ -9,6 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.qcloud.component.organization.model.Clerk;
 import com.qcloud.component.organization.web.helper.ClerkHelper;
+import com.qcloud.component.permission.PermissionClient;
+import com.qcloud.component.permission.QPermission;
+import com.qcloud.component.permission.QResources;
+import com.qcloud.component.permission.ResourcesClient;
 import com.qcloud.component.permission.RoleClient;
 import com.qcloud.pirates.mvc.FrontAjaxView;
 import com.qcloud.pirates.util.AssertUtil;
@@ -38,7 +42,13 @@ public class DepartmentRoleController {
 
     @Value("${pirates.superman.adminRoleId}")
     private long                  parentGrantRoleId;
-    
+
+    @Autowired
+    private ResourcesClient       resourcesClient;
+
+    @Autowired
+    private PermissionClient      permissionClient;
+
     /**
      * 新增角色信息.
      * @param request
@@ -55,10 +65,12 @@ public class DepartmentRoleController {
         Long roleId = roleClient.registerRole(form.getRoleName(), form.getDesc(), parentGrantRoleId);
         // 资源树
         List<Long> classifyIds = form.getClassifyIds();
-        for(Long classifyId : classifyIds) {
-            
+        for (Long classifyId : classifyIds) {
+            QResources qResources = resourcesClient.getByClassifyId(classifyId);
+            QPermission qPermission = permissionClient.getPermission(RoleTypeEnum.PermissionType.RESOURCES.getKey(), qResources.getId());
+            // 角色授权
+            roleClient.grantRolePermission(qPermission.getId(), roleId);
         }
-        
         // 部门角色关系表
         DepartmentRole departmentRole = new DepartmentRole();
         departmentRole.setRoleId(roleId);

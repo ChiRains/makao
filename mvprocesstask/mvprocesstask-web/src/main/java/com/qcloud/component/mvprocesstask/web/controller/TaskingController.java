@@ -45,7 +45,7 @@ public class TaskingController {
         int start = NumberUtil.getPageStart(pageNum, PAGE_SIZE);
         Page<Tasking> page = taskingService.page(query, start, PAGE_SIZE);
         FrontPagingView view = new FrontPagingView(pageNum, pageSize, page.getCount());
-        view.addObject("list", taskingHandler.toVOList(page.getData()));
+        view.setList(taskingHandler.toVOList(page.getData()));
         return view;
     }
 
@@ -61,7 +61,7 @@ public class TaskingController {
         int start = NumberUtil.getPageStart(pageNum, PAGE_SIZE);
         Page<Tasking> page = taskingService.page(query, start, PAGE_SIZE);
         FrontPagingView view = new FrontPagingView(pageNum, pageSize, page.getCount());
-        view.addObject("list", taskingHandler.toVOList(page.getData()));
+        view.setList(taskingHandler.toVOList(page.getData()));
         return view;
     }
 

@@ -81,4 +81,14 @@ public class PermissionDaoMysqlImpl implements PermissionDao {
         Permission permission = sqlOperator.selectOne("com.qcloud.component.permission.dao.mysql.mapper.PermissionMapper.getByMenu", param);
         return permission;
     }
+
+    @Override
+    public Permission getByTargetId(int type, long targetId) {
+
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("targetId", targetId);
+        param.put("type", type);
+        Permission permission = sqlOperator.selectOne("com.qcloud.component.permission.dao.mysql.mapper.PermissionMapper.getByTargetId", param);
+        return permission;
+    }
 }

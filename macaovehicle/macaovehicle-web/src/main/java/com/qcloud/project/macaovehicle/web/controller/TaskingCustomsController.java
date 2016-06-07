@@ -93,7 +93,7 @@ public class TaskingCustomsController {
         Page<TaskingCustoms> page = taskingCustomsService.page(query, start, PAGE_SIZE);
         List<TaskingCustomsVO> volist = taskingCustomsHandler.toVOList(page.getData());
         FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());
-        view.addObject("list", volist);
+        view.setList(volist);
         return view;
     }
 
@@ -116,7 +116,7 @@ public class TaskingCustomsController {
         Page<TaskingCustoms> page = taskingCustomsService.page(query, start, PAGE_SIZE);
         List<TaskingCustomsVO> volist = taskingCustomsHandler.toVOList(page.getData());
         FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());
-        view.addObject("list", volist);
+        view.setList(volist);
         return view;
     }
 

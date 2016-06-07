@@ -2,6 +2,7 @@ package com.qcloud.component.organization;
 
 import java.util.List;
 import java.util.Map;
+import com.qcloud.component.organization.model.Clerk;
 import com.qcloud.component.organization.model.Department;
 import com.qcloud.component.organization.model.DepartmentClerk;
 import com.qcloud.component.organization.model.query.ClerkQuery;
@@ -15,6 +16,8 @@ public interface OrganizationClient {
 
     // 员工档案录入,并添加到组织机构信息中
     Long registClerk(String name, String mobile, Long departmentId, String jobEmail, String idCard, String password);
+    
+    Long registClerk(Clerk clerk, Long departmentId, String password);
 
     boolean setName(Long clerkId, String name);
 

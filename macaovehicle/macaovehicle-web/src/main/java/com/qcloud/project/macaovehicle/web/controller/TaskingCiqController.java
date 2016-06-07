@@ -74,7 +74,7 @@ public class TaskingCiqController {
         Page<TaskingCiq> page = taskingCiqService.page(query, start, PAGE_SIZE);
         List<TaskingCiqVO> volist = taskingCiqHandler.toVOList(page.getData());
         FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());
-        view.addObject("list", volist);
+        view.setList(volist);
         return view;
     }
 
@@ -96,7 +96,7 @@ public class TaskingCiqController {
         Page<TaskingCiq> page = taskingCiqService.page(query, start, PAGE_SIZE);
         List<TaskingCiqVO> volist = taskingCiqHandler.toVOList(page.getData());
         FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());
-        view.addObject("list", volist);
+        view.setList(volist);
         return view;
     }
 

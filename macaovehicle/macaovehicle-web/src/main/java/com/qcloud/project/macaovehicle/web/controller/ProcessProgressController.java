@@ -91,7 +91,7 @@ public class ProcessProgressController {
         Page<ProcessProgress> page = processProgressService.page(query, start, PAGE_SIZE);
         List<ProcessProgressVO> voList = processProgressHandler.toVOList(page.getData());
         FrontPagingView view = new FrontPagingView(pageNum, pageSize, page.getCount());
-        view.addObject("list", voList);
+        view.setList(voList);
         return view;
     }
 
@@ -161,7 +161,7 @@ public class ProcessProgressController {
             throw new MacaovehicleException("类型type非法.");
         }
         FrontPagingView view = new FrontPagingView(pageNum, pageSize, page.getCount());
-        view.addObject("list", voList);
+        view.setList(voList);
         return view;
     }
 
