@@ -11,6 +11,10 @@ cd permission
 call mvn install
 
 cd %home%
+cd piratesship
+call mvn install
+
+cd %home%
 cd admin
 call mvn install
 
