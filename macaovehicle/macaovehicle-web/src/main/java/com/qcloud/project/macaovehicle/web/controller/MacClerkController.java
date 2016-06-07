@@ -10,11 +10,8 @@ import com.qcloud.component.organization.model.Clerk;
 import com.qcloud.component.permission.AccountClient;
 import com.qcloud.component.permission.PermissionClient;
 import com.qcloud.component.permission.model.Account;
-import com.qcloud.component.permission.model.AccountRole;
 import com.qcloud.pirates.mvc.FrontAjaxView;
 import com.qcloud.pirates.util.AssertUtil;
-import com.qcloud.project.macaovehicle.model.DepartmentRole;
-import com.qcloud.project.macaovehicle.service.DepartmentRoleService;
 
 @Controller
 @RequestMapping(value = MacClerkController.DIR)
@@ -45,8 +42,8 @@ public class MacClerkController {
         AssertUtil.greatZero(roleId, "角色不能为空.");
         AssertUtil.assertTrue(pwd1 == pwd2, "密码不一致, 请重新输入.");
         // 新增用户
-        Long clerkId = organizationClient.registClerk(clerk, departmentId, pwd1);
-        // 新增用户角色关联
+        organizationClient.registClerk(clerk, departmentId, pwd1);
+        // 新增用户角色授权
         String accountCode = ClerkConstant.CLERKPREFIXCODE + clerk.getMobile();
         Account account = accountClient.getAccount(accountCode);
         permissionClient.grant(account.getId(), roleId);
