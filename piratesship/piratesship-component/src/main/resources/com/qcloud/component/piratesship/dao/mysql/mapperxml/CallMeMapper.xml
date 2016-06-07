@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.component.piratesship.dao.mysql.mapper.CallMeMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="CallMe">  
+        select * from `piratesship_call_me` 
+        where 1=1
+        <if test="project !=null">
+        	and `project`=#{project}
+        </if>
+        <if test="fromSeaman !=null">
+        	and `fromSeaman` like concat('%',#{fromSeaman},'%')
+        </if>
+        <if test="toSeaman !=null">
+        	and `toSeaman` like concat('%',#{toSeaman},'%')
+        </if>
+        <if test="receiveSeaman !=null">
+        	and `receiveSeaman` like concat('%',#{receiveSeaman},'%')
+        </if>
+        <if test="subject !=null">
+        	and `subject` like concat('%',#{subject},'%')
+        </if>
+        limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `piratesship_call_me`
+        where 1=1
+        <if test="project !=null">
+        	and `project`=#{project}
+        </if>
+        <if test="fromSeaman !=null">
+        	and `fromSeaman` like concat('%',#{fromSeaman},'%')
+        </if>
+        <if test="toSeaman !=null">
+        	and `toSeaman` like concat('%',#{toSeaman},'%')
+        </if>
+        <if test="receiveSeaman !=null">
+        	and `receiveSeaman` like concat('%',#{receiveSeaman},'%')
+        </if>
+        <if test="subject !=null">
+        	and `subject` like concat('%',#{subject},'%')
+        </if>
+    </select> 
+</mapper>
