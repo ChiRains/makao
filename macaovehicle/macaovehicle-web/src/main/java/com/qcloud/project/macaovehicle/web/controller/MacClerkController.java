@@ -88,6 +88,14 @@ public class MacClerkController {
         return view;
     }
 
+    /**
+     * 用户列表
+     * @param request
+     * @param pageNum
+     * @param pageSize
+     * @param query
+     * @return
+     */
     @RequestMapping
     public FrontPagingView list(HttpServletRequest request, Integer pageNum, Integer pageSize, MacClerkQuery query) {
 
@@ -99,6 +107,22 @@ public class MacClerkController {
         Page<QClerk> page = organizationClient.page(clerkQuery, start, PAGE_SIZE);
         FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());
         view.setList(page.getData());
+        return view;
+    }
+
+    /**
+     * 查看某个用户
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping
+    public FrontAjaxView getClerk(HttpServletRequest request, Long id) {
+
+        AssertUtil.greatZero(id, "id不能为空.");
+        QClerk qClerk = organizationClient.getClerk(id);
+        FrontAjaxView view = new FrontAjaxView();
+        view.addObject("qClerk", qClerk);
         return view;
     }
 

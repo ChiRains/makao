@@ -29,4 +29,6 @@ public interface QClerk {
     String getUpdateTimeStr();
 
     String getRoleName();
+
+    Long getRoleId();
 }

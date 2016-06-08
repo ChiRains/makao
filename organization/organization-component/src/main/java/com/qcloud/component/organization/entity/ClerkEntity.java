@@ -24,6 +24,8 @@ public class ClerkEntity implements QClerk {
 
     String departmentName;
 
+    Long   roleId;
+
     String roleName;
 
     String laborNumber;
@@ -170,5 +172,15 @@ public class ClerkEntity implements QClerk {
     public void setRoleName(String roleName) {
 
         this.roleName = roleName;
+    }
+
+    public Long getRoleId() {
+
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+
+        this.roleId = roleId;
     }
 }
