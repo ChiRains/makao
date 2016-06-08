@@ -1,7 +1,6 @@
 package com.qcloud.component.organization.model;
 
 import java.util.Date;
-import java.math.BigDecimal;
 
 public class Clerk {
 
@@ -36,11 +35,20 @@ public class Clerk {
     // 工号
     private String laborNumber;
 
+    // 用户类型(1 门户网 2 审批端)
+    private int    type;
+
+    // 创建人
+    private long   creator;
+
+    // 更新时间
+    private Date   updateTime;
+
     public Clerk() {
 
     }
 
-    public Clerk(long id, String name, String mobile, String jobEmail, String idCard, int sex, String headImage, int enable, String accountGroup, String laborNumber) {
+    public Clerk(long id, String name, String mobile, String jobEmail, String idCard, int sex, String headImage, int enable, String accountGroup, String laborNumber, int type, long creator, Date updateTime) {
 
         this.id = id;
         this.name = name;
@@ -52,6 +60,9 @@ public class Clerk {
         this.enable = enable;
         this.accountGroup = accountGroup;
         this.laborNumber = laborNumber;
+        this.type = type;
+        this.creator = creator;
+        this.updateTime = updateTime;
     }
 
     public void setId(long id) {
@@ -162,5 +173,35 @@ public class Clerk {
     public void setLaborNumber(String laborNumber) {
 
         this.laborNumber = laborNumber;
+    }
+
+    public int getType() {
+
+        return type;
+    }
+
+    public void setType(int type) {
+
+        this.type = type;
+    }
+
+    public long getCreator() {
+
+        return creator;
+    }
+
+    public void setCreator(long creator) {
+
+        this.creator = creator;
+    }
+
+    public Date getUpdateTime() {
+
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+
+        this.updateTime = updateTime;
     }
 }

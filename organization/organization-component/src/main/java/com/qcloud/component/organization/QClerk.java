@@ -21,4 +21,12 @@ public interface QClerk {
     String getJobEmail();
 
     String getInside();
+
+    String getLaborNumber();
+
+    String getCreatorName();
+
+    String getUpdateTimeStr();
+
+    String getRoleName();
 }

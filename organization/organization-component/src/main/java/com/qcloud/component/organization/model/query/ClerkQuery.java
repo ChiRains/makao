@@ -4,6 +4,8 @@ public class ClerkQuery {
 
     private String name;
 
+    private int    type;
+
     public ClerkQuery() {
 
     }
@@ -16,5 +18,15 @@ public class ClerkQuery {
     public void setName(String name) {
 
         this.name = name;
+    }
+
+    public int getType() {
+
+        return type;
+    }
+
+    public void setType(int type) {
+
+        this.type = type;
     }
 }

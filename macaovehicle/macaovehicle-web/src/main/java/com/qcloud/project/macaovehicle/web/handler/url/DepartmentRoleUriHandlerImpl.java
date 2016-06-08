@@ -16,7 +16,8 @@ public class DepartmentRoleUriHandlerImpl extends AbstractUriHandler {
         list.add("/admin/departmentRole/toEdit.do");
         list.add("/admin/departmentRole/add.do");
         list.add("/admin/departmentRole/edit.do");
-//        list.add("/departmentRole/add.do");
+        list.add("/departmentRole/add.do");
+        list.add("/departmentRole/list.do");
         return list;
     }
 
@@ -32,7 +33,7 @@ public class DepartmentRoleUriHandlerImpl extends AbstractUriHandler {
     public List<String> whiteNameUris() {
 
         List<String> list = new ArrayList<String>();
-        list.add("/departmentRole/add.do");
+        // list.add("/departmentRole/add.do");
         return list;
     }
 }

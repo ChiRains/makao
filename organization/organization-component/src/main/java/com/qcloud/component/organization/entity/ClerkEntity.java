@@ -24,6 +24,14 @@ public class ClerkEntity implements QClerk {
 
     String departmentName;
 
+    String roleName;
+
+    String laborNumber;
+
+    String creatorName;
+
+    String updateTimeStr;
+
     public Long getId() {
 
         return id;
@@ -122,5 +130,45 @@ public class ClerkEntity implements QClerk {
     public void setDepartmentName(String departmentName) {
 
         this.departmentName = departmentName;
+    }
+
+    public String getLaborNumber() {
+
+        return laborNumber;
+    }
+
+    public String getCreatorName() {
+
+        return creatorName;
+    }
+
+    public String getUpdateTimeStr() {
+
+        return updateTimeStr;
+    }
+
+    public void setLaborNumber(String laborNumber) {
+
+        this.laborNumber = laborNumber;
+    }
+
+    public void setCreatorName(String creatorName) {
+
+        this.creatorName = creatorName;
+    }
+
+    public void setUpdateTimeStr(String updateTimeStr) {
+
+        this.updateTimeStr = updateTimeStr;
+    }
+
+    public String getRoleName() {
+
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+
+        this.roleName = roleName;
     }
 }

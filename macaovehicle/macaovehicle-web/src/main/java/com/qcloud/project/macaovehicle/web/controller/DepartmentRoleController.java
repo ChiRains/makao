@@ -7,20 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.qcloud.component.organization.model.Clerk;
 import com.qcloud.component.organization.web.helper.ClerkHelper;
 import com.qcloud.component.permission.PermissionClient;
 import com.qcloud.component.permission.QPermission;
 import com.qcloud.component.permission.QResources;
 import com.qcloud.component.permission.ResourcesClient;
 import com.qcloud.component.permission.RoleClient;
+import com.qcloud.pirates.data.Page;
 import com.qcloud.pirates.mvc.FrontAjaxView;
+import com.qcloud.pirates.mvc.FrontPagingView;
 import com.qcloud.pirates.util.AssertUtil;
+import com.qcloud.pirates.util.NumberUtil;
+import com.qcloud.pirates.util.RequestUtil;
 import com.qcloud.project.macaovehicle.model.DepartmentRole;
 import com.qcloud.project.macaovehicle.model.key.RoleTypeEnum;
+import com.qcloud.project.macaovehicle.model.query.DepartmentRoleQuery;
 import com.qcloud.project.macaovehicle.service.DepartmentRoleService;
 import com.qcloud.project.macaovehicle.web.form.DepartmentRoleForm;
 import com.qcloud.project.macaovehicle.web.handler.DepartmentRoleHandler;
+import com.qcloud.project.macaovehicle.web.vo.DepartmentRoleVO;
 
 @Controller
 @RequestMapping(value = DepartmentRoleController.DIR)
@@ -83,6 +88,20 @@ public class DepartmentRoleController {
         departmentRoleService.add(departmentRole);
         FrontAjaxView view = new FrontAjaxView();
         view.setMessage("添加成功.");
+        return view;
+    }
+
+    @RequestMapping
+    public FrontPagingView list(HttpServletRequest request, Integer pageSize, Integer pageNum, DepartmentRoleQuery query) {
+
+        final int PAGE_SIZE = pageSize == null || pageSize <= 0 ? 10 : pageSize;
+        pageNum = RequestUtil.getPageid(pageNum);
+        int start = NumberUtil.getPageStart(pageNum, PAGE_SIZE);
+        Page<DepartmentRole> page = departmentRoleService.page(query, start, PAGE_SIZE);
+        List<DepartmentRoleVO> voList = departmentRoleHandler.toVOList(page.getData());
+        FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());
+        view.setMessage("查询成功");
+        view.addObject("result", voList);
         return view;
     }
 }

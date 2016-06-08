@@ -13,14 +13,14 @@ import com.qcloud.component.organization.model.query.ClerkQuery;
 
 public interface ClerkMapper {
 
-	@Insert("insert into `organization_clerk`(`id`,`name`,`mobile`,`jobEmail`,`idCard`,`sex`,`headImage`,`enable`,`accountGroup`,`inside`,`laborNumber`)"
-			+ " values(#{id},#{name},#{mobile},#{jobEmail},#{idCard},#{sex},#{headImage},#{enable},#{accountGroup},#{inside},#{laborNumber})")
+	@Insert("insert into `organization_clerk`(`id`,`name`,`mobile`,`jobEmail`,`idCard`,`sex`,`headImage`,`enable`,`accountGroup`,`inside`,`laborNumber`,`type`,`creator`,`updateTime`)"
+			+ " values(#{id},#{name},#{mobile},#{jobEmail},#{idCard},#{sex},#{headImage},#{enable},#{accountGroup},#{inside},#{laborNumber},#{type},#{creator},#{updateTime})")
 	public void insert(Clerk clerk);
 
 	@Select("select * from `organization_clerk` where `id`=#{id}")
 	public Clerk get(Long id);
 
-	@Update("update `organization_clerk` set `name`=#{name},`mobile`=#{mobile},`jobEmail`=#{jobEmail},`idCard`=#{idCard},`sex`=#{sex},`headImage`=#{headImage},`enable`=#{enable},`accountGroup`=#{accountGroup},`inside`=#{inside},`laborNumber`=#{laborNumber} where `id`=#{id}")
+	@Update("update `organization_clerk` set `name`=#{name},`mobile`=#{mobile},`jobEmail`=#{jobEmail},`idCard`=#{idCard},`sex`=#{sex},`headImage`=#{headImage},`enable`=#{enable},`accountGroup`=#{accountGroup},`inside`=#{inside},`laborNumber`=#{laborNumber},`type`=#{type},`creator`=#{creator},`updateTime`=#{updateTime} where `id`=#{id}")
 	public void update(Clerk clerk);   
 
 	@Delete("delete from `organization_clerk` where `id`=#{id}")

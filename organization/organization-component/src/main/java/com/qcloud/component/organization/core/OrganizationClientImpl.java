@@ -14,6 +14,7 @@ import com.qcloud.component.organization.QClerk;
 import com.qcloud.component.organization.QDepartment;
 import com.qcloud.component.organization.QPost;
 import com.qcloud.component.organization.QSuperior;
+import com.qcloud.component.organization.common.ClerkConstant;
 import com.qcloud.component.organization.entity.ClerkEntity;
 import com.qcloud.component.organization.entity.DepartmentEntity;
 import com.qcloud.component.organization.entity.PostEntity;
@@ -27,6 +28,7 @@ import com.qcloud.component.organization.model.Post;
 import com.qcloud.component.organization.model.PostRole;
 import com.qcloud.component.organization.model.Superior;
 import com.qcloud.component.organization.model.key.TypeEnum;
+import com.qcloud.component.organization.model.key.TypeEnum.ClerkType;
 import com.qcloud.component.organization.model.key.TypeEnum.DepartmentClerkType;
 import com.qcloud.component.organization.model.key.TypeEnum.EnableType;
 import com.qcloud.component.organization.model.query.ClerkQuery;
@@ -39,11 +41,13 @@ import com.qcloud.component.organization.service.PostService;
 import com.qcloud.component.organization.service.SuperiorService;
 import com.qcloud.component.permission.AccountClient;
 import com.qcloud.component.permission.PermissionClient;
+import com.qcloud.component.permission.QRole;
 import com.qcloud.component.permission.model.Account;
 import com.qcloud.component.publicservice.MessageClient;
 import com.qcloud.pirates.core.reflect.BeanUtils;
 import com.qcloud.pirates.data.Page;
 import com.qcloud.pirates.util.AssertUtil;
+import com.qcloud.pirates.util.DateUtil;
 
 @Component
 public class OrganizationClientImpl implements OrganizationClient {
@@ -88,6 +92,7 @@ public class OrganizationClientImpl implements OrganizationClient {
         clerk.setMobile(mobile);
         clerk.setJobEmail(jobEmail);
         clerk.setIdCard(idCard);
+        clerk.setType(ClerkType.MENHUWANG.getKey());
         clerkService.add(clerk);
         //
         if (StringUtils.isNotEmpty(password)) {
@@ -372,6 +377,13 @@ public class OrganizationClientImpl implements OrganizationClient {
         clerkEntity.setHeadImage(clerk.getHeadImage());
         clerkEntity.setSex(clerk.getSex());
         clerkEntity.setJobEmail(clerk.getJobEmail());
+        clerkEntity.setLaborNumber(clerk.getLaborNumber());
+        long creator = clerk.getCreator();
+        Clerk creatorClerk = clerkService.get(creator);
+        clerkEntity.setCreatorName(creatorClerk != null ? creatorClerk.getName() : "-");
+        clerkEntity.setUpdateTimeStr(clerk.getUpdateTime() != null ? DateUtil.date2String(clerk.getUpdateTime()) : "-");
+        List<QRole> roles = permissionClient.listRoleByAccount(ClerkConstant.CLERKPREFIXCODE + clerk.getMobile());
+        clerkEntity.setRoleName(roles.size() > 0 ? roles.get(0).getName() : "-");
         return clerkEntity;
     }
 
@@ -483,5 +495,19 @@ public class OrganizationClientImpl implements OrganizationClient {
         departmentClerk.setDepartmentId(departmentId);
         departmentClerkService.add(departmentClerk);
         return clerk.getId();
+    }
+
+    @Override
+    public Page<QClerk> page(ClerkQuery query, int start, int count) {
+
+        Page<QClerk> page = new Page<QClerk>();
+        Page<Clerk> clerkPage = clerkService.page(query, start, count);
+        List<QClerk> qc = new ArrayList<QClerk>();
+        for (Clerk clerk : clerkPage.getData()) {
+            qc.add(toEntity(clerk));
+        }
+        page.setData(qc);
+        page.setCount(clerkPage.getCount());
+        return page;
     }
 }

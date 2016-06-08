@@ -16,7 +16,7 @@ public interface OrganizationClient {
 
     // 员工档案录入,并添加到组织机构信息中
     Long registClerk(String name, String mobile, Long departmentId, String jobEmail, String idCard, String password);
-    
+
     Long registClerk(Clerk clerk, Long departmentId, String password);
 
     boolean setName(Long clerkId, String name);
@@ -66,4 +66,6 @@ public interface OrganizationClient {
     public Long sendMsgForId(long clerkId, ClerkMessageType type, String title, String content);
 
     public List<QPost> listPost();
+
+    public Page<QClerk> page(ClerkQuery query, int start, int count);
 }

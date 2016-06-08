@@ -11,6 +11,7 @@ public class MacClerkUriHandlerImpl extends AbstractUriHandler {
         List<String> list = new ArrayList<String>();
         // list.add("/macClerk/addClerk.do");
         list.add("/macClerk/menuList.do");
+        list.add("/macClerk/list.do");
         return list;
     }
 

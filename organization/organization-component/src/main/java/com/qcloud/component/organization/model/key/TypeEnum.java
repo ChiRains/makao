@@ -2,7 +2,7 @@ package com.qcloud.component.organization.model.key;
 
 public class TypeEnum {
 
-    public static final String CLERK_ACCOUNT_CODE  = "clerk";
+    public static final String CLERK_ACCOUNT_CODE = "clerk";
 
     public static final String CLERK_MESSAGE_CODE = "clerk";
     //
@@ -72,6 +72,29 @@ public class TypeEnum {
         private final String name;
 
         private DepartmentClerkType(int key, String name) {
+
+            this.key = key;
+            this.name = name;
+        }
+
+        public int getKey() {
+
+            return key;
+        }
+
+        public String getName() {
+
+            return name;
+        }
+    }
+    public enum ClerkType {
+        MENHUWANG(1, "门户网"), SHENPI(2, "审批端");
+
+        private final int    key;
+
+        private final String name;
+
+        private ClerkType(int key, String name) {
 
             this.key = key;
             this.name = name;
