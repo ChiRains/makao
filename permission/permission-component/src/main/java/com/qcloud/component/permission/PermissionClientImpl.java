@@ -20,6 +20,7 @@ import com.qcloud.component.permission.service.AuthenticationService;
 import com.qcloud.component.permission.service.MenuService;
 import com.qcloud.component.permission.service.PermissionService;
 import com.qcloud.component.permission.service.ResourcesService;
+import com.qcloud.component.permission.service.RolePermissionService;
 import com.qcloud.component.permission.service.RoleService;
 import com.qcloud.pirates.util.AssertUtil;
 
@@ -46,6 +47,9 @@ public class PermissionClientImpl implements PermissionClient {
 
     @Autowired
     PermissionService     permissionService;
+
+    @Autowired
+    RolePermissionService rolePermissionService;
 
     @Override
     public boolean hasPermission(String account, String uri) {
@@ -118,6 +122,7 @@ public class PermissionClientImpl implements PermissionClient {
             roleEntity.setDesc(role.getDesc());
             roleEntity.setId(role.getId());
             roleEntity.setName(role.getName());
+            roleEntity.setRolePermissions(rolePermissionService.list(role.getId()));
             list.add(roleEntity);
         }
         return list;
@@ -132,6 +137,7 @@ public class PermissionClientImpl implements PermissionClient {
         roleEntity.setDesc(role.getDesc());
         roleEntity.setId(role.getId());
         roleEntity.setName(role.getName());
+        roleEntity.setRolePermissions(rolePermissionService.list(role.getId()));
         return roleEntity;
     }
 
@@ -139,6 +145,20 @@ public class PermissionClientImpl implements PermissionClient {
     public QPermission getPermission(int type, long targetId) {
 
         Permission permission = permissionService.getByTargetId(type, targetId);
+        AssertUtil.assertNotNull(permission, "资源对应的权限不存在." + targetId);
+        PermissionEntity entity = new PermissionEntity();
+        entity.setId(permission.getId());
+        entity.setType(permission.getType());
+        entity.setName(permission.getName());
+        entity.setTargetId(permission.getTargetId());
+        return entity;
+    }
+
+    @Override
+    public QPermission getPermission(long id) {
+
+        Permission permission = permissionService.get(id);
+        AssertUtil.assertNotNull(permission, "permission权限不存在." + id);
         PermissionEntity entity = new PermissionEntity();
         entity.setId(permission.getId());
         entity.setType(permission.getType());

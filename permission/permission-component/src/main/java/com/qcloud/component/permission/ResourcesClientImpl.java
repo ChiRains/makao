@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.qcloud.component.permission.entity.ResourcesEntity;
 import com.qcloud.component.permission.model.Resources;
 import com.qcloud.component.permission.service.ResourcesService;
+import com.qcloud.pirates.util.AssertUtil;
 
 @Service
 public class ResourcesClientImpl implements ResourcesClient {
@@ -16,6 +17,7 @@ public class ResourcesClientImpl implements ResourcesClient {
     public QResources getByClassifyId(long classifyId) {
 
         Resources resources = resourcesService.getByClassifyId(classifyId);
+        AssertUtil.assertNotNull(resources, "分类无配置资源." + classifyId);
         ResourcesEntity entity = new ResourcesEntity();
         entity.setId(resources.getId());
         entity.setName(resources.getName());

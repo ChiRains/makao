@@ -1,5 +1,8 @@
 package com.qcloud.component.permission;
 
+import java.util.List;
+import com.qcloud.component.permission.model.RolePermission;
+
 public interface QRole {
 
     public long getId();
@@ -7,4 +10,6 @@ public interface QRole {
     public String getName();
 
     public String getDesc();
+
+    public List<RolePermission> getRolePermissions();
 }

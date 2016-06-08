@@ -109,7 +109,7 @@ public class ClassifyServiceImpl implements ClassifyService {
         } else {
             classify.setBsid(c.getBsid());
         }
-        classify.setImage(fileSDKClient.uidToUrl(classify.getImage()));
+//        classify.setImage(fileSDKClient.uidToUrl(classify.getImage()));
         return classifyDao.update(classify);
     }
 

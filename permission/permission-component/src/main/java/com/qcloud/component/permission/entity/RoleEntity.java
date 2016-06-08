@@ -1,17 +1,23 @@
 package com.qcloud.component.permission.entity;
 
+import java.util.ArrayList;
+import java.util.List;
 import com.qcloud.component.permission.QRole;
+import com.qcloud.component.permission.model.RolePermission;
 
 public class RoleEntity implements QRole {
 
     // 主键
-    private long   id;
+    private long                 id;
 
     // 角色名称
-    private String name;
+    private String               name;
 
     // 角色描述
-    private String desc;
+    private String               desc;
+
+    // 角色权限
+    private List<RolePermission> rolePermissions = new ArrayList<RolePermission>();
 
     public long getId() {
 
@@ -41,5 +47,15 @@ public class RoleEntity implements QRole {
     public void setDesc(String desc) {
 
         this.desc = desc;
+    }
+
+    public List<RolePermission> getRolePermissions() {
+
+        return rolePermissions;
+    }
+
+    public void setRolePermissions(List<RolePermission> rolePermissions) {
+
+        this.rolePermissions = rolePermissions;
     }
 }

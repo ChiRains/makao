@@ -112,4 +112,6 @@
 	
 	<pirates:uriHandler class="com.qcloud.project.macaovehicle.web.handler.url.MacClerkUriHandlerImpl"></pirates:uriHandler>
 	
+	<pirates:uriHandler class="com.qcloud.project.macaovehicle.web.handler.url.DepartmentRoleUriHandlerImpl"></pirates:uriHandler>
+	
 </beans>

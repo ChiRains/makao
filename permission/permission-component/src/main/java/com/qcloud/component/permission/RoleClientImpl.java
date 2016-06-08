@@ -29,6 +29,7 @@ public class RoleClientImpl implements RoleClient {
             re.setId(role.getId());
             re.setName(role.getName());
             re.setDesc(role.getDesc());
+            re.setRolePermissions(rolePermissionService.list(role.getId()));
             list.add(re);
         }
         return list;

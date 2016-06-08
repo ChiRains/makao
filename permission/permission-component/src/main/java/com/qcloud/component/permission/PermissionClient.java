@@ -21,4 +21,6 @@ public interface PermissionClient {
     QRole getRole(Long id);
 
     QPermission getPermission(int type, long targetId);
+
+    QPermission getPermission(long id);
 }

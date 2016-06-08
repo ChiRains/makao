@@ -33,4 +33,13 @@ public class TaskingUriHandlerImpl extends AbstractUriHandler {
         list.add("/tasking/listDriverIncrease.do");
         return list;
     }
+
+    @Override
+    public List<String> permissionUris() {
+
+        List<String> list = new ArrayList<String>();
+        list.add("/tasking/list.do");
+        list.add("/tasking/listDriverIncrease.do");
+        return list;
+    }
 }

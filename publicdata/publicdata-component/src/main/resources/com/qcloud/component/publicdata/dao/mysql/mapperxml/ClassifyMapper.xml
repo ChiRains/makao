@@ -24,7 +24,7 @@
 	</select>
     
     <select id="getByName" parameterType="java.util.HashMap" resultType="Classify">
-		select * from `publicdata_classify` where `name`=#{name} and `type`=#{type} and `enable`=1 order by sort
+		select * from `publicdata_classify` where `name`=#{name} and `type`=#{type} and `enable`=1 order by sort limit 0,1
 	</select>
 		
 	<select id="listChildren" parameterType="Long" resultType="Classify">

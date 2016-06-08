@@ -95,4 +95,6 @@ public interface PublicdataClient {
     List<String> listHotSearch(int type, int number);
 
     QQuestionnaire getQuestionnaire(long questionnaireId);
+
+    List<QClassify> listClassifyForTree(List<Classify> list);
 }

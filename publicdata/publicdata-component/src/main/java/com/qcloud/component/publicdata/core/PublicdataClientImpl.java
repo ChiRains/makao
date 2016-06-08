@@ -617,4 +617,24 @@ public class PublicdataClientImpl implements PublicdataClient {
         }
         return qList;
     }
+
+    @Override
+    public List<QClassify> listClassifyForTree(List<Classify> list) {
+
+        List<QClassify> qList = new ArrayList<QClassify>();
+        for (Classify classify : list) {
+            Classify p = ClassifyUtils.getParent(list, classify.getParentId());
+            if (p == null) {
+                QClassify qc = new QClassify();
+                qc.setId(classify.getId());
+                qc.setImage(classify.getImage());
+                qc.setName(classify.getName());
+                qc.setRemark(classify.getRemark());
+                qc.setEnable(classify.getEnable());
+                fillTree(qc, list);
+                qList.add(qc);
+            }
+        }
+        return qList;
+    }
 }

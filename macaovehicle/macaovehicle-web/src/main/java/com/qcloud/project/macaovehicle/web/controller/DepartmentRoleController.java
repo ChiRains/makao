@@ -60,7 +60,7 @@ public class DepartmentRoleController {
 
         AssertUtil.assertNotNull(form.getRoleName(), "角色名称不能为空.");
         AssertUtil.greatZero(form.getDepartmentId(), "部门id不能为空.");
-        Clerk clerk = clerkHelper.getClerk(request);
+        // Clerk clerk = clerkHelper.getClerk(request);
         // 添加角色
         Long roleId = roleClient.registerRole(form.getRoleName(), form.getDesc(), parentGrantRoleId);
         // 资源树
@@ -77,10 +77,12 @@ public class DepartmentRoleController {
         departmentRole.setDepartmentId(form.getDepartmentId());
         departmentRole.setDesc(form.getDesc());
         departmentRole.setStatus(RoleTypeEnum.StatusType.ENABLE.getKey());
-        departmentRole.setCreator(clerk.getId());
+        departmentRole.setCreator(Long.valueOf("1010012000014401"));
+        // departmentRole.setCreator(clerk.getId());
         departmentRole.setCreateDate(new Date());
         departmentRoleService.add(departmentRole);
         FrontAjaxView view = new FrontAjaxView();
+        view.setMessage("添加成功.");
         return view;
     }
 }
