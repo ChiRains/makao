@@ -166,4 +166,10 @@ public class PermissionClientImpl implements PermissionClient {
         entity.setTargetId(permission.getTargetId());
         return entity;
     }
+
+    @Override
+    public boolean unbindAccountGrant(long accountId) {
+
+        return accountRoleService.unbindAccountGrant(accountId);
+    }
 }

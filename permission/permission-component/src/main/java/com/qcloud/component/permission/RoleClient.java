@@ -9,4 +9,6 @@ public interface RoleClient {
     Long registerRole(String name, String desc, long parentGrantRoleId);
 
     Long grantRolePermission(long permissionId, long roleId);
+
+    boolean unbindRolePermission(long permissionId, long roleId);
 }

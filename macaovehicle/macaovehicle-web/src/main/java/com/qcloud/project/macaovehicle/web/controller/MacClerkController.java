@@ -1,65 +1,52 @@
 package com.qcloud.project.macaovehicle.web.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.qcloud.component.filesdk.FileSDKClient;
+import com.qcloud.component.account.UnifiedAccountClient;
 import com.qcloud.component.organization.OrganizationClient;
 import com.qcloud.component.organization.QClerk;
 import com.qcloud.component.organization.common.ClerkConstant;
+import com.qcloud.component.organization.form.ClerkForm;
 import com.qcloud.component.organization.model.Clerk;
 import com.qcloud.component.organization.model.key.TypeEnum.ClerkType;
+import com.qcloud.component.organization.model.key.TypeEnum.EnableType;
 import com.qcloud.component.organization.model.query.ClerkQuery;
 import com.qcloud.component.organization.web.helper.ClerkHelper;
 import com.qcloud.component.permission.AccountClient;
 import com.qcloud.component.permission.PermissionClient;
-import com.qcloud.component.permission.QPermission;
-import com.qcloud.component.permission.QRole;
 import com.qcloud.component.permission.model.Account;
-import com.qcloud.component.permission.model.RolePermission;
-import com.qcloud.component.publicdata.PublicdataClient;
-import com.qcloud.component.publicdata.QClassify;
-import com.qcloud.component.publicdata.model.Classify;
 import com.qcloud.pirates.data.Page;
 import com.qcloud.pirates.mvc.FrontAjaxView;
 import com.qcloud.pirates.mvc.FrontPagingView;
 import com.qcloud.pirates.util.AssertUtil;
 import com.qcloud.pirates.util.NumberUtil;
 import com.qcloud.pirates.util.RequestUtil;
-import com.qcloud.project.macaovehicle.model.CarOwner;
-import com.qcloud.project.macaovehicle.model.IllegalPoliceRecord;
-import com.qcloud.project.macaovehicle.model.query.IllegalPoliceRecordQuery;
 import com.qcloud.project.macaovehicle.model.query.MacClerkQuery;
-import com.qcloud.project.macaovehicle.web.vo.IllegalPoliceRecordVO;
+import com.qcloud.project.macaovehicle.web.helper.MacRoleHelper;
 
 @Controller
 @RequestMapping(value = MacClerkController.DIR)
 public class MacClerkController {
 
-    public static final String DIR = "/macClerk";
+    public static final String   DIR = "/macClerk";
 
     @Autowired
-    public OrganizationClient  organizationClient;
+    public OrganizationClient    organizationClient;
 
     @Autowired
-    public PermissionClient    permissionClient;
+    public PermissionClient      permissionClient;
 
     @Autowired
-    private AccountClient      accountClient;
+    private AccountClient        accountClient;
 
     @Autowired
-    private ClerkHelper        clerkHelper;
+    private ClerkHelper          clerkHelper;
 
     @Autowired
-    private PublicdataClient   publicdataClient;
-
-    @Autowired
-    private FileSDKClient      fileSDKClient;
+    private UnifiedAccountClient unifiedAccountClient;
 
     /**
      * 新增角色信息.
@@ -127,6 +114,62 @@ public class MacClerkController {
     }
 
     /**
+     * 
+     * 更新用户信息
+     * @param request
+     * @param clerkForm
+     * @param roleId
+     * @return
+     */
+    @RequestMapping
+    public FrontAjaxView updateClerk(HttpServletRequest request, ClerkForm clerkForm, Long roleId) {
+
+        AssertUtil.greatZero(clerkForm.getId(), "id不能为空.");
+        AssertUtil.greatZero(roleId, "角色id不能为空.");
+        Clerk curClerk = clerkHelper.getClerk(request);
+        clerkForm.setEnable(EnableType.ENABLE.getKey());
+        clerkForm.setCreator(curClerk.getId());
+        clerkForm.setUpdateTime(new Date());
+        // 更新用户
+        organizationClient.updateClerk(clerkForm, clerkForm.getDepartmentId());
+        QClerk qClerk = organizationClient.getClerk(clerkForm.getId());
+        String accountCode = ClerkConstant.CLERKPREFIXCODE + qClerk.getMobile();
+        Account account = accountClient.getAccount(accountCode);
+        // 删除授权
+        permissionClient.unbindAccountGrant(account.getId());
+        // 更新授权
+        permissionClient.grant(account.getId(), roleId);
+        FrontAjaxView view = new FrontAjaxView();
+        view.setMessage("更新成功.");
+        return view;
+    }
+
+    /**
+     * 禁用、停用职工
+     * @param request
+     * @param id
+     * @param state
+     * @return
+     */
+    @RequestMapping
+    public FrontAjaxView changeClerk(HttpServletRequest request, Long id, int state) {
+
+        AssertUtil.greatZero(id, "id不能为空.");
+        AssertUtil.assertTrue(state == 0 || state == 1, "状态不符合规则." + state);
+        QClerk qClerk = organizationClient.getClerk(id);
+        if (state == 0) {
+            unifiedAccountClient.disableAccount(qClerk.getMobile());
+        } else if (state == 1) {
+            unifiedAccountClient.enableAccount(qClerk.getMobile());
+        }
+        // 0禁用 1启用
+        organizationClient.setEnable(id, state);
+        FrontAjaxView view = new FrontAjaxView();
+        view.setMessage("更新成功.");
+        return view;
+    }
+
+    /**
      * 用户权限菜单
      * @param request
      * @return
@@ -135,41 +178,10 @@ public class MacClerkController {
     public FrontAjaxView menuList(HttpServletRequest request) {
 
         Clerk clerk = clerkHelper.getClerk(request);
-        String accountCode = ClerkConstant.CLERKPREFIXCODE + clerk.getMobile();
-        // 角色
-        List<QRole> qRoles = permissionClient.listRoleByAccount(accountCode);
-        // 分类资源
-        List<Classify> classifys = new ArrayList<Classify>();
-        if (qRoles.size() > 0) {
-            List<RolePermission> rolePermissions = qRoles.get(0).getRolePermissions();
-            // 权限permissionId
-            for (RolePermission rolePermission : rolePermissions) {
-                long permissionId = rolePermission.getPermissionId();
-                QPermission qPermission = permissionClient.getPermission(permissionId);
-                Classify classify = publicdataClient.getClassify(qPermission.getTargetId());
-                classifys.add(classify);
-            }
-        }
-        List<QClassify> classifyList = publicdataClient.listClassifyForTree(classifys);
-        for (QClassify qClassify : classifyList) {
-            fillFileServerUrlBeforeImage(qClassify);
-        }
         FrontAjaxView view = new FrontAjaxView();
-        view.addObject("classifyList", classifyList);
+        MacRoleHelper macRoleHelper = new MacRoleHelper();
+        view.addObject("classifyList", macRoleHelper.listClassify(clerk.getMobile()));
         view.setMessage("获取分类成功");
         return view;
-    }
-
-    private void fillFileServerUrlBeforeImage(QClassify qClassify) {
-
-        if (StringUtils.isNotEmpty(qClassify.getImage())) {
-            qClassify.setImage(fileSDKClient.getFileServerUrl() + qClassify.getImage());
-        } else {
-            qClassify.setImage("");
-        }
-        List<QClassify> children = qClassify.getChildrenList();
-        for (QClassify c : children) {
-            fillFileServerUrlBeforeImage(c);
-        }
     }
 }

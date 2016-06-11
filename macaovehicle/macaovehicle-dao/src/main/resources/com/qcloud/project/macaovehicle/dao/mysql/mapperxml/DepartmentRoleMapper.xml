@@ -10,4 +10,9 @@
     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
         select count(*) from `macaovehicle_department_role`
     </select> 
+    
+    <select id="listByDepartmentId" parameterType="java.util.HashMap" resultType="DepartmentRole">  
+        select * from `macaovehicle_department_role` where `departmentId` = #{departmentId}
+    </select> 
+    
 </mapper>

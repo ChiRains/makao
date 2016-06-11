@@ -19,4 +19,8 @@ public interface UnifiedAccountClient {
     boolean canEntrySystem(String code, String account, String group, String pwd);
 
     QAccount getByAccount(String account);
+
+    boolean disableAccount(String account);
+
+    boolean enableAccount(String account);
 }

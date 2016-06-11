@@ -20,6 +20,7 @@ import com.qcloud.component.organization.entity.DepartmentEntity;
 import com.qcloud.component.organization.entity.PostEntity;
 import com.qcloud.component.organization.entity.SuperiorEntity;
 import com.qcloud.component.organization.exception.OrganizationException;
+import com.qcloud.component.organization.form.ClerkForm;
 import com.qcloud.component.organization.model.Clerk;
 import com.qcloud.component.organization.model.ClerkPost;
 import com.qcloud.component.organization.model.Department;
@@ -510,5 +511,39 @@ public class OrganizationClientImpl implements OrganizationClient {
         page.setData(qc);
         page.setCount(clerkPage.getCount());
         return page;
+    }
+
+    @Override
+    public boolean updateClerk(ClerkForm clerkForm, Long departmentId) {
+
+        AssertUtil.greatZero(clerkForm.getId(), "职工id不能为空.");
+        AssertUtil.greatZero(departmentId, "部门id不能为空.");
+        Clerk clerk = clerkService.get(clerkForm.getId());
+        clerk.setName(clerkForm.getName());
+        clerk.setSex(clerkForm.getSex());
+        clerk.setEnable(clerkForm.getEnable());
+        clerk.setLaborNumber(clerkForm.getLaborNumber());
+        clerk.setCreator(clerkForm.getCreator());
+        clerk.setUpdateTime(clerkForm.getUpdateTime());
+        clerkService.update(clerk);
+        // 部门关系删除再添加
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("departmentId", departmentId);
+        departmentClerkService.delete(param);
+        // 添加部门关系
+        DepartmentClerk departmentClerk = new DepartmentClerk();
+        departmentClerk.setType(DepartmentClerkType.BELONGS.getKey());
+        departmentClerk.setClerkId(clerk.getId());
+        departmentClerk.setDepartmentId(departmentId);
+        return departmentClerkService.add(departmentClerk);
+    }
+
+    @Override
+    public boolean setEnable(Long clerkId, int enable) {
+
+        Clerk clerk = clerkService.get(clerkId);
+        AssertUtil.assertNotNull(clerk, "职员不存在." + clerkId);
+        clerk.setEnable(enable);
+        return clerkService.update(clerk);
     }
 }

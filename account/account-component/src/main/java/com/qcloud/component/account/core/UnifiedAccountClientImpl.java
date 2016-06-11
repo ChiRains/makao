@@ -114,12 +114,12 @@ public class UnifiedAccountClientImpl implements UnifiedAccountClient {
         if (entryCertificate.getState() == EntryCertificateStateType.FROZEN.getKey()) {
             throw new AccountException("账号已经被冻结." + account);
         }
-        if(entryCertificate.getCode().equals(code) && entryCertificate.getGroup().equals(group)){
+        if (entryCertificate.getCode().equals(code) && entryCertificate.getGroup().equals(group)) {
             AssertUtil.assertTrue(entryCertificate.getPassword().equals(encodePwd(pwd)), "密码不正确.");
             return true;
-        }else{
+        } else {
             return false;
-        }      
+        }
     }
 
     @Override
@@ -185,6 +185,24 @@ public class UnifiedAccountClientImpl implements UnifiedAccountClient {
         EntryCertificate entryCertificate = entryCertificateService.getByAccount(account);
         AssertUtil.assertNotNull(entryCertificate, "账号不存在." + account);
         entryCertificate.setAccount(newAccount);
+        return entryCertificateService.update(entryCertificate);
+    }
+
+    @Override
+    public boolean disableAccount(String account) {
+
+        EntryCertificate entryCertificate = entryCertificateService.getByAccount(account);
+        AssertUtil.assertNotNull(entryCertificate, "账号不存在." + account);
+        entryCertificate.setState(EntryCertificateStateType.DISABLE.getKey());
+        return entryCertificateService.update(entryCertificate);
+    }
+
+    @Override
+    public boolean enableAccount(String account) {
+
+        EntryCertificate entryCertificate = entryCertificateService.getByAccount(account);
+        AssertUtil.assertNotNull(entryCertificate, "账号不存在." + account);
+        entryCertificate.setState(EntryCertificateStateType.ENABLE.getKey());
         return entryCertificateService.update(entryCertificate);
     }
 }

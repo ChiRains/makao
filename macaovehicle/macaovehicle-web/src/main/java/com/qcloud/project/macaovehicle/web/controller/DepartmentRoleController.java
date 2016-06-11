@@ -1,18 +1,25 @@
 package com.qcloud.project.macaovehicle.web.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.qcloud.component.organization.model.Clerk;
 import com.qcloud.component.organization.web.helper.ClerkHelper;
 import com.qcloud.component.permission.PermissionClient;
 import com.qcloud.component.permission.QPermission;
 import com.qcloud.component.permission.QResources;
+import com.qcloud.component.permission.QRole;
 import com.qcloud.component.permission.ResourcesClient;
 import com.qcloud.component.permission.RoleClient;
+import com.qcloud.component.permission.model.Role;
+import com.qcloud.component.publicdata.QClassify;
 import com.qcloud.pirates.data.Page;
 import com.qcloud.pirates.mvc.FrontAjaxView;
 import com.qcloud.pirates.mvc.FrontPagingView;
@@ -25,6 +32,7 @@ import com.qcloud.project.macaovehicle.model.query.DepartmentRoleQuery;
 import com.qcloud.project.macaovehicle.service.DepartmentRoleService;
 import com.qcloud.project.macaovehicle.web.form.DepartmentRoleForm;
 import com.qcloud.project.macaovehicle.web.handler.DepartmentRoleHandler;
+import com.qcloud.project.macaovehicle.web.helper.MacRoleHelper;
 import com.qcloud.project.macaovehicle.web.vo.DepartmentRoleVO;
 
 @Controller
@@ -102,6 +110,81 @@ public class DepartmentRoleController {
         FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());
         view.setMessage("查询成功");
         view.addObject("result", voList);
+        return view;
+    }
+
+    /**
+     * 获取角色信息
+     * @param request
+     * @param id
+     * @return
+     */
+    @RequestMapping
+    public FrontAjaxView get(HttpServletRequest request, Long id) {
+
+        AssertUtil.greatZero(id, "id不能为空.");
+        FrontAjaxView view = new FrontAjaxView();
+        DepartmentRole departmentRole = departmentRoleService.get(id);
+        MacRoleHelper macRoleHelper = new MacRoleHelper();
+        view.addObject("classifyList", macRoleHelper.listClassify(departmentRole.getRoleId()));
+        view.addObject("departmentRole", departmentRoleHandler.toVO(departmentRole));
+        return view;
+    }
+
+    /**
+     * 更新角色信息
+     * @param request
+     * @param form
+     * @return
+     */
+    @RequestMapping
+    public FrontAjaxView update(HttpServletRequest request, DepartmentRoleForm form) {
+
+        AssertUtil.greatZero(form.getId(), "id不能为空.");
+        Clerk clerk = clerkHelper.getClerk(request);
+        DepartmentRole departmentRole = departmentRoleService.get(form.getId());
+        departmentRole.setDesc(form.getDesc());
+        departmentRole.setCreator(clerk.getId());
+        departmentRole.setCreateDate(new Date());
+        departmentRoleService.update(departmentRole);
+        // 删除旧资源树
+        MacRoleHelper macRoleHelper = new MacRoleHelper();
+        List<QClassify> qClassifys = macRoleHelper.listClassify(departmentRole.getRoleId());
+        for (QClassify qClassify : qClassifys) {
+            QResources qResources = resourcesClient.getByClassifyId(qClassify.getId());
+            QPermission qPermission = permissionClient.getPermission(RoleTypeEnum.PermissionType.RESOURCES.getKey(), qResources.getId());
+            // 角色授权
+            roleClient.unbindRolePermission(qPermission.getId(), departmentRole.getRoleId());
+        }
+        // 新增资源树
+        List<Long> classifyIds = form.getClassifyIds();
+        for (Long classifyId : classifyIds) {
+            QResources qResources = resourcesClient.getByClassifyId(classifyId);
+            QPermission qPermission = permissionClient.getPermission(RoleTypeEnum.PermissionType.RESOURCES.getKey(), qResources.getId());
+            // 角色授权
+            roleClient.grantRolePermission(qPermission.getId(), departmentRole.getRoleId());
+        }
+        FrontAjaxView view = new FrontAjaxView();
+        view.setMessage("更新成功.");
+        return view;
+    }
+
+    @RequestMapping
+    public FrontAjaxView roleList(HttpServletRequest request, Long departmentId) {
+
+        AssertUtil.greatZero(departmentId, "部门id不能为空.");
+        List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
+        List<DepartmentRole> list = departmentRoleService.listByDepartmentId(departmentId);
+        for (DepartmentRole departmentRole : list) {
+            Map<String, Object> map = new HashMap<String, Object>();
+            QRole qRole = permissionClient.getRole(departmentRole.getRoleId());
+            map.put("id", qRole.getId());
+            map.put("name", qRole.getName());
+            mapList.add(map);
+        }
+        FrontAjaxView view = new FrontAjaxView();
+        view.addObject("roleList", mapList);
+        view.setMessage("查询成功");
         return view;
     }
 }

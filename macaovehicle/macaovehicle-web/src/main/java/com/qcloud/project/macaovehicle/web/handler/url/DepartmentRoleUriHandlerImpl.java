@@ -11,13 +11,11 @@ public class DepartmentRoleUriHandlerImpl extends AbstractUriHandler {
     public List<String> adminUris() {
 
         List<String> list = new ArrayList<String>();
-        list.add("/admin/departmentRole/list.do");
-        list.add("/admin/departmentRole/toAdd.do");
-        list.add("/admin/departmentRole/toEdit.do");
-        list.add("/admin/departmentRole/add.do");
-        list.add("/admin/departmentRole/edit.do");
         list.add("/departmentRole/add.do");
         list.add("/departmentRole/list.do");
+        list.add("/departmentRole/get.do");
+        list.add("/departmentRole/update.do");
+        list.add("/departmentRole/roleList.do");
         return list;
     }
 

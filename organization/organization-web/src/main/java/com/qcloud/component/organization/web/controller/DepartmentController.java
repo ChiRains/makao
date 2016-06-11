@@ -1,6 +1,7 @@
 package com.qcloud.component.organization.web.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,6 +30,13 @@ public class DepartmentController {
 
         List<Department> list = departmentService.listAll();
         List<IntKeyValue> ikList = new ArrayList<IntKeyValue>();
+        Iterator<Department> it = list.iterator();
+        while (it.hasNext()) {
+            Department department = it.next();
+            if (department.getParentId() == -1) {
+                it.remove();
+            }
+        }
         for (IntKeyValue intKeyValue : list) {
             ikList.add(intKeyValue);
         }

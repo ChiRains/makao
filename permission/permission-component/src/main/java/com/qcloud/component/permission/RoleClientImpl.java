@@ -55,4 +55,10 @@ public class RoleClientImpl implements RoleClient {
         rolePermissionService.add(rolePermission);
         return rolePermission.getId();
     }
+
+    @Override
+    public boolean unbindRolePermission(long permissionId, long roleId) {
+
+        return rolePermissionService.delete(permissionId, roleId);
+    }
 }

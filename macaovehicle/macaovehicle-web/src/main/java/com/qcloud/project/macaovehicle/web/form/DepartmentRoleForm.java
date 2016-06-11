@@ -5,6 +5,8 @@ import java.util.List;
 
 public class DepartmentRoleForm {
 
+    private long       id;
+
     // 角色名称
     private String     roleName;
 
@@ -55,5 +57,15 @@ public class DepartmentRoleForm {
     public void setClassifyIds(List<Long> classifyIds) {
 
         this.classifyIds = classifyIds;
+    }
+
+    public long getId() {
+
+        return id;
+    }
+
+    public void setId(long id) {
+
+        this.id = id;
     }
 }

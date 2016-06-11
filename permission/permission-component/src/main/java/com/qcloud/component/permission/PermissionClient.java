@@ -23,4 +23,6 @@ public interface PermissionClient {
     QPermission getPermission(int type, long targetId);
 
     QPermission getPermission(long id);
+
+    boolean unbindAccountGrant(long accountId);
 }

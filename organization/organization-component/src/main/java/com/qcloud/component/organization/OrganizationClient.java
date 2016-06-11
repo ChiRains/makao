@@ -2,6 +2,7 @@ package com.qcloud.component.organization;
 
 import java.util.List;
 import java.util.Map;
+import com.qcloud.component.organization.form.ClerkForm;
 import com.qcloud.component.organization.model.Clerk;
 import com.qcloud.component.organization.model.Department;
 import com.qcloud.component.organization.model.DepartmentClerk;
@@ -34,6 +35,8 @@ public interface OrganizationClient {
 
     // 设置职工岗位// 换岗,则先找系统管理员把职员原权限干掉
     boolean setClerkPost(Long clerkId, Long postId);
+
+    boolean setEnable(Long clerkId, int enable);
 
     QClerk getClerk(Long id);
 
@@ -68,4 +71,6 @@ public interface OrganizationClient {
     public List<QPost> listPost();
 
     public Page<QClerk> page(ClerkQuery query, int start, int count);
+
+    public boolean updateClerk(ClerkForm clerkForm, Long departmentId);
 }
