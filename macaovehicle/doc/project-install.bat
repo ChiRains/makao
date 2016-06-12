@@ -3,6 +3,10 @@ cd ..
 set "home=%cd%"
 
 cd %home%
+cd account/account-api
+call mvn install
+
+cd %home%
 cd account
 call mvn install
 
