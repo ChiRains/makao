@@ -1,20 +1,13 @@
 package com.qcloud.component.publicservice.dao.outside;
 
-import java.rmi.RemoteException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.axis2.AxisFault;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Repository;
-import cn.com.flaginfo.ws.SmsStub;
 import com.qcloud.component.publicservice.dao.SmsDao;
-import com.qcloud.component.publicservice.exception.PublicServiceException;
 import com.qcloud.component.publicservice.model.SmsResult;
 import com.qcloud.component.publicservice.model.Ums86Config;
 
@@ -129,61 +122,61 @@ public class Ums86SmsDaoOutSideImpl implements SmsDao {
 
     private Map<String, Integer> sendSms(Ums86Config config, String content, String receivers) {
 
-        try {
+//        try {
             String[] receiverStrs = receivers.split(",");
             Map<String, Integer> map = new HashMap<String, Integer>();
-            for (String str : receiverStrs) {
-                map.put(str, 0);
-            }
-            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmssSSS");
-            SmsStub stub = new SmsStub("http://gd.ums86.com:8899/sms_hb/services/Sms?wsdl");
-            SmsStub.Sms sms = new SmsStub.Sms();
-            sms.setIn0(config.getEnterpriseNumber());
-            sms.setIn1(config.getAdminName());
-            sms.setIn2(config.getAdminPsw());
-            sms.setIn3(content);
-            sms.setIn4(receivers);
-            sms.setIn5("999" + format.format(new Date()));
-            sms.setIn6("");
-            sms.setIn7("1");
-            sms.setIn8("");
-            SmsStub.SmsResponse resp = stub.Sms(sms);
-            String out = resp.getOut();
-            logger.info("发送短信返回结果." + out + " ===== " + receivers);
-            if (StringUtils.isNotEmpty(out)) {
-                if (out.indexOf("result=0") != -1) {
-                    String[] resultArray = out.split("&");
-                    for (String str : resultArray) {
-                        if (str.startsWith("faillist=") && str.length() > 9) {
-                            String failMobileStr = str.substring(9, str.length());
-                            String[] failMobiles = failMobileStr.split(",");
-                            for (String mobile : failMobiles) {
-                                map.put(mobile, 6);
-                            }
-                            break;
-                        }
-                    }
-                } else {
-                    String[] resultArray = out.split("&");
-                    for (String str : resultArray) {
-                        if (str.startsWith("result=") && str.length() > 7) {
-                            String failCodeStr = str.substring(7, str.length());
-                            int code = Integer.parseInt(failCodeStr);
-                            for (String receiver : receiverStrs) {
-                                map.put(receiver, code);
-                            }
-                            break;
-                        }
-                    }
-                }
-            }
+//            for (String str : receiverStrs) {
+//                map.put(str, 0);
+//            }
+//            SimpleDateFormat format = new SimpleDateFormat("yyyyMMddhhmmssSSS");
+//            SmsStub stub = new SmsStub("http://gd.ums86.com:8899/sms_hb/services/Sms?wsdl");
+//            SmsStub.Sms sms = new SmsStub.Sms();
+//            sms.setIn0(config.getEnterpriseNumber());
+//            sms.setIn1(config.getAdminName());
+//            sms.setIn2(config.getAdminPsw());
+//            sms.setIn3(content);
+//            sms.setIn4(receivers);
+//            sms.setIn5("999" + format.format(new Date()));
+//            sms.setIn6("");
+//            sms.setIn7("1");
+//            sms.setIn8("");
+//            SmsStub.SmsResponse resp = stub.Sms(sms);
+//            String out = resp.getOut();
+//            logger.info("发送短信返回结果." + out + " ===== " + receivers);
+//            if (StringUtils.isNotEmpty(out)) {
+//                if (out.indexOf("result=0") != -1) {
+//                    String[] resultArray = out.split("&");
+//                    for (String str : resultArray) {
+//                        if (str.startsWith("faillist=") && str.length() > 9) {
+//                            String failMobileStr = str.substring(9, str.length());
+//                            String[] failMobiles = failMobileStr.split(",");
+//                            for (String mobile : failMobiles) {
+//                                map.put(mobile, 6);
+//                            }
+//                            break;
+//                        }
+//                    }
+//                } else {
+//                    String[] resultArray = out.split("&");
+//                    for (String str : resultArray) {
+//                        if (str.startsWith("result=") && str.length() > 7) {
+//                            String failCodeStr = str.substring(7, str.length());
+//                            int code = Integer.parseInt(failCodeStr);
+//                            for (String receiver : receiverStrs) {
+//                                map.put(receiver, code);
+//                            }
+//                            break;
+//                        }
+//                    }
+//                }
+//            }
             // 在这里处理异常.
             return map;
-        } catch (AxisFault e) {
-            throw new PublicServiceException("发送短信失败." + e.getMessage(), e);
-        } catch (RemoteException e) {
-            throw new PublicServiceException("发送短信失败." + e.getMessage(), e);
-        }
+//        } catch (AxisFault e) {
+//            throw new PublicServiceException("发送短信失败." + e.getMessage(), e);
+//        } catch (RemoteException e) {
+//            throw new PublicServiceException("发送短信失败." + e.getMessage(), e);
+//        }
     }
 
     private String[] splitReceivers(String[] receivers, int size) {
