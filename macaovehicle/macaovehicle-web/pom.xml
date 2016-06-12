@@ -11,6 +11,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.qcloud.pirates</groupId>
+			<artifactId>pirates-test</artifactId>
+			<version>${pirates.version}</version>
+			<scope>test</scope>
+		</dependency>	
+		<dependency>
 			<groupId>com.qcloud.project</groupId>
 			<artifactId>macaovehicle-service</artifactId>
 			<version>${project.version}</version>
