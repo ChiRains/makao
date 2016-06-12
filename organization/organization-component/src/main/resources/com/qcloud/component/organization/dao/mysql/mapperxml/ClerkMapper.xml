@@ -11,6 +11,9 @@
         <if test="type > 0">
         	and `type` = #{type}
         </if>
+        <if test="laborNumber != null">
+        	and `laborNumber` like concat('%',#{laborNumber},'%') 
+        </if>
         limit #{start},#{count}
     </select>  
     
@@ -21,6 +24,9 @@
         </if>
         <if test="type > 0">
         	and `type` = #{type}
+        </if>
+        <if test="laborNumber != null">
+        	and `laborNumber` like concat('%',#{laborNumber},'%')
         </if>
     </select>
     

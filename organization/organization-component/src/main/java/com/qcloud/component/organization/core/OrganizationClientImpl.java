@@ -372,9 +372,9 @@ public class OrganizationClientImpl implements OrganizationClient {
         clerkEntity.setDepartmentId(departmentClerk.getDepartmentId());
         QDepartment department = getDepartment(departmentClerk.getDepartmentId());
         clerkEntity.setDepartmentName(department.getName());
-        List<ClerkPost> clerkPostList = clerkPostService.listByClerk(clerk.getId());
-        AssertUtil.assertNotEmpty(clerkPostList, clerk.getName() + ".未设置岗位信息!");
-        clerkEntity.setPostId(clerkPostList.get(0).getPostId());
+        // List<ClerkPost> clerkPostList = clerkPostService.listByClerk(clerk.getId());
+        // AssertUtil.assertNotEmpty(clerkPostList, clerk.getName() + ".未设置岗位信息!");
+        // clerkEntity.setPostId(clerkPostList.get(0).getPostId());
         clerkEntity.setHeadImage(clerk.getHeadImage());
         clerkEntity.setSex(clerk.getSex());
         clerkEntity.setJobEmail(clerk.getJobEmail());
@@ -526,9 +526,12 @@ public class OrganizationClientImpl implements OrganizationClient {
         clerk.setCreator(clerkForm.getCreator());
         clerk.setUpdateTime(clerkForm.getUpdateTime());
         clerkService.update(clerk);
+        if (StringUtils.isNotEmpty(clerkForm.getPwd1())) {
+            clerkService.changePwd(clerk.getId(), clerkForm.getPwd1());
+        }
         // 部门关系删除再添加
         Map<String, Object> param = new HashMap<String, Object>();
-        param.put("departmentId", departmentId);
+        param.put("clerkId", clerk.getId());
         departmentClerkService.delete(param);
         // 添加部门关系
         DepartmentClerk departmentClerk = new DepartmentClerk();

@@ -76,8 +76,9 @@ public class ClerkDaoMysqlImpl implements ClerkDao {
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("start", start);
         param.put("count", count);
-        param.put("name", StringUtil.nullToEmpty(query.getName()));
+        param.put("name", StringUtil.emptyToNull(query.getName()));
         param.put("type", query.getType());
+        param.put("laborNumber", StringUtil.emptyToNull(query.getLaborNumber()));
         List<Clerk> list = sqlOperator.selectList("com.qcloud.component.organization.dao.mysql.mapper.ClerkMapper.list4query", param);
         int total = sqlOperator.selectOne("com.qcloud.component.organization.dao.mysql.mapper.ClerkMapper.count4query", param);
         Page<Clerk> page = new Page<Clerk>();

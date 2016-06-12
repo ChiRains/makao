@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import com.qcloud.component.permission.entity.RoleEntity;
 import com.qcloud.component.permission.model.Role;
 import com.qcloud.component.permission.model.RolePermission;
+import com.qcloud.component.permission.model.key.TypeEnum.RoleEnableType;
 import com.qcloud.component.permission.service.RolePermissionService;
 import com.qcloud.component.permission.service.RoleService;
+import com.qcloud.pirates.util.AssertUtil;
 
 @Service
 public class RoleClientImpl implements RoleClient {
@@ -29,6 +31,7 @@ public class RoleClientImpl implements RoleClient {
             re.setId(role.getId());
             re.setName(role.getName());
             re.setDesc(role.getDesc());
+            re.setEnable(role.getEnable());
             re.setRolePermissions(rolePermissionService.list(role.getId()));
             list.add(re);
         }
@@ -42,6 +45,7 @@ public class RoleClientImpl implements RoleClient {
         role.setName(name);
         role.setDesc(desc);
         role.setParentGrantRoleId(parentGrantRoleId);
+        role.setEnable(RoleEnableType.ENABLE.getKey());
         roleService.add(role);
         return role.getId();
     }
@@ -60,5 +64,14 @@ public class RoleClientImpl implements RoleClient {
     public boolean unbindRolePermission(long permissionId, long roleId) {
 
         return rolePermissionService.delete(permissionId, roleId);
+    }
+
+    @Override
+    public boolean setEnable(long id, RoleEnableType enable) {
+
+        Role role = roleService.get(id);
+        AssertUtil.assertNotNull(role, "角色不存在." + id);
+        role.setEnable(enable.getKey());
+        return roleService.update(role);
     }
 }

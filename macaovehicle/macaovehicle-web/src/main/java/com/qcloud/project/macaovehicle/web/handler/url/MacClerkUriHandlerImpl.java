@@ -9,7 +9,7 @@ public class MacClerkUriHandlerImpl extends AbstractUriHandler {
     public List<String> adminUris() {
 
         List<String> list = new ArrayList<String>();
-        list.add("/macClerk/addClerk.do");
+//        list.add("/macClerk/addClerk.do");
         list.add("/macClerk/list.do");
         list.add("/macClerk/getClerk.do");
         list.add("/macClerk/updateClerk.do");

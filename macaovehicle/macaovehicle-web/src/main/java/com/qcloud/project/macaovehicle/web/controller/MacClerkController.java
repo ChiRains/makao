@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.qcloud.component.account.UnifiedAccountClient;
 import com.qcloud.component.organization.OrganizationClient;
 import com.qcloud.component.organization.QClerk;
+import com.qcloud.component.organization.QDepartment;
 import com.qcloud.component.organization.common.ClerkConstant;
 import com.qcloud.component.organization.form.ClerkForm;
 import com.qcloud.component.organization.model.Clerk;
@@ -17,6 +18,7 @@ import com.qcloud.component.organization.model.query.ClerkQuery;
 import com.qcloud.component.organization.web.helper.ClerkHelper;
 import com.qcloud.component.permission.AccountClient;
 import com.qcloud.component.permission.PermissionClient;
+import com.qcloud.component.permission.QRole;
 import com.qcloud.component.permission.model.Account;
 import com.qcloud.pirates.data.Page;
 import com.qcloud.pirates.mvc.FrontAjaxView;
@@ -24,7 +26,6 @@ import com.qcloud.pirates.mvc.FrontPagingView;
 import com.qcloud.pirates.util.AssertUtil;
 import com.qcloud.pirates.util.NumberUtil;
 import com.qcloud.pirates.util.RequestUtil;
-import com.qcloud.project.macaovehicle.model.query.MacClerkQuery;
 import com.qcloud.project.macaovehicle.web.helper.MacRoleHelper;
 
 @Controller
@@ -48,8 +49,11 @@ public class MacClerkController {
     @Autowired
     private UnifiedAccountClient unifiedAccountClient;
 
+    @Autowired
+    private MacRoleHelper        macRoleHelper;
+
     /**
-     * 新增角色信息.
+     * 新增用户信息.
      * @param request
      * @param form
      * @return
@@ -72,6 +76,7 @@ public class MacClerkController {
         Account account = accountClient.getAccount(accountCode);
         permissionClient.grant(account.getId(), roleId);
         FrontAjaxView view = new FrontAjaxView();
+        view.setMessage("新增用户成功.");
         return view;
     }
 
@@ -84,7 +89,7 @@ public class MacClerkController {
      * @return
      */
     @RequestMapping
-    public FrontPagingView list(HttpServletRequest request, Integer pageNum, Integer pageSize, MacClerkQuery query) {
+    public FrontPagingView list(HttpServletRequest request, Integer pageNum, Integer pageSize, ClerkQuery query) {
 
         final int PAGE_SIZE = pageSize == null || pageSize <= 0 ? 10 : pageSize;
         pageNum = RequestUtil.getPageid(pageNum);
@@ -122,11 +127,16 @@ public class MacClerkController {
      * @return
      */
     @RequestMapping
-    public FrontAjaxView updateClerk(HttpServletRequest request, ClerkForm clerkForm, Long roleId) {
+    public FrontAjaxView updateClerk(HttpServletRequest request, ClerkForm clerkForm, Long roleId, String pwd2) {
 
         AssertUtil.greatZero(clerkForm.getId(), "id不能为空.");
         AssertUtil.greatZero(roleId, "角色id不能为空.");
+        AssertUtil.assertTrue(clerkForm.getPwd1() != null && clerkForm.getPwd1().equals(pwd2), "密码不一致");
         Clerk curClerk = clerkHelper.getClerk(request);
+        QDepartment qDepartment = organizationClient.getDepartment(clerkForm.getDepartmentId());
+        AssertUtil.assertNotNull(qDepartment, "部门不存在." + clerkForm.getDepartmentId());
+        QRole qRole = permissionClient.getRole(roleId);
+        AssertUtil.assertNotNull(qRole, "角色不存在." + roleId);
         clerkForm.setEnable(EnableType.ENABLE.getKey());
         clerkForm.setCreator(curClerk.getId());
         clerkForm.setUpdateTime(new Date());
@@ -166,6 +176,7 @@ public class MacClerkController {
         organizationClient.setEnable(id, state);
         FrontAjaxView view = new FrontAjaxView();
         view.setMessage("更新成功.");
+        view.addObject("state", state);
         return view;
     }
 
@@ -179,7 +190,6 @@ public class MacClerkController {
 
         Clerk clerk = clerkHelper.getClerk(request);
         FrontAjaxView view = new FrontAjaxView();
-        MacRoleHelper macRoleHelper = new MacRoleHelper();
         view.addObject("classifyList", macRoleHelper.listClassify(clerk.getMobile()));
         view.setMessage("获取分类成功");
         return view;

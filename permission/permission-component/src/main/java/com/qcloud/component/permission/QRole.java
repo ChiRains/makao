@@ -11,5 +11,7 @@ public interface QRole {
 
     public String getDesc();
 
+    public int getEnable();
+
     public List<RolePermission> getRolePermissions();
 }

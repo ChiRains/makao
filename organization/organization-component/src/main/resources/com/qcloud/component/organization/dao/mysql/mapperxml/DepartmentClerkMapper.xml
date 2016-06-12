@@ -23,7 +23,7 @@
     </select>  
     
     <select id="getBelongsDepartment" parameterType="Long" resultType="DepartmentClerk">  
-        select * from `organization_department_clerk` where 1=1 and `clerkId`=#{clerkId} and `type`=1
+        select * from `organization_department_clerk` where 1=1 and `clerkId`=#{clerkId} and `type`=1 limit 0,1
     </select>  
         
     <delete id="deleteByMap">

@@ -1,6 +1,7 @@
 package com.qcloud.component.permission;
 
 import java.util.List;
+import com.qcloud.component.permission.model.key.TypeEnum.RoleEnableType;
 
 public interface RoleClient {
 
@@ -11,4 +12,6 @@ public interface RoleClient {
     Long grantRolePermission(long permissionId, long roleId);
 
     boolean unbindRolePermission(long permissionId, long roleId);
+
+    boolean setEnable(long id, RoleEnableType enable);
 }

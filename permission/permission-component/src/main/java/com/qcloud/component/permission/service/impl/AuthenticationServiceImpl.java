@@ -1,6 +1,7 @@
 package com.qcloud.component.permission.service.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import com.qcloud.component.permission.model.AccountRole;
 import com.qcloud.component.permission.model.Permission;
 import com.qcloud.component.permission.model.Role;
 import com.qcloud.component.permission.model.RolePermission;
+import com.qcloud.component.permission.model.key.TypeEnum.RoleEnableType;
 import com.qcloud.component.permission.service.AccountRoleService;
 import com.qcloud.component.permission.service.AccountService;
 import com.qcloud.component.permission.service.AuthenticationService;
@@ -44,8 +46,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
         List<AccountRole> arList = accountRoleService.list(account.getId());
         List<Long> roleKeyList = new ArrayList<Long>();
+        // 禁用的role
+        List<Long> disableList = new ArrayList<Long>();
+        List<Role> roleList = roleService.list();
+        for (Role role : roleList) {
+            if (role.getEnable() != RoleEnableType.ENABLE.getKey()) {
+                disableList.add(role.getId());
+            }
+        }
         for (AccountRole accountRole : arList) {
-            roleKeyList.add(accountRole.getRoleId());
+            if (!disableList.contains(accountRole.getRoleId())) {
+                roleKeyList.add(accountRole.getRoleId());
+            }
         }
         List<RolePermission> rpList = rolePermissionService.list(roleKeyList.toArray(new Long[roleKeyList.size()]));
         List<Long> permissionKeyList = new ArrayList<Long>();

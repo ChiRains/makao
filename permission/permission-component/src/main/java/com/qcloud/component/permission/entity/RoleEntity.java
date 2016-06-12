@@ -16,6 +16,9 @@ public class RoleEntity implements QRole {
     // 角色描述
     private String               desc;
 
+    // 是否启用(1启用 2禁用)
+    private int                  enable;
+
     // 角色权限
     private List<RolePermission> rolePermissions = new ArrayList<RolePermission>();
 
@@ -57,5 +60,15 @@ public class RoleEntity implements QRole {
     public void setRolePermissions(List<RolePermission> rolePermissions) {
 
         this.rolePermissions = rolePermissions;
+    }
+
+    public int getEnable() {
+
+        return enable;
+    }
+
+    public void setEnable(int enable) {
+
+        this.enable = enable;
     }
 }

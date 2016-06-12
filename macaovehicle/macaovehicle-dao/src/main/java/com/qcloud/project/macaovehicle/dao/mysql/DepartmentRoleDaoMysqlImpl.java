@@ -75,6 +75,9 @@ public class DepartmentRoleDaoMysqlImpl implements DepartmentRoleDao {
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("start", start);
         param.put("count", count);
+        param.put("roleId", query.getRoleId());
+        param.put("departmentId", query.getDepartmentId());
+        param.put("status", query.getStatus());
         List<DepartmentRole> list = sqlOperator.selectList("com.qcloud.project.macaovehicle.dao.mysql.mapper.DepartmentRoleMapper.list4query", param);
         int total = sqlOperator.selectOne("com.qcloud.project.macaovehicle.dao.mysql.mapper.DepartmentRoleMapper.count4query", param);
         Page<DepartmentRole> page = new Page<DepartmentRole>();

@@ -4,11 +4,30 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
 <mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.DepartmentRoleMapper">          
     <select id="list4query" parameterType="java.util.HashMap" resultType="DepartmentRole">  
-        select * from `macaovehicle_department_role` limit #{start},#{count}
+        select * from `macaovehicle_department_role` where 1=1
+        <if test="roleId > 0">
+        	and `roleId` = #{roleId}
+        </if>
+        <if test="departmentId > 0">
+        	and `departmentId` = #{departmentId}
+        </if>
+        <if test="status > 0">
+        	and `status` = #{status}
+        </if>
+        limit #{start},#{count}
     </select>  
     
     <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
-        select count(*) from `macaovehicle_department_role`
+        select count(*) from `macaovehicle_department_role` where 1=1
+        <if test="roleId > 0">
+        	and `roleId` = #{roleId}
+        </if>
+        <if test="departmentId > 0">
+        	and `departmentId` = #{departmentId}
+        </if>
+        <if test="status > 0">
+        	and `status` = #{status}
+        </if>
     </select> 
     
     <select id="listByDepartmentId" parameterType="java.util.HashMap" resultType="DepartmentRole">  

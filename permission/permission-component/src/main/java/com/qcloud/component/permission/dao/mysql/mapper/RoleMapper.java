@@ -11,14 +11,14 @@ import com.qcloud.component.permission.model.Role;
 
 public interface RoleMapper {
 
-	@Insert("insert into `permission_role`(`id`,`name`,`desc`,`parentGrantRoleId`)"
-			+ " values(#{id},#{name},#{desc},#{parentGrantRoleId})")
+	@Insert("insert into `permission_role`(`id`,`name`,`desc`,`parentGrantRoleId`,`enable`)"
+			+ " values(#{id},#{name},#{desc},#{parentGrantRoleId},#{enable})")
 	public void insert(Role role);
 
 	@Select("select * from `permission_role` where `id`=#{id}")
 	public Role get(Long id);
 
-	@Update("update `permission_role` set `name`=#{name},`desc`=#{desc},`parentGrantRoleId`=#{parentGrantRoleId} where `id`=#{id}")
+	@Update("update `permission_role` set `name`=#{name},`desc`=#{desc},`parentGrantRoleId`=#{parentGrantRoleId},`enable`=#{enable} where `id`=#{id}")
 	public void update(Role role);
 
 	@Delete("delete from `permission_role` where `id`=#{id}")

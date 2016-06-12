@@ -6,6 +6,8 @@ public class DepartmentRoleQuery {
 
     private long departmentId;
 
+    private int  status;
+
     public DepartmentRoleQuery() {
 
     }
@@ -28,5 +30,15 @@ public class DepartmentRoleQuery {
     public void setDepartmentId(long departmentId) {
 
         this.departmentId = departmentId;
+    }
+
+    public int getStatus() {
+
+        return status;
+    }
+
+    public void setStatus(int status) {
+
+        this.status = status;
     }
 }

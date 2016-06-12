@@ -16,6 +16,7 @@ public class DepartmentRoleUriHandlerImpl extends AbstractUriHandler {
         list.add("/departmentRole/get.do");
         list.add("/departmentRole/update.do");
         list.add("/departmentRole/roleList.do");
+        list.add("/departmentRole/changeRole.do");
         return list;
     }
 

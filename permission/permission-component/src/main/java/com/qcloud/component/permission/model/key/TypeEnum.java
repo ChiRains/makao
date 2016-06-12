@@ -1,41 +1,74 @@
 package com.qcloud.component.permission.model.key;
 
 public class TypeEnum {
-	public enum PermissionType {
-		P1(1, "菜单"), P2(2, "资源");
-		private final int key;
-		private final String name;
 
-		private PermissionType(int key, String name) {
-			this.key = key;
-			this.name = name;
-		}
+    public enum PermissionType {
+        P1(1, "菜单"), P2(2, "资源");
 
-		public int getKey() {
-			return key;
-		}
+        private final int    key;
 
-		public String getName() {
-			return name;
-		}
-	}
+        private final String name;
 
-	public enum AccountEnableType {
-		ENABLE(1, "启用"), DISABLE(0, "停用");
-		private final int key;
-		private final String name;
+        private PermissionType(int key, String name) {
 
-		private AccountEnableType(int key, String name) {
-			this.key = key;
-			this.name = name;
-		}
+            this.key = key;
+            this.name = name;
+        }
 
-		public int getKey() {
-			return key;
-		}
+        public int getKey() {
 
-		public String getName() {
-			return name;
-		}
-	}
+            return key;
+        }
+
+        public String getName() {
+
+            return name;
+        }
+    }
+    public enum AccountEnableType {
+        ENABLE(1, "启用"), DISABLE(0, "停用");
+
+        private final int    key;
+
+        private final String name;
+
+        private AccountEnableType(int key, String name) {
+
+            this.key = key;
+            this.name = name;
+        }
+
+        public int getKey() {
+
+            return key;
+        }
+
+        public String getName() {
+
+            return name;
+        }
+    }
+    public enum RoleEnableType {
+        ENABLE(1, "启用"), DISABLE(2, "停用");
+
+        private final int    key;
+
+        private final String name;
+
+        private RoleEnableType(int key, String name) {
+
+            this.key = key;
+            this.name = name;
+        }
+
+        public int getKey() {
+
+            return key;
+        }
+
+        public String getName() {
+
+            return name;
+        }
+    }
 }

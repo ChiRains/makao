@@ -29,7 +29,8 @@ public class DepartmentRoleDaoCacheImpl implements DepartmentRoleDao {
     @Override
     public DepartmentRole get(Long id) {
 
-        return CacheLoader.get(departmentRoleDaoRedisImpl, departmentRoleDaoMysqlImpl, id);
+        return departmentRoleDaoMysqlImpl.get(id);
+        // return CacheLoader.get(departmentRoleDaoRedisImpl, departmentRoleDaoMysqlImpl, id);
     }
 
     @Override

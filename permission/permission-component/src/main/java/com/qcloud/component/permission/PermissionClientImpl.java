@@ -122,6 +122,7 @@ public class PermissionClientImpl implements PermissionClient {
             roleEntity.setDesc(role.getDesc());
             roleEntity.setId(role.getId());
             roleEntity.setName(role.getName());
+            roleEntity.setEnable(role.getEnable());
             roleEntity.setRolePermissions(rolePermissionService.list(role.getId()));
             list.add(roleEntity);
         }
@@ -137,6 +138,7 @@ public class PermissionClientImpl implements PermissionClient {
         roleEntity.setDesc(role.getDesc());
         roleEntity.setId(role.getId());
         roleEntity.setName(role.getName());
+        roleEntity.setEnable(role.getEnable());
         roleEntity.setRolePermissions(rolePermissionService.list(role.getId()));
         return roleEntity;
     }

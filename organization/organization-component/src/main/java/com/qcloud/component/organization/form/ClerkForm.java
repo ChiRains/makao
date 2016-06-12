@@ -28,6 +28,9 @@ public class ClerkForm {
     // 部门id
     private long   departmentId;
 
+    // 密码
+    private String pwd1;
+
     public long getId() {
 
         return id;
@@ -106,5 +109,15 @@ public class ClerkForm {
     public void setDepartmentId(long departmentId) {
 
         this.departmentId = departmentId;
+    }
+
+    public String getPwd1() {
+
+        return pwd1;
+    }
+
+    public void setPwd1(String pwd1) {
+
+        this.pwd1 = pwd1;
     }
 }

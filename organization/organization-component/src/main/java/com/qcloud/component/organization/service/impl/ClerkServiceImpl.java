@@ -20,7 +20,10 @@ import com.qcloud.component.organization.model.key.TypeEnum.EnableType;
 import com.qcloud.component.organization.model.query.ClerkQuery;
 import com.qcloud.component.organization.service.ClerkService;
 import com.qcloud.component.permission.AccountClient;
+import com.qcloud.component.permission.PermissionClient;
+import com.qcloud.component.permission.QRole;
 import com.qcloud.component.permission.model.Account;
+import com.qcloud.component.permission.model.key.TypeEnum.RoleEnableType;
 import com.qcloud.pirates.core.xml.Xml;
 import com.qcloud.pirates.core.xml.XmlFactory;
 import com.qcloud.pirates.core.xml.XmlItem;
@@ -45,6 +48,9 @@ public class ClerkServiceImpl implements ClerkService {
 
     @Autowired
     private UnifiedAccountClient unifiedAccountClient;
+
+    @Autowired
+    private PermissionClient     permissionClient;
 
     private static final String  ID_KEY             = "organization_clerk";
 
@@ -261,7 +267,14 @@ public class ClerkServiceImpl implements ClerkService {
 
         Clerk clerk = getByAccount(account);
         if (clerk != null && clerk.getEnable() == EnableType.DISABLE.getKey()) {
-            throw new OrganizationException("职工已离职." + clerk.getName());
+            throw new OrganizationException("职工已禁用." + clerk.getName());
+        }
+        
+        List<QRole> roles = permissionClient.listRoleByAccount(ClerkConstant.CLERKPREFIXCODE + account);
+        if (roles.size() > 0) {
+            if (roles.get(0).getEnable() == RoleEnableType.DISABLE.getKey()) {
+                throw new OrganizationException("所属角色已禁用." + roles.get(0).getName());
+            }
         }
         return clerk != null && unifiedAccountClient.canEntrySystem(TypeEnum.CLERK_ACCOUNT_CODE, account, clerk.getAccountGroup(), password);
     }

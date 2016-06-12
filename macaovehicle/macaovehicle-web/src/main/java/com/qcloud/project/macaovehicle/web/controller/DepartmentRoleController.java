@@ -18,7 +18,7 @@ import com.qcloud.component.permission.QResources;
 import com.qcloud.component.permission.QRole;
 import com.qcloud.component.permission.ResourcesClient;
 import com.qcloud.component.permission.RoleClient;
-import com.qcloud.component.permission.model.Role;
+import com.qcloud.component.permission.model.key.TypeEnum.RoleEnableType;
 import com.qcloud.component.publicdata.QClassify;
 import com.qcloud.pirates.data.Page;
 import com.qcloud.pirates.mvc.FrontAjaxView;
@@ -28,6 +28,7 @@ import com.qcloud.pirates.util.NumberUtil;
 import com.qcloud.pirates.util.RequestUtil;
 import com.qcloud.project.macaovehicle.model.DepartmentRole;
 import com.qcloud.project.macaovehicle.model.key.RoleTypeEnum;
+import com.qcloud.project.macaovehicle.model.key.RoleTypeEnum.StatusType;
 import com.qcloud.project.macaovehicle.model.query.DepartmentRoleQuery;
 import com.qcloud.project.macaovehicle.service.DepartmentRoleService;
 import com.qcloud.project.macaovehicle.web.form.DepartmentRoleForm;
@@ -62,6 +63,9 @@ public class DepartmentRoleController {
     @Autowired
     private PermissionClient      permissionClient;
 
+    @Autowired
+    private MacRoleHelper         macRoleHelper;
+
     /**
      * 新增角色信息.
      * @param request
@@ -73,7 +77,7 @@ public class DepartmentRoleController {
 
         AssertUtil.assertNotNull(form.getRoleName(), "角色名称不能为空.");
         AssertUtil.greatZero(form.getDepartmentId(), "部门id不能为空.");
-        // Clerk clerk = clerkHelper.getClerk(request);
+        Clerk clerk = clerkHelper.getClerk(request);
         // 添加角色
         Long roleId = roleClient.registerRole(form.getRoleName(), form.getDesc(), parentGrantRoleId);
         // 资源树
@@ -90,8 +94,8 @@ public class DepartmentRoleController {
         departmentRole.setDepartmentId(form.getDepartmentId());
         departmentRole.setDesc(form.getDesc());
         departmentRole.setStatus(RoleTypeEnum.StatusType.ENABLE.getKey());
-        departmentRole.setCreator(Long.valueOf("1010012000014401"));
-        // departmentRole.setCreator(clerk.getId());
+        // departmentRole.setCreator(Long.valueOf("1010012000014401"));
+        departmentRole.setCreator(clerk.getId());
         departmentRole.setCreateDate(new Date());
         departmentRoleService.add(departmentRole);
         FrontAjaxView view = new FrontAjaxView();
@@ -125,7 +129,7 @@ public class DepartmentRoleController {
         AssertUtil.greatZero(id, "id不能为空.");
         FrontAjaxView view = new FrontAjaxView();
         DepartmentRole departmentRole = departmentRoleService.get(id);
-        MacRoleHelper macRoleHelper = new MacRoleHelper();
+        AssertUtil.assertNotNull(departmentRole, "角色部门不存在." + id);
         view.addObject("classifyList", macRoleHelper.listClassify(departmentRole.getRoleId()));
         view.addObject("departmentRole", departmentRoleHandler.toVO(departmentRole));
         return view;
@@ -148,7 +152,6 @@ public class DepartmentRoleController {
         departmentRole.setCreateDate(new Date());
         departmentRoleService.update(departmentRole);
         // 删除旧资源树
-        MacRoleHelper macRoleHelper = new MacRoleHelper();
         List<QClassify> qClassifys = macRoleHelper.listClassify(departmentRole.getRoleId());
         for (QClassify qClassify : qClassifys) {
             QResources qResources = resourcesClient.getByClassifyId(qClassify.getId());
@@ -169,6 +172,12 @@ public class DepartmentRoleController {
         return view;
     }
 
+    /**
+     * 角色列表
+     * @param request
+     * @param departmentId
+     * @return
+     */
     @RequestMapping
     public FrontAjaxView roleList(HttpServletRequest request, Long departmentId) {
 
@@ -185,6 +194,29 @@ public class DepartmentRoleController {
         FrontAjaxView view = new FrontAjaxView();
         view.addObject("roleList", mapList);
         view.setMessage("查询成功");
+        return view;
+    }
+
+    /**
+     * 更新角色信息
+     * @param request
+     * @param form
+     * @return
+     */
+    @RequestMapping
+    public FrontAjaxView changeRole(HttpServletRequest request, Long id, Integer status) {
+
+        AssertUtil.greatZero(id, "id不能为空.");
+        AssertUtil.assertTrue(status == StatusType.ENABLE.getKey() || status == StatusType.DISABLE.getKey(), "状态非法.");
+        DepartmentRole departmentRole = departmentRoleService.get(id);
+        AssertUtil.assertNotNull(departmentRole, "角色部门不存在." + id);
+        departmentRole.setStatus(status);
+        departmentRoleService.update(departmentRole);
+        // 角色状态修改
+        roleClient.setEnable(departmentRole.getRoleId(), status == StatusType.ENABLE.getKey() ? RoleEnableType.ENABLE : RoleEnableType.DISABLE);
+        FrontAjaxView view = new FrontAjaxView();
+        view.addObject("status", status);
+        view.setMessage("状态更新成功." + status);
         return view;
     }
 }
