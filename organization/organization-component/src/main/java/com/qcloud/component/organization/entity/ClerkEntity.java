@@ -34,6 +34,8 @@ public class ClerkEntity implements QClerk {
 
     String updateTimeStr;
 
+    int    enable;
+
     public Long getId() {
 
         return id;
@@ -182,5 +184,15 @@ public class ClerkEntity implements QClerk {
     public void setRoleId(Long roleId) {
 
         this.roleId = roleId;
+    }
+
+    public int getEnable() {
+
+        return enable;
+    }
+
+    public void setEnable(int enable) {
+
+        this.enable = enable;
     }
 }

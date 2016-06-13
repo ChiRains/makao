@@ -386,6 +386,7 @@ public class OrganizationClientImpl implements OrganizationClient {
         List<QRole> roles = permissionClient.listRoleByAccount(ClerkConstant.CLERKPREFIXCODE + clerk.getMobile());
         clerkEntity.setRoleName(roles.size() > 0 ? roles.get(0).getName() : "-");
         clerkEntity.setRoleId(roles.size() > 0 ? roles.get(0).getId() : -1);
+        clerkEntity.setEnable(clerk.getEnable());
         return clerkEntity;
     }
 

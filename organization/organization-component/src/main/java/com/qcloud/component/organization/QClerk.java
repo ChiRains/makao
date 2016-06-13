@@ -31,4 +31,6 @@ public interface QClerk {
     String getRoleName();
 
     Long getRoleId();
+
+    int getEnable();
 }
