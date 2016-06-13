@@ -81,9 +81,9 @@ public class FormSaverHelper {
         AssertUtil.assertNotNull(department, "部门不存在." + context.getDepartmentId());
         context.setDepartmentName(department.getName());
         //
-        QPost post = organizationClient.getPost(context.getPostId());
-        AssertUtil.assertNotNull(post, "岗位不存在." + context.getPostId());
-        context.setPostName(post.getName());
+        // QPost post = organizationClient.getPost(context.getPostId());
+        // AssertUtil.assertNotNull(post, "岗位不存在." + context.getPostId());
+        // context.setPostName(post.getName());
         formEventService.doEvent(context.getFormCode(), FormEventType.FORMAT_BEFORE, context, null);
         Map<String, Object> resultMap = context.getReturnMap();
         //

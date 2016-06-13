@@ -13,7 +13,7 @@ public class MetadataObjValueUtils {
     public static Object getFieldObject(QField field, String value) {
 
         ObjectType type = field.getType();
-        if (StringUtils.isEmpty(value)) {
+        if (StringUtils.isEmpty(value) || value.equals("null")) {
             if (ObjectType.STRING.getKey() == type.getKey()) {
                 return value;
             } else if (ObjectType.INTEGER.getKey() == type.getKey()) {
