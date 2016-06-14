@@ -10,8 +10,6 @@ public class SignUtils {
     public static boolean checkSign(String key, String sign, String... params) {
 
         String checkSign = sign(key, params);
-        System.out.println("checkSign:" + checkSign);
-        System.out.println("sign:" + sign);
         return checkSign.equals(sign);
     }
 
