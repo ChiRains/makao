@@ -83,6 +83,9 @@ public class DepartmentRoleController {
         // 资源树
         List<Long> classifyIds = form.getClassifyIds();
         for (Long classifyId : classifyIds) {
+            if (classifyId == null) {
+                continue;
+            }
             QResources qResources = resourcesClient.getByClassifyId(classifyId);
             QPermission qPermission = permissionClient.getPermission(RoleTypeEnum.PermissionType.RESOURCES.getKey(), qResources.getId());
             // 角色授权
