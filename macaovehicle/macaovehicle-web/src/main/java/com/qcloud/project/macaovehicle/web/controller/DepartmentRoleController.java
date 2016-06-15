@@ -154,6 +154,7 @@ public class DepartmentRoleController {
         departmentRole.setCreator(clerk.getId());
         departmentRole.setCreateDate(new Date());
         departmentRoleService.update(departmentRole);
+        roleClient.setRoleName(departmentRole.getRoleId(), form.getRoleName());
         // 删除旧资源树
         List<QClassify> qClassifys = macRoleHelper.listClassify(departmentRole.getRoleId());
         for (QClassify qClassify : qClassifys) {

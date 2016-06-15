@@ -74,4 +74,13 @@ public class RoleClientImpl implements RoleClient {
         role.setEnable(enable.getKey());
         return roleService.update(role);
     }
+
+    @Override
+    public boolean setRoleName(Long roleId, String name) {
+
+        Role role = roleService.get(roleId);
+        AssertUtil.assertNotNull(role, "角色不存在." + roleId);
+        role.setName(name);
+        return roleService.update(role);
+    }
 }
