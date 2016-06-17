@@ -42,16 +42,13 @@ public class CarOwnerEnterprisersController {
         AssertUtil.assertNotNull(carOwner, "用户信息不完整." + user.getId());
         //
         FrontAjaxView view = new FrontAjaxView();
-        CarOwnerEnterprisers carOwnerEnterprisers2=carOwnerEnterprisersService.getByCarOwner(carOwner.getId());
-        if(carOwnerEnterprisers2==null)
-        {
-        carOwnerEnterprisers.setCarOwnerId(carOwner.getId());
-        carOwnerEnterprisersService.add(carOwnerEnterprisers);
-        view.setMessage("添加成功");
-        }
-        else if(carOwnerEnterprisers2!=null)
-        {
-        	view.setMessage("该数据已经添加");
+        CarOwnerEnterprisers carOwnerEnterprisers2 = carOwnerEnterprisersService.getByCarOwner(carOwner.getId());
+        if (carOwnerEnterprisers2 == null) {
+            carOwnerEnterprisers.setCarOwnerId(carOwner.getId());
+            carOwnerEnterprisersService.add(carOwnerEnterprisers);
+            view.setMessage("添加成功");
+        } else if (carOwnerEnterprisers2 != null) {
+            view.setMessage("该数据已经添加");
         }
         return view;
     }

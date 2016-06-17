@@ -75,4 +75,10 @@ public class RolePermissionServiceImpl implements RolePermissionService {
 
         return rolePermissionDao.delete(permissionId, roleId);
     }
+
+    @Override
+    public boolean unbindRolePermission(long roleId) {
+
+        return rolePermissionDao.unbindRolePermission(roleId);
+    }
 }

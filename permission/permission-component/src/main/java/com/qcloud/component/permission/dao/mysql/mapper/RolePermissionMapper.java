@@ -32,4 +32,7 @@ public interface RolePermissionMapper {
 
     @Delete("delete from `permission_role_permission` where `permissionId`=#{permissionId} and `roleId`=#{roleId}")
     public void myDelete(Long permissionId, Long roleId);
+    
+    @Delete("delete from `permission_role_permission` where `roleId`=#{roleId}")
+    public void unbindRolePermission(Long roleId);
 }

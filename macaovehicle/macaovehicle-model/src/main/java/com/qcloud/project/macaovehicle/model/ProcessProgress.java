@@ -28,11 +28,13 @@ public class ProcessProgress {
 
     private long   formInstanceId;
 
+    private long   vehicleId;
+
     public ProcessProgress() {
 
     }
 
-    public ProcessProgress(long id, String formInstCode, long carOwnerId, String activity, int state, String dateStr, int progressState, int type, long formInstanceId) {
+    public ProcessProgress(long id, String formInstCode, long carOwnerId, String activity, int state, String dateStr, int progressState, int type, long formInstanceId, long vehicleId) {
 
         this.id = id;
         this.formInstCode = formInstCode;
@@ -43,6 +45,17 @@ public class ProcessProgress {
         this.progressState = progressState;
         this.type = type;
         this.formInstanceId = formInstanceId;
+        this.vehicleId = vehicleId;
+    }
+
+    public long getVehicleId() {
+
+        return vehicleId;
+    }
+
+    public void setVehicleId(long vehicleId) {
+
+        this.vehicleId = vehicleId;
     }
 
     public void setId(long id) {

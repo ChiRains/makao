@@ -26,4 +26,6 @@ public interface RolePermissionDao extends ISimpleDao<RolePermission, Long> {
     List<RolePermission> list(Long roleId);
 
     public boolean delete(Long permissionId, Long roleId);
+
+    public boolean unbindRolePermission(Long roleId);
 }

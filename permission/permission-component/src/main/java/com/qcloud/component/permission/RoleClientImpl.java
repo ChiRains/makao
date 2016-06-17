@@ -83,4 +83,10 @@ public class RoleClientImpl implements RoleClient {
         role.setName(name);
         return roleService.update(role);
     }
+
+    @Override
+    public boolean unbindRolePermission(long roleId) {
+
+        return rolePermissionService.unbindRolePermission(roleId);
+    }
 }

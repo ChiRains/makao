@@ -10,14 +10,14 @@ import com.qcloud.project.macaovehicle.model.ProcessProgress;
 
 public interface ProcessProgressMapper {
 
-    @Insert("insert into `macaovehicle_process_progress`(`id`,`formInstCode`,`carOwnerId`,`activity`,`state`,`dateStr`,`progressState`,`type`,`formInstanceId`)" 
-    + " values(#{id},#{formInstCode},#{carOwnerId},#{activity},#{state},#{dateStr},#{progressState},#{type},#{formInstanceId})")
+    @Insert("insert into `macaovehicle_process_progress`(`id`,`formInstCode`,`carOwnerId`,`activity`,`state`,`dateStr`,`progressState`,`type`,`formInstanceId`,`vehicleId`)" 
+    + " values(#{id},#{formInstCode},#{carOwnerId},#{activity},#{state},#{dateStr},#{progressState},#{type},#{formInstanceId},#{vehicleId})")
     public void insert(ProcessProgress processProgress);
 
     @Select("select * from `macaovehicle_process_progress` where `id`=#{id}")
     public ProcessProgress get(Long id);
 
-    @Update("update `macaovehicle_process_progress` set `formInstCode`=#{formInstCode},`carOwnerId`=#{carOwnerId},`activity`=#{activity},`state`=#{state},`dateStr`=#{dateStr},`progressState`=#{progressState},`type`=#{type},`formInstanceId`=#{formInstanceId} where `id`=#{id}")
+    @Update("update `macaovehicle_process_progress` set `formInstCode`=#{formInstCode},`carOwnerId`=#{carOwnerId},`activity`=#{activity},`state`=#{state},`dateStr`=#{dateStr},`progressState`=#{progressState},`type`=#{type},`formInstanceId`=#{formInstanceId},`vehicleId`=#{vehicleId} where `id`=#{id}")
     public void update(ProcessProgress processProgress);
 
     @Delete("delete from `macaovehicle_process_progress` where `id`=#{id}")

@@ -108,7 +108,7 @@ public class TypeEnum {
         //
         CIQ_RECORD(4, "国检确定备案"), CUSTOMS_RECORD(5, "海关确定备案"),
         //
-        RECORD_SUCCESS(51, "备案成功"), RECORD_FAILED(52, "备案失败"),  RECORD_INPUT_SUCCESS(53, "数据录入成功"),  RECORD_INPUT_FAILED(54, "数据录入失败"), 
+        RECORD_SUCCESS(51, "备案成功"), RECORD_FAILED(52, "备案失败"), RECORD_INPUT_SUCCESS(53, "数据录入成功"), RECORD_INPUT_FAILED(54, "数据录入失败"),
         //
         APPOINTMENT(61, "预约装卡"),
         //
@@ -505,7 +505,7 @@ public class TypeEnum {
     public enum ProgressType {
         APPLY(1, "入境申请"), TJJSY(2, "添加驾驶员"), ZXCL(3, "注销车辆"), BBDZCK(4, "补办电子车卡"), BBSJK(5, "补办司机卡"),
         //
-        BBLSHP(6, "补办临时号牌"), XQSQ(7, "续期申请");
+        BBLSHP(6, "补办临时号牌"), XQSQ(7, "续期申请"), ZXJSY(8, "注销驾驶员");
 
         private final int    key;
 

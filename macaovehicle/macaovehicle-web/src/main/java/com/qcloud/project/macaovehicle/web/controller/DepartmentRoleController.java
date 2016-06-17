@@ -156,13 +156,7 @@ public class DepartmentRoleController {
         departmentRoleService.update(departmentRole);
         roleClient.setRoleName(departmentRole.getRoleId(), form.getRoleName());
         // 删除旧资源树
-        List<QClassify> qClassifys = macRoleHelper.listClassify(departmentRole.getRoleId());
-        for (QClassify qClassify : qClassifys) {
-            QResources qResources = resourcesClient.getByClassifyId(qClassify.getId());
-            QPermission qPermission = permissionClient.getPermission(RoleTypeEnum.PermissionType.RESOURCES.getKey(), qResources.getId());
-            // 角色授权
-            roleClient.unbindRolePermission(qPermission.getId(), departmentRole.getRoleId());
-        }
+        roleClient.unbindRolePermission(departmentRole.getRoleId());
         // 新增资源树
         List<Long> classifyIds = form.getClassifyIds();
         for (Long classifyId : classifyIds) {

@@ -157,6 +157,7 @@ public class VehicleLossController {
         processProgress.setDateStr(DateUtil.date2String(new Date()));
         processProgress.setProgressState(ProgressState.SHENGQIN.getKey());
         processProgress.setType(ProgressType.BBDZCK.getKey());
+        processProgress.setVehicleId(vehicleId);
         processProgressService.add(processProgress);
         FrontAjaxView view = new FrontAjaxView();
         view.setMessage("补办电子车卡成功");

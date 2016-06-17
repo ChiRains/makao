@@ -83,4 +83,12 @@ public class RolePermissionDaoMysqlImpl implements RolePermissionDao {
         param.put("roleId", roleId);
         return sqlOperator.delete("com.qcloud.component.permission.dao.mysql.mapper.RolePermissionMapper.myDelete", param) > 0;
     }
+
+    @Override
+    public boolean unbindRolePermission(Long roleId) {
+
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("roleId", roleId);
+        return sqlOperator.delete("com.qcloud.component.permission.dao.mysql.mapper.RolePermissionMapper.unbindRolePermission", param) > 0;
+    }
 }

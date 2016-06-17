@@ -121,6 +121,7 @@ public class ProcessProgressEvent implements FormEvent {
                 processProgress.setProgressState(newState);
                 processProgress.setType(progressType);
                 processProgress.setFormInstanceId(context.getFormInstId());
+                processProgress.setVehicleId(Long.valueOf((String) context.getParameter("vehicle")));
                 processProgressService.add(processProgress);
             }
             // }

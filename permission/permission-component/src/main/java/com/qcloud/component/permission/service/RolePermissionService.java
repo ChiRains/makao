@@ -19,4 +19,6 @@ public interface RolePermissionService {
     List<RolePermission> list(Long... roleIds);
 
     public boolean delete(Long permissionId, Long roleId);
+
+    public boolean unbindRolePermission(long roleId);
 }

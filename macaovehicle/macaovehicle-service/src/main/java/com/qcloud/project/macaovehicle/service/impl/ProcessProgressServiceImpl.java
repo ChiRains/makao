@@ -15,6 +15,7 @@ import com.qcloud.project.macaovehicle.dao.ApprovalResultsDao;
 import com.qcloud.project.macaovehicle.dao.CarOwnerDao;
 import com.qcloud.project.macaovehicle.dao.DriverDao;
 import com.qcloud.project.macaovehicle.dao.DriverVehicleDao;
+import com.qcloud.project.macaovehicle.dao.HistoryUserRecordsDao;
 import com.qcloud.project.macaovehicle.dao.ProcessProgressDao;
 import com.qcloud.project.macaovehicle.dao.VehicleDao;
 import com.qcloud.project.macaovehicle.entity.MessageEntity;
@@ -23,6 +24,7 @@ import com.qcloud.project.macaovehicle.model.ApprovalResults;
 import com.qcloud.project.macaovehicle.model.CarOwner;
 import com.qcloud.project.macaovehicle.model.Driver;
 import com.qcloud.project.macaovehicle.model.DriverVehicle;
+import com.qcloud.project.macaovehicle.model.HistoryUserRecords;
 import com.qcloud.project.macaovehicle.model.InstanceMessage;
 import com.qcloud.project.macaovehicle.model.ProcessProgress;
 import com.qcloud.project.macaovehicle.model.ProfilesSuccess;
@@ -35,6 +37,7 @@ import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressState;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
 import com.qcloud.project.macaovehicle.model.query.ProcessProgressQuery;
 import com.qcloud.project.macaovehicle.model.query.ProfilesSuccessQuery;
+import com.qcloud.project.macaovehicle.service.HistoryUserRecordsService;
 import com.qcloud.project.macaovehicle.service.InstanceMessageService;
 import com.qcloud.project.macaovehicle.service.ProcessProgressService;
 import com.qcloud.project.macaovehicle.service.ProfilesSuccessService;
@@ -43,46 +46,58 @@ import com.qcloud.project.macaovehicle.service.ProfilesSuccessService;
 public class ProcessProgressServiceImpl implements ProcessProgressService {
 
     @Autowired
-    private ProcessProgressDao     processProgressDao;
+    private ProcessProgressDao        processProgressDao;
 
     @Autowired
-    private AutoIdGenerator        autoIdGenerator;
+    private AutoIdGenerator           autoIdGenerator;
 
     @Autowired
-    private ApprovalResultsDao     approvalResultsDao;
+    private ApprovalResultsDao        approvalResultsDao;
 
     @Autowired
-    private DriverVehicleDao       driverVehicleDao;
+    private DriverVehicleDao          driverVehicleDao;
 
     @Autowired
-    private ProfilesSuccessService profilesSuccessService;
+    private ProfilesSuccessService    profilesSuccessService;
 
     @Autowired
-    private OrganizationClient     organizationClient;
+    private OrganizationClient        organizationClient;
 
     @Autowired
-    private ParameterClient        parameterClient;
+    private ParameterClient           parameterClient;
 
     @Autowired
-    private InstanceMessageService instanceMessageService;
+    private InstanceMessageService    instanceMessageService;
 
     @Autowired
-    private VehicleDao             vehicleDao;
+    private VehicleDao                vehicleDao;
 
     @Autowired
-    private DriverDao              driverDao;
+    private DriverDao                 driverDao;
 
     @Autowired
-    private CarOwnerDao            carOwnerDao;
+    private CarOwnerDao               carOwnerDao;
 
-    private static final String    ID_KEY = "macaovehicle_process_progress";
+    private static final String       ID_KEY = "macaovehicle_process_progress";
+
+    @Autowired
+    private HistoryUserRecordsService historyUserRecordsService;
+
+    @Autowired
+    private HistoryUserRecordsDao     historyUserRecordsDao;
 
     @Override
     public boolean add(ProcessProgress processProgress) {
 
         long id = autoIdGenerator.get(ID_KEY);
         processProgress.setId(id);
-        return processProgressDao.add(processProgress);
+        processProgressDao.add(processProgress);
+        // 历史办理业务
+        HistoryUserRecords historyUserRecords = new HistoryUserRecords();
+        historyUserRecords.setVehicleId(processProgress.getVehicleId());
+        historyUserRecords.setType(processProgress.getType());
+        historyUserRecords.setApplyTime(new Date());
+        return historyUserRecordsService.add(historyUserRecords);
     }
 
     @Override
@@ -100,6 +115,12 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
     @Override
     public boolean update(ProcessProgress processProgress) {
 
+        // 历史办理业务完成时间添加
+        if (processProgress.getProgressState() == ProgressState.WANCHENG.getKey()) {
+            HistoryUserRecords historyUserRecords = historyUserRecordsDao.getByFormInstCode(processProgress.getFormInstCode());
+            historyUserRecords.setFinishTime(new Date());
+            historyUserRecordsDao.update(historyUserRecords);
+        }
         return processProgressDao.update(processProgress);
     }
 
@@ -226,7 +247,7 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
         }
         process.setState(applyType);
         process.setProgressState(progressState);
-        return processProgressDao.update(process);
+        return update(process);
     }
 
     @Override
@@ -279,10 +300,10 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
             }
             // 通知装卡
             if (progressState == ProgressState.TZZK.getKey()) {
-                if(StringUtils.isEmpty(messageEntity.getTime())) {
+                if (StringUtils.isEmpty(messageEntity.getTime())) {
                     messageEntity.setTime("2016-10-01 10:00:00");
                 }
-                if(StringUtils.isEmpty(messageEntity.getAddress())) {
+                if (StringUtils.isEmpty(messageEntity.getAddress())) {
                     messageEntity.setAddress("横琴大桥下");
                 }
                 title = (String) parameterClient.get("message-title-paiqi");

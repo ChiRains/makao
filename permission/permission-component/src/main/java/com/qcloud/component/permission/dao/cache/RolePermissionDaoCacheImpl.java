@@ -72,4 +72,10 @@ public class RolePermissionDaoCacheImpl implements RolePermissionDao {
 
         return rolePermissionDaoMysqlImpl.delete(permissionId, roleId);
     }
+
+    @Override
+    public boolean unbindRolePermission(Long roleId) {
+
+        return rolePermissionDaoMysqlImpl.unbindRolePermission(roleId);
+    }
 }
