@@ -27,4 +27,6 @@
 	<pirates:redis-z id="redis-publicservice" name="macaovehicle"></pirates:redis-z>
 	<pirates:redis-z id="redis-personalcenter" name="macaovehicle"></pirates:redis-z>
 	
+	<pirates:redis-z id="macaovehicle.redis" name="macaovehicle"></pirates:redis-z>
+	
 </beans>
