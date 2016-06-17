@@ -114,4 +114,7 @@
 	
 	<pirates:uriHandler class="com.qcloud.project.macaovehicle.web.handler.url.DepartmentRoleUriHandlerImpl"></pirates:uriHandler>
 	
+	<pirates:settings>
+		<pirates:session distributed="true" redis="macaovehicle.redis" />
+	</pirates:settings>	
 </beans>
