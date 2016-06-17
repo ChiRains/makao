@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.DvrDetailMapper">
+	<select id="list4query" parameterType="java.util.HashMap"
+		resultType="DvrDetail">
+		select * from `macaovehicle_dvr_detail` where 1=1
+		<if test="areaId > 0">
+			and `areaId` = #{areaId}
+		</if>
+		order by areaId limit #{start},#{count}
+	</select>
+
+	<select id="count4query" parameterType="java.util.HashMap"
+		resultType="Integer">
+		select count(*) from `macaovehicle_dvr_detail` where 1=1
+		<if test="areaId > 0">
+			and `areaId` = #{areaId}
+		</if>
+	</select>
+
+
+	<select id="getByArea" parameterType="java.util.HashMap"
+		resultType="DvrDetail">
+		select * from `macaovehicle_dvr_detail` where `areaId` = #{areaId}
+	</select>
+
+</mapper>
