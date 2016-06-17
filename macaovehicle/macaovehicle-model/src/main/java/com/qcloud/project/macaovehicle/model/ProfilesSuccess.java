@@ -42,7 +42,7 @@ public class ProfilesSuccess {
     private String models;
 
     // 身份证号码(来自carOwner)
-    private String idcardNumber;
+//    private String idcardNumber;
 
     // 性别
     private int    sex;
@@ -53,7 +53,7 @@ public class ProfilesSuccess {
     public ProfilesSuccess() {
     }
 
-    public ProfilesSuccess(long id, long formInstanceId, long carOwnerId, long vehicleId, long driverId, Date createDate, int vEnable, int dEnable, String plateNumber, String licenseNumber, String driverName, String driverIdCard, String models, String idcardNumber, int sex, int nation) {
+    public ProfilesSuccess(long id, long formInstanceId, long carOwnerId, long vehicleId, long driverId, Date createDate, int vEnable, int dEnable, String plateNumber, String licenseNumber, String driverName, String driverIdCard, String models,  int sex, int nation) {
         super();
         this.id = id;
         this.formInstanceId = formInstanceId;
@@ -68,7 +68,7 @@ public class ProfilesSuccess {
         this.driverName = driverName;
         this.driverIdCard = driverIdCard;
         this.models = models;
-        this.idcardNumber = idcardNumber;
+//        this.idcardNumber = idcardNumber;
         this.sex = sex;
         this.nation = nation;
     }
@@ -203,15 +203,15 @@ public class ProfilesSuccess {
         this.models = models;
     }
 
-    public String getIdcardNumber() {
-
-        return idcardNumber;
-    }
-
-    public void setIdcardNumber(String idcardNumber) {
-
-        this.idcardNumber = idcardNumber;
-    }
+//    public String getIdcardNumber() {
+//
+//        return idcardNumber;
+//    }
+//
+//    public void setIdcardNumber(String idcardNumber) {
+//
+//        this.idcardNumber = idcardNumber;
+//    }
 
     public int getSex() {
 

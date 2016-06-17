@@ -228,8 +228,8 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
                     Driver driver = driverDao.get(dv.getDriverId());
                     driver.setDriverIc(dv.getDriverIc());
                     driver.setDriverIcState(EnableType.ENABLE.getKey());
-                    CarOwner carOwner = carOwnerDao.get(dv.getCarOwnerId());
-                    profilesSuccess.setIdcardNumber(carOwner.getIdcardNumber());
+//                    CarOwner carOwner = carOwnerDao.get(dv.getCarOwnerId());
+//                    profilesSuccess.setIdcardNumber(carOwner.getIdcardNumber());
                     profilesSuccess.setDriverName(driver.getDriverName());
                     profilesSuccess.setDriverIdCard(driver.getDriverIdCard());
                     profilesSuccess.setSex(driver.getSex());
