@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+<mapper namespace="com.qcloud.project.macaovehicle.dao.mysql.mapper.HistoryUserRecordsMapper">          
+    <select id="list4query" parameterType="java.util.HashMap" resultType="HistoryUserRecords">  
+        select * from `macaovehicle_history_user_records` where `vehicleId`=#{vehicleId} limit #{start},#{count}
+    </select>  
+    
+    <select id="count4query" parameterType="java.util.HashMap" resultType="Integer">  
+        select count(*) from `macaovehicle_history_user_records` where `vehicleId`=#{vehicleId}
+    </select> 
+    
+    <select id="getByFormInstCode" parameterType="java.util.HashMap" resultType="HistoryUserRecords">  
+        select * from `macaovehicle_history_user_records` where `formInstCode` = #{formInstCode} limit 0,1
+    </select>
+</mapper>
