@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.aspectj.internal.lang.annotation.ajcDeclareAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,13 +21,14 @@ import com.qcloud.project.macaovehicle.web.vo.admin.AdminDvrAreaVO;
 
 @Component
 public class DvrAreaHandlerImpl implements DvrAreaHandler {
-	
+
 	@Autowired
 	private DvrDetailService dvrDetailService;
 	@Autowired
 	private DvrDetailHandler dvrDetailHandler;
+
 	@Override
-	public List<DvrAreaVO> toVOList(List<DvrArea> list){
+	public List<DvrAreaVO> toVOList(List<DvrArea> list) {
 		List<DvrAreaVO> voList = new ArrayList<DvrAreaVO>();
 		for (DvrArea dvrArea : list) {
 			voList.add(toVO(dvrArea));
@@ -35,29 +37,16 @@ public class DvrAreaHandlerImpl implements DvrAreaHandler {
 	}
 
 	@Override
-	public DvrAreaVO toVO(DvrArea dvrArea){
+	public DvrAreaVO toVO(DvrArea dvrArea) {
 		String json = Json.toJson(dvrArea);
 		DvrAreaVO vo = Json.toObject(json, DvrAreaVO.class, true);
-		List<DvrDetailVO> DetailList = new ArrayList<DvrDetailVO>();
-		for(DvrDetail detail : dvrDetailService.listAll()) {
-			DvrDetailVO detailVO = dvrDetailHandler.toVO(detail);
-			DetailList.add(detailVO);
-		}
-		vo.setList(DetailList);
+		List<DvrDetail> dvrDetails = dvrDetailService.getByArea(dvrArea.getId());
+		vo.setList(dvrDetailHandler.toVOList(dvrDetails));
 		return vo;
-//		List<Map<String,String>> ipAndNameMap = new ArrayList<Map<String,String>>();
-//		for(DvrDetail detail : dvrDetailService.listAll()) {
-//			DvrDetailVO detailVO = dvrDetailHandler.toVO(detail);
-//			ipAndNameMap.("id",String.valueOf(detailVO.getId()));
-//			ipAndNameList.add(detailVO.getName());
-//		}
-//		vo.setList(ipAndNameList);
-//		return vo;
-
 	}
 
 	@Override
-	public List<AdminDvrAreaVO> toVOList4Admin(List<DvrArea> list){
+	public List<AdminDvrAreaVO> toVOList4Admin(List<DvrArea> list) {
 		List<AdminDvrAreaVO> voList = new ArrayList<AdminDvrAreaVO>();
 		for (DvrArea adminDvrArea : list) {
 			voList.add(toVO4Admin(adminDvrArea));
@@ -66,7 +55,7 @@ public class DvrAreaHandlerImpl implements DvrAreaHandler {
 	}
 
 	@Override
-	public AdminDvrAreaVO toVO4Admin(DvrArea dvrArea){
+	public AdminDvrAreaVO toVO4Admin(DvrArea dvrArea) {
 		String json = Json.toJson(dvrArea);
 		return Json.toObject(json, AdminDvrAreaVO.class, true);
 	}
