@@ -176,7 +176,7 @@ public class VehicleApproveEvent implements FormEvent {
             context.addReturnResult("person[0].certificateNo", carOwner.getCertificateNo());
             if (OwnerType.PERSON.getKey() == carOwner.getClerkType()) {
                 context.addReturnResult("person[0].certificateDate", DateUtil.date2String(carOwner.getCertificateDate(), "yyyy-MM-dd HH:mm:ss").substring(0, 10));
-                context.addReturnResult("person[0].certificateUrl", carOwner.getCertificateUrl());
+                context.addReturnResult("person[0].certificateUrl", fileSDKClient.urlToUid(carOwner.getCertificateUrl()));
                 context.addReturnResult("person[0].idCardValidTime", carOwner.getIdCardValidTime());
             }
             // 务工1
