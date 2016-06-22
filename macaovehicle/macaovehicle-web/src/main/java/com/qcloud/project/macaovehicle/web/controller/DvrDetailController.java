@@ -63,20 +63,24 @@ public class DvrDetailController {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		for (DvrDetail dvrDetail : page.getData()) {
+			DvrArea dvrArea = dvrAreaService.get(dvrDetail.getAreaId());
 			Map<String, Object> returnMap = new LinkedHashMap<String, Object>();
-			String address = dvrAreaService.get(dvrDetail.getAreaId()).getName();
-			returnMap.put("id", dvrDetail.getId());
-			returnMap.put("area", address);// DVR所在地区(分组)
-			returnMap.put("username", dvrDetail.getUsername());// DVR用户名
-			// returnMap.put("password", dvrDetail.getPassword());// DVR密码
-			returnMap.put("name", dvrDetail.getName());// DVR设备名称
-			returnMap.put("ip", dvrDetail.getIp());// DVR设备IP地址
-			returnMap.put("port", dvrDetail.getPort());// DVR设备端口
-			returnMap.put("vendor", dvrDetail.getVendor());// DVR设备生产厂家
-			returnMap.put("direction", dvrDetail.getDirection());// 拍摄方向
-			returnMap.put("operator", dvrDetail.getOperator());// 操作人
-			returnMap.put("lastModifiedTime", sdf.format(dvrDetail.getLastModifiedTime()));// 最后修改时间
-			returnMap.put("status", dvrDetail.getStatus());// 是否启用(1启用, 0不启用)
+			if (dvrArea.getStatus() == 1) {
+				returnMap.put("id", dvrDetail.getId());
+				returnMap.put("area", dvrArea.getName());// DVR所在地区(分组)
+				returnMap.put("username", dvrDetail.getUsername());// DVR用户名
+				// returnMap.put("password", dvrDetail.getPassword());// DVR密码
+				returnMap.put("name", dvrDetail.getName());// DVR设备名称
+				returnMap.put("ip", dvrDetail.getIp());// DVR设备IP地址
+				returnMap.put("port", dvrDetail.getPort());// DVR设备端口
+				returnMap.put("vendor", dvrDetail.getVendor());// DVR设备生产厂家
+				returnMap.put("direction", dvrDetail.getDirection());// 拍摄方向
+				returnMap.put("operator", dvrDetail.getOperator());// 操作人
+				returnMap.put("lastModifiedTime", sdf.format(dvrDetail.getLastModifiedTime()));// 最后修改时间
+				returnMap.put("status", dvrDetail.getStatus());// 是否启用(1启用, 0不启用)
+			}else{
+				returnMap.put("message", "暂无数据，该分组未启用");
+			}
 			list.add(returnMap);
 		}
 		FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());
