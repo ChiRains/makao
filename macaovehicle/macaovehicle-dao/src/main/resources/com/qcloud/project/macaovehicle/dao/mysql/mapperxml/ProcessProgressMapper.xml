@@ -28,6 +28,10 @@
         select * from `macaovehicle_process_progress` where `carOwnerId` = #{carOwnerId} limit #{start},#{count}
     </select>
     
+    <select id="getListByCarOwnerId" parameterType="java.util.HashMap" resultType="ProcessProgress">  
+        select * from `macaovehicle_process_progress` where `carOwnerId` = #{carOwnerId}
+    </select>
+    
     <select id="getMaxByFormInstCode" parameterType="java.util.HashMap" resultType="ProcessProgress">
         select * from `macaovehicle_process_progress` where `formInstCode` = #{formInstCode}
         order by `progressState` desc

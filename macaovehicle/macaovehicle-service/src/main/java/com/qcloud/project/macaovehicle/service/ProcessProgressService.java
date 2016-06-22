@@ -22,6 +22,8 @@ public interface ProcessProgressService {
     public List<ProcessProgress> listAll();
 
     public List<ProcessProgress> listByCarOwnerId(Long carOwnerId, int start, int count);
+    
+    public List<ProcessProgress> listByCarOwnerId(Long carOwnerId);
 
     public ProcessProgress getMaxByFormInstCode(String formInstCode);
 

@@ -45,6 +45,7 @@ public class AbnormalUriHandlerImpl extends AbstractUriHandler {
         list.add("/abnormal/crossBorderRecord.do");
         list.add("/abnormal/realTimeWarning.do");
         list.add("/abnormal/crossBorderToday.do");
+        list.add("/abnormal/sysMessage.do");
 //        list.add("/abnormal/realTime.do");
 //        list.add("/abnormal/statisticRecord.do");
 //        list.add("/abnormal/statisticInRecord.do");
@@ -54,10 +55,5 @@ public class AbnormalUriHandlerImpl extends AbstractUriHandler {
 //        list.add("/abnormal/statisticToday.do");
         return list;
     }
-    
-    
-    
-    
-    
     
 }

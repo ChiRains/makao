@@ -142,6 +142,12 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
     }
 
     @Override
+    public List<ProcessProgress> listByCarOwnerId(Long carOwnerId) {
+
+        return processProgressDao.listByCarOwnerId(carOwnerId);
+    }
+    
+    @Override
     public ProcessProgress getMaxByFormInstCode(String formInstCode) {
 
         return processProgressDao.getMaxByFormInstCode(formInstCode);

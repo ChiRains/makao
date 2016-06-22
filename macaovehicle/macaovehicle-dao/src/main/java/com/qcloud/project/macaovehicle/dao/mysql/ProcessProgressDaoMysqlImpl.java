@@ -103,6 +103,14 @@ public class ProcessProgressDaoMysqlImpl implements ProcessProgressDao {
         List<ProcessProgress> list = sqlOperator.selectList("com.qcloud.project.macaovehicle.dao.mysql.mapper.ProcessProgressMapper.listByCarOwnerId", param);
         return list;
     }
+    
+    @Override
+    public List<ProcessProgress> listByCarOwnerId(Long carOwnerId) {
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("carOwnerId", carOwnerId);
+        List<ProcessProgress> list = sqlOperator.selectList("com.qcloud.project.macaovehicle.dao.mysql.mapper.ProcessProgressMapper.getListByCarOwnerId", param);
+        return list;
+    }
 
     @Override
     public ProcessProgress getMaxByFormInstCode(String formInstCode) {

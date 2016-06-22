@@ -80,6 +80,12 @@ public class ProcessProgressDaoRedisImpl implements ProcessProgressDao {
     }
 
     @Override
+    public List<ProcessProgress> listByCarOwnerId(Long carOwnerId) {
+
+        throw new NotImplementedException();
+    }
+    
+    @Override
     public ProcessProgress getMaxByFormInstCode(String formInstCode) {
 
         throw new NotImplementedException();

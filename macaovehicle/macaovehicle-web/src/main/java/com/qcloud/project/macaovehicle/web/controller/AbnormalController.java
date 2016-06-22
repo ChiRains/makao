@@ -414,4 +414,27 @@ public class AbnormalController {
         view.addObject("result", voList);
         return view;
     }
+    
+    /**
+     * @date 2016-06-20
+     * @author Kuina.黄嘉明
+     * @descrition “我的工作台”右侧面板-系统消息
+     */
+    @RequestMapping
+    public FrontAjaxView sysMessage() {
+    	List<Map<String, Object>> resultList = new ArrayList<Map<String, Object>>();
+    	List<Abnormal> list = abnormalService.listAll();
+    	for(Abnormal abnormal : list) {
+    		Map<String, Object> resultMap = new LinkedHashMap<String, Object>();
+    		resultMap.put("rfPlate",abnormal.getRfPlate());//射频车牌号
+    		resultMap.put("ocrPlate",abnormal.getOcrPlate());//视频车牌号
+    		resultMap.put("monitorName", abnormal.getMonitorName());//监控点名称
+    		resultMap.put("evenTpye", abnormal.getEventType()==String.valueOf(1)?"越界预警":"越界告警");//1、"越界预警"；2、"越界告警"
+    		resultMap.put("happenTime", abnormal.getHappenedTime());
+    		resultList.add(resultMap);
+    	}
+    	FrontAjaxView view = new FrontAjaxView();
+    	view.addObject("sysMessage", resultList);
+    	return view;
+    }
 }
