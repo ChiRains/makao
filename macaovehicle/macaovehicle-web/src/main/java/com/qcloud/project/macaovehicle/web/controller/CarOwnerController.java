@@ -33,6 +33,7 @@ import com.qcloud.project.macaovehicle.model.LoginForm;
 import com.qcloud.project.macaovehicle.model.ProcessProgress;
 import com.qcloud.project.macaovehicle.model.Vehicle;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressState;
 import com.qcloud.project.macaovehicle.service.CarOwnerAcquisitionService;
 import com.qcloud.project.macaovehicle.service.CarOwnerEnterprisersService;
 import com.qcloud.project.macaovehicle.service.CarOwnerHousersService;
@@ -145,7 +146,7 @@ public class CarOwnerController {
 		boolean writable = true;
 		for (ProcessProgress processProgress : progressList) {
 			// 申请步骤中，只要未完成且没有被拒绝，就不可以编辑个人资料
-			if (processProgress.getProgressState() < 9 && processProgress.getState() == 1) {
+			if (processProgress.getProgressState() != ProgressState.WANCHENG.getKey() && processProgress.getState() == 1) {
 				writable = false;
 				break;
 			}
