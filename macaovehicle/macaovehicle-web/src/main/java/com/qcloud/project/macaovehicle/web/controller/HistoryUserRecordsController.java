@@ -54,6 +54,7 @@ public class HistoryUserRecordsController {
         Vehicle vehicle = vehicleService.get(query.getVehicleId());
         AssertUtil.assertNotNull(vehicle, "车辆不存在." + query.getVehicleId());
         CarOwner carOwner = carOwnerService.getByClerk(clerk.getId());
+        AssertUtil.assertNotNull(carOwner, "用户不存在." + clerk.getId());
         if (vehicle.getCarOwnerId() != carOwner.getId()) {
             throw new MacaovehicleException("你不具备查看别人车辆的权限.");
         }

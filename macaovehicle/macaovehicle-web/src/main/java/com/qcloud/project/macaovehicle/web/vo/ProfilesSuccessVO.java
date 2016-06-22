@@ -1,10 +1,19 @@
 package com.qcloud.project.macaovehicle.web.vo;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ProfilesSuccessVO {
+
+    public interface TypeInterface {
+
+        public int getType();
+
+        public String getTypeName();
+    }
 
     private long                id;
 
@@ -23,7 +32,13 @@ public class ProfilesSuccessVO {
     // 创建时间
     private Date                createDate;
 
-    private Map<String, Object> returnMap = new HashMap<String, Object>();
+    private Map<String, Object> returnMap     = new HashMap<String, Object>();
+
+    // 当前办理业务类型
+    private List<TypeInterface> typeList      = new ArrayList<TypeInterface>();
+
+    // 显示的按钮,可办理的业务类型
+    private List<Integer>       availTypeList = new ArrayList<Integer>();
 
     public ProfilesSuccessVO() {
 
@@ -106,5 +121,25 @@ public class ProfilesSuccessVO {
     public void setFormInstanceId(long formInstanceId) {
 
         this.formInstanceId = formInstanceId;
+    }
+
+    public List<TypeInterface> getTypeList() {
+
+        return typeList;
+    }
+
+    public void setTypeList(List<TypeInterface> typeList) {
+
+        this.typeList = typeList;
+    }
+
+    public List<Integer> getAvailTypeList() {
+
+        return availTypeList;
+    }
+
+    public void setAvailTypeList(List<Integer> availTypeList) {
+
+        this.availTypeList = availTypeList;
     }
 }

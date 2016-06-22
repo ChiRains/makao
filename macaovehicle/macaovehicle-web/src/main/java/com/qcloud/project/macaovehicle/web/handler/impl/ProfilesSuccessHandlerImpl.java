@@ -13,28 +13,45 @@ import com.qcloud.pirates.core.json.Json;
 import com.qcloud.pirates.util.AssertUtil;
 import com.qcloud.pirates.util.DateUtil;
 import com.qcloud.project.macaovehicle.service.DriverService;
+import com.qcloud.project.macaovehicle.service.DriverVehicleService;
+import com.qcloud.project.macaovehicle.service.HistoryUserRecordsService;
 import com.qcloud.project.macaovehicle.service.ProfilesSuccessService;
 import com.qcloud.project.macaovehicle.service.VehicleService;
 import com.qcloud.project.macaovehicle.web.handler.ProfilesSuccessHandler;
+import com.qcloud.project.macaovehicle.web.helper.StateHelper;
 import com.qcloud.project.macaovehicle.common.Constant;
 import com.qcloud.project.macaovehicle.model.Driver;
+import com.qcloud.project.macaovehicle.model.DriverVehicle;
+import com.qcloud.project.macaovehicle.model.HistoryUserRecords;
 import com.qcloud.project.macaovehicle.model.ProfilesSuccess;
 import com.qcloud.project.macaovehicle.model.Vehicle;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.EnableType;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
+import com.qcloud.project.macaovehicle.model.query.DriverVehicleQuery;
 import com.qcloud.project.macaovehicle.model.query.ProfilesSuccessQuery;
 import com.qcloud.project.macaovehicle.web.vo.ProfilesSuccessVO;
+import com.qcloud.project.macaovehicle.web.vo.ProfilesSuccessVO.TypeInterface;
 
 @Component
 public class ProfilesSuccessHandlerImpl implements ProfilesSuccessHandler {
 
     @Autowired
-    private VehicleService         vehicleService;
+    private VehicleService            vehicleService;
 
     @Autowired
-    private DriverService          driverService;
+    private DriverService             driverService;
 
     @Autowired
-    private ProfilesSuccessService profilesSuccessService;
+    private ProfilesSuccessService    profilesSuccessService;
+
+    @Autowired
+    private HistoryUserRecordsService historyUserRecordsService;
+
+    @Autowired
+    private DriverVehicleService      driverVehicleService;
+
+    @Autowired
+    private StateHelper               stateHelper;
 
     @Override
     public List<ProfilesSuccessVO> toVOList(List<ProfilesSuccess> list) {
@@ -61,6 +78,8 @@ public class ProfilesSuccessHandlerImpl implements ProfilesSuccessHandler {
         for (ProfilesSuccess p : list) {
             String json = Json.toJson(p);
             ProfilesSuccessVO vo = Json.toObject(json, ProfilesSuccessVO.class, true);
+            stateHelper.handlerToBusiness(p.getVehicleId(), vo.getTypeList(), vo.getAvailTypeList());
+            // ==============================================================================================
             Long vehicleId = p.getVehicleId();
             ProfilesSuccessQuery query = new ProfilesSuccessQuery();
             query.setVehicleId(vehicleId);

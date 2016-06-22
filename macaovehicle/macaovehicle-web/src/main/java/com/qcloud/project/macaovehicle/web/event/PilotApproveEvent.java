@@ -13,6 +13,7 @@ import com.qcloud.component.mvprocesstask.model.Tasking;
 import com.qcloud.component.organization.OrganizationClient;
 import com.qcloud.pirates.util.AssertUtil;
 import com.qcloud.pirates.util.DateUtil;
+import com.qcloud.project.macaovehicle.exception.MacaovehicleException;
 import com.qcloud.project.macaovehicle.model.CarOwner;
 import com.qcloud.project.macaovehicle.model.CarOwnerAcquisition;
 import com.qcloud.project.macaovehicle.model.CarOwnerEnterprisers;
@@ -45,6 +46,7 @@ import com.qcloud.project.macaovehicle.service.VehicleService;
 import com.qcloud.project.macaovehicle.web.handler.TaskingBorderHandler;
 import com.qcloud.project.macaovehicle.web.handler.TaskingCiqHandler;
 import com.qcloud.project.macaovehicle.web.handler.TaskingCustomsHandler;
+import com.qcloud.project.macaovehicle.web.helper.StateHelper;
 
 @Component
 public class PilotApproveEvent implements FormEvent {
@@ -108,6 +110,9 @@ public class PilotApproveEvent implements FormEvent {
     @Autowired
     private DriverVehicleService       driverVehicleService;
 
+    @Autowired
+    private StateHelper                stateHelper;
+
     @Override
     public void doEvent(FormEventType type, EventContext context) {
 
@@ -128,6 +133,9 @@ public class PilotApproveEvent implements FormEvent {
             //
             Vehicle v = vehicleService.get(Long.valueOf(vehicleId));
             AssertUtil.assertNotNull(v, "车辆信息不存在." + vehicleId);
+            if (!stateHelper.checkAvailType(Long.valueOf(vehicleId), ProgressType.TJJSY)) {
+                throw new MacaovehicleException("当前车辆您已不能添加驾驶员.");
+            }
             // TODO 限制
             // 拥有可用的车卡id
             // if (StringUtil.isEmpty(v.getRic())) {

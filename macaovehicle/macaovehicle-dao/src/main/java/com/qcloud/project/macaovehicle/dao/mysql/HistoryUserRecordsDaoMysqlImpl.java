@@ -57,7 +57,7 @@ public class HistoryUserRecordsDaoMysqlImpl implements HistoryUserRecordsDao {
 
     public List<HistoryUserRecords> listByVehicleId(Long vehicleId) {
 
-        throw new NotImplementedException();
+        return sqlOperator.selectList("com.qcloud.project.macaovehicle.dao.mysql.mapper.HistoryUserRecordsMapper.listByVehicleId", vehicleId);
     }
 
     @Override

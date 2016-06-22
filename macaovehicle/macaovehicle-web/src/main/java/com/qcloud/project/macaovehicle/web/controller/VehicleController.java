@@ -32,6 +32,7 @@ import com.qcloud.project.macaovehicle.model.key.TypeEnum.CancelType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.CarModels;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.EnableType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.FuelType;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.SteeringWheel;
 import com.qcloud.project.macaovehicle.model.query.DriverVehicleQuery;
 import com.qcloud.project.macaovehicle.model.query.ProfilesSuccessQuery;
@@ -43,6 +44,7 @@ import com.qcloud.project.macaovehicle.service.ProfilesSuccessService;
 import com.qcloud.project.macaovehicle.service.VehicleCancelService;
 import com.qcloud.project.macaovehicle.service.VehicleService;
 import com.qcloud.project.macaovehicle.web.handler.VehicleHandler;
+import com.qcloud.project.macaovehicle.web.helper.StateHelper;
 import com.qcloud.project.macaovehicle.web.vo.VehicleKeyValueVO;
 import com.qcloud.project.macaovehicle.web.vo.VehicleVO;
 
@@ -78,6 +80,9 @@ public class VehicleController {
 
     @Autowired
     private OnestopCarRecordService onestopCarRecordService;
+
+    @Autowired
+    private StateHelper             stateHelper;
 
     @RequestMapping
     public FrontAjaxView list(HttpServletRequest request, VehicleQuery query) {
@@ -277,6 +282,9 @@ public class VehicleController {
         AssertUtil.greatZero(vehicleId, "车辆id不能为空.");
         Vehicle vehicle = vehicleService.get(vehicleId);
         AssertUtil.assertNotNull(vehicle, "车辆不存在." + vehicleId);
+        if (!stateHelper.checkAvailType(Long.valueOf(vehicleId), ProgressType.ZXCL)) {
+            throw new MacaovehicleException("当前车辆您已不能注销.");
+        }
         QClerk user = clerkHelper.getClerkModel(request);
         CarOwner carOwner = carOwnerService.getByClerk(user.getId());
         if (carOwner != null) {
@@ -322,16 +330,16 @@ public class VehicleController {
      */
     @RequestMapping
     public FrontPagingView entryRecord(VehicleQuery query, Integer pageNum, Integer pageSize) {
+
         final int PAGE_SIZE = pageSize == null || pageSize <= 0 ? 10 : pageSize;
         pageNum = RequestUtil.getPageid(pageNum);
         int start = NumberUtil.getPageStart(pageNum, PAGE_SIZE);
         Page<Vehicle> page = vehicleService.page(query, start, PAGE_SIZE);
         List<Map<String, Object>> mapList = new ArrayList<Map<String, Object>>();
-        
-        for(Vehicle v : page.getData()) {
+        for (Vehicle v : page.getData()) {
             Map<String, Object> returnMap = new LinkedHashMap<String, Object>();
-            returnMap.put("plateNumber", v.getPlateNumber());//境外车牌号
-            returnMap.put("temporaryplate", v.getTemporaryplate());//临时号码牌
+            returnMap.put("plateNumber", v.getPlateNumber());// 境外车牌号
+            returnMap.put("temporaryplate", v.getTemporaryplate());// 临时号码牌
             mapList.add(returnMap);
         }
         FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());

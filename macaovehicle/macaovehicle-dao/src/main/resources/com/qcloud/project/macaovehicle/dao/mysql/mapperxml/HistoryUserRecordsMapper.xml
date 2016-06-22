@@ -14,4 +14,9 @@
     <select id="getByFormInstCode" parameterType="java.util.HashMap" resultType="HistoryUserRecords">  
         select * from `macaovehicle_history_user_records` where `formInstCode` = #{formInstCode} limit 0,1
     </select>
+    
+    <select id="listByVehicleId" parameterType="java.util.HashMap" resultType="HistoryUserRecords">  
+        select * from `macaovehicle_history_user_records` where `vehicleId` = #{vehicleId}
+    </select>
+    
 </mapper>

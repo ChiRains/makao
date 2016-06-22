@@ -20,6 +20,19 @@ public class HistoryUserRecordsVO {
     // 完成时间
     private String finishTime;
 
+    // 类型名称
+    private String typeName;
+
+    public String getTypeName() {
+
+        return typeName;
+    }
+
+    public void setTypeName(String typeName) {
+
+        this.typeName = typeName;
+    }
+
     public HistoryUserRecordsVO() {
 
     }

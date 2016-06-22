@@ -38,8 +38,8 @@ public class TaskingUriHandlerImpl extends AbstractUriHandler {
     public List<String> permissionUris() {
 
         List<String> list = new ArrayList<String>();
-//        list.add("/tasking/list.do");
-//        list.add("/tasking/listDriverIncrease.do");
+        // list.add("/tasking/list.do");
+        // list.add("/tasking/listDriverIncrease.do");
         return list;
     }
 }

@@ -12,9 +12,9 @@ import com.qcloud.component.form.FormEvent;
 import com.qcloud.component.mvprocesstask.core.MvProcesstaskClient;
 import com.qcloud.component.mvprocesstask.model.Tasking;
 import com.qcloud.component.organization.OrganizationClient;
-import com.qcloud.component.organization.QClerk;
 import com.qcloud.pirates.util.AssertUtil;
 import com.qcloud.pirates.util.DateUtil;
+import com.qcloud.project.macaovehicle.exception.MacaovehicleException;
 import com.qcloud.project.macaovehicle.model.CarOwner;
 import com.qcloud.project.macaovehicle.model.CarOwnerAcquisition;
 import com.qcloud.project.macaovehicle.model.CarOwnerEnterprisers;
@@ -51,6 +51,7 @@ import com.qcloud.project.macaovehicle.service.VehicleService;
 import com.qcloud.project.macaovehicle.web.handler.TaskingBorderHandler;
 import com.qcloud.project.macaovehicle.web.handler.TaskingCiqHandler;
 import com.qcloud.project.macaovehicle.web.handler.TaskingCustomsHandler;
+import com.qcloud.project.macaovehicle.web.helper.StateHelper;
 
 /**
  * 续期申请
@@ -120,6 +121,9 @@ public class RenewalEvent implements FormEvent {
     @Autowired
     private ProfilesSuccessService     profilesSuccessService;
 
+    @Autowired
+    private StateHelper                stateHelper;
+
     @Override
     public void doEvent(FormEventType type, EventContext context) {
 
@@ -138,6 +142,9 @@ public class RenewalEvent implements FormEvent {
             //
             Vehicle v = vehicleService.get(Long.valueOf(vehicleId));
             AssertUtil.assertNotNull(v, "车辆信息不存在." + vehicleId);
+            if (!stateHelper.checkAvailType(Long.valueOf(vehicleId), ProgressType.XQSQ)) {
+                throw new MacaovehicleException("当前车辆您已不能续期申请.");
+            }
             ProfilesSuccessQuery query = new ProfilesSuccessQuery();
             query.setdEnable(EnableType.ENABLE.getKey());
             query.setvEnable(EnableType.ENABLE.getKey());

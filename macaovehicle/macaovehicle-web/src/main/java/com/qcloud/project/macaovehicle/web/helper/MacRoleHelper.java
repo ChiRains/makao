@@ -1,6 +1,9 @@
 package com.qcloud.project.macaovehicle.web.helper;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,6 +77,13 @@ public class MacRoleHelper {
                 classifys.add(classify);
             }
         }
+        Collections.sort(classifys, new Comparator<Classify>() {
+
+            public int compare(Classify arg0, Classify arg1) {
+
+                return arg0.getSort() - arg1.getSort();
+            }
+        });
         List<QClassify> classifyList = publicdataClient.listClassifyForTree(classifys);
         for (QClassify qClassify : classifyList) {
             fillFileServerUrlBeforeImage(qClassify);

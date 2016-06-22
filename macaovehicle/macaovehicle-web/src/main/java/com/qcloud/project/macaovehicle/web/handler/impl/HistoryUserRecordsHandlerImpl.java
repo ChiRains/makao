@@ -7,6 +7,7 @@ import com.qcloud.pirates.core.json.Json;
 import com.qcloud.pirates.util.DateUtil;
 import com.qcloud.project.macaovehicle.web.handler.HistoryUserRecordsHandler;
 import com.qcloud.project.macaovehicle.model.HistoryUserRecords;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
 import com.qcloud.project.macaovehicle.web.vo.HistoryUserRecordsVO;
 import com.qcloud.project.macaovehicle.web.vo.admin.AdminHistoryUserRecordsVO;
 
@@ -29,7 +30,12 @@ public class HistoryUserRecordsHandlerImpl implements HistoryUserRecordsHandler 
         String json = Json.toJson(historyUserRecords);
         HistoryUserRecordsVO vo = Json.toObject(json, HistoryUserRecordsVO.class, true);
         vo.setApplyTime(DateUtil.date2String(historyUserRecords.getApplyTime()));
-        vo.setFinishTime(DateUtil.date2String(historyUserRecords.getFinishTime()));
+        vo.setFinishTime(historyUserRecords.getFinishTime() != null ? DateUtil.date2String(historyUserRecords.getFinishTime()) : "-");
+        for (ProgressType progressType : ProgressType.values()) {
+            if (progressType.getKey() == historyUserRecords.getType()) {
+                vo.setTypeName(progressType.getName());
+            }
+        }
         return vo;
     }
 

@@ -97,6 +97,7 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
         historyUserRecords.setVehicleId(processProgress.getVehicleId());
         historyUserRecords.setType(processProgress.getType());
         historyUserRecords.setApplyTime(new Date());
+        historyUserRecords.setFormInstCode(processProgress.getFormInstCode());
         return historyUserRecordsService.add(historyUserRecords);
     }
 

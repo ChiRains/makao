@@ -13,6 +13,7 @@ import com.qcloud.component.organization.OrganizationClient;
 import com.qcloud.pirates.util.AssertUtil;
 import com.qcloud.pirates.util.DateUtil;
 import com.qcloud.project.macaovehicle.common.Constant;
+import com.qcloud.project.macaovehicle.exception.MacaovehicleException;
 import com.qcloud.project.macaovehicle.model.CarOwner;
 import com.qcloud.project.macaovehicle.model.DriverVehicle;
 import com.qcloud.project.macaovehicle.model.ProfilesSuccess;
@@ -30,6 +31,7 @@ import com.qcloud.project.macaovehicle.service.DriverService;
 import com.qcloud.project.macaovehicle.service.DriverVehicleService;
 import com.qcloud.project.macaovehicle.service.ProfilesSuccessService;
 import com.qcloud.project.macaovehicle.service.VehicleService;
+import com.qcloud.project.macaovehicle.web.helper.StateHelper;
 
 /**
  * 补办临时号牌
@@ -72,6 +74,9 @@ public class SupplementEvent implements FormEvent {
     @Autowired
     private DriverVehicleService   driverVehicleService;
 
+    @Autowired
+    private StateHelper            stateHelper;
+
     @Override
     public void doEvent(FormEventType type, EventContext context) {
 
@@ -90,6 +95,9 @@ public class SupplementEvent implements FormEvent {
             //
             Vehicle v = vehicleService.get(Long.valueOf(vehicleId));
             AssertUtil.assertNotNull(v, "车辆信息不存在." + vehicleId);
+            if (!stateHelper.checkAvailType(Long.valueOf(vehicleId), ProgressType.BBLSHP)) {
+                throw new MacaovehicleException("当前车辆您已不能补办临时号牌.");
+            }
             ProfilesSuccessQuery query = new ProfilesSuccessQuery();
             query.setdEnable(EnableType.ENABLE.getKey());
             query.setvEnable(EnableType.ENABLE.getKey());

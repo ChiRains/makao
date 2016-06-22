@@ -42,7 +42,7 @@ public class ProfilesSuccess {
     private String models;
 
     // 身份证号码(来自carOwner)
-//    private String idcardNumber;
+    private String idcardNumber;
 
     // 性别
     private int    sex;
@@ -68,7 +68,7 @@ public class ProfilesSuccess {
         this.driverName = driverName;
         this.driverIdCard = driverIdCard;
         this.models = models;
-//        this.idcardNumber = idcardNumber;
+        this.idcardNumber = idcardNumber;
         this.sex = sex;
         this.nation = nation;
     }
@@ -203,15 +203,15 @@ public class ProfilesSuccess {
         this.models = models;
     }
 
-//    public String getIdcardNumber() {
-//
-//        return idcardNumber;
-//    }
-//
-//    public void setIdcardNumber(String idcardNumber) {
-//
-//        this.idcardNumber = idcardNumber;
-//    }
+    public String getIdcardNumber() {
+
+        return idcardNumber;
+    }
+
+    public void setIdcardNumber(String idcardNumber) {
+
+        this.idcardNumber = idcardNumber;
+    }
 
     public int getSex() {
 
