@@ -25,6 +25,7 @@ import com.qcloud.project.macaovehicle.exception.MacaovehicleException;
 import com.qcloud.project.macaovehicle.model.CarOwner;
 import com.qcloud.project.macaovehicle.model.DriverVehicle;
 import com.qcloud.project.macaovehicle.model.OnestopCarRecord;
+import com.qcloud.project.macaovehicle.model.ProcessProgress;
 import com.qcloud.project.macaovehicle.model.ProfilesSuccess;
 import com.qcloud.project.macaovehicle.model.Vehicle;
 import com.qcloud.project.macaovehicle.model.VehicleCancel;
@@ -32,6 +33,7 @@ import com.qcloud.project.macaovehicle.model.key.TypeEnum.CancelType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.CarModels;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.EnableType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.FuelType;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressState;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.SteeringWheel;
 import com.qcloud.project.macaovehicle.model.query.DriverVehicleQuery;
@@ -40,6 +42,7 @@ import com.qcloud.project.macaovehicle.model.query.VehicleQuery;
 import com.qcloud.project.macaovehicle.service.CarOwnerService;
 import com.qcloud.project.macaovehicle.service.DriverVehicleService;
 import com.qcloud.project.macaovehicle.service.OnestopCarRecordService;
+import com.qcloud.project.macaovehicle.service.ProcessProgressService;
 import com.qcloud.project.macaovehicle.service.ProfilesSuccessService;
 import com.qcloud.project.macaovehicle.service.VehicleCancelService;
 import com.qcloud.project.macaovehicle.service.VehicleService;
@@ -83,7 +86,8 @@ public class VehicleController {
 
     @Autowired
     private StateHelper             stateHelper;
-
+    @Autowired
+    private ProcessProgressService processProgressService;
     @RequestMapping
     public FrontAjaxView list(HttpServletRequest request, VehicleQuery query) {
 
@@ -115,9 +119,14 @@ public class VehicleController {
                 DriverVehicleQuery query = new DriverVehicleQuery();
                 query.setVehicleId(vehicle.getId());
                 List<DriverVehicle> driverVehicles = driverVehicleService.listByQuery(query);
-                if (driverVehicles.size() > 0) {
-                    it.remove();
-                }
+                for (DriverVehicle dv : driverVehicles) {
+					ProcessProgress pp = processProgressService.getByFormInstanceId(dv.getFormInstanceId());
+					// 流程状态为“申请”并且状态为“通过”的车辆，不能再次申请入境
+					if (pp.getType() == ProgressState.SHENGQIN.getKey() && pp.getState() == 1) {
+						it.remove();
+						break;
+					}
+				}
             }
             break;
         case 2: // 添加驾驶员
