@@ -221,6 +221,7 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
                     } else {
                         profilesSuccess = new ProfilesSuccess();
                     }
+                    Driver driver = driverDao.get(dv.getDriverId());
                     profilesSuccess.setCarOwnerId(dv.getCarOwnerId());
                     profilesSuccess.setVehicleId(dv.getVehicleId());
                     profilesSuccess.setDriverId(dv.getDriverId());
@@ -229,10 +230,9 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
                     profilesSuccess.setvEnable(EnableType.ENABLE.getKey());
                     profilesSuccess.setdEnable(EnableType.ENABLE.getKey());
                     profilesSuccess.setPlateNumber(vehicle.getPlateNumber());
-                    profilesSuccess.setLicenseNumber(vehicle.getLicenseNumber());
+                    profilesSuccess.setLicenseNumber(driver.getLicenseNumber());
                     profilesSuccess.setModels(vehicle.getModels());
                     // 驾驶员可用卡id
-                    Driver driver = driverDao.get(dv.getDriverId());
                     driver.setDriverIc(dv.getDriverIc());
                     driver.setDriverIcState(EnableType.ENABLE.getKey());
 //                    CarOwner carOwner = carOwnerDao.get(dv.getCarOwnerId());
