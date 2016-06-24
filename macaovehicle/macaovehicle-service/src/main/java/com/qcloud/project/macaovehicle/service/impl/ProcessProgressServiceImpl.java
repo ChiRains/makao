@@ -21,7 +21,6 @@ import com.qcloud.project.macaovehicle.dao.VehicleDao;
 import com.qcloud.project.macaovehicle.entity.MessageEntity;
 import com.qcloud.project.macaovehicle.exception.MacaovehicleException;
 import com.qcloud.project.macaovehicle.model.ApprovalResults;
-import com.qcloud.project.macaovehicle.model.CarOwner;
 import com.qcloud.project.macaovehicle.model.Driver;
 import com.qcloud.project.macaovehicle.model.DriverVehicle;
 import com.qcloud.project.macaovehicle.model.HistoryUserRecords;
@@ -35,6 +34,7 @@ import com.qcloud.project.macaovehicle.model.key.TypeEnum.EnableType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.MessageType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressState;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.VehicleState;
 import com.qcloud.project.macaovehicle.model.query.ProcessProgressQuery;
 import com.qcloud.project.macaovehicle.model.query.ProfilesSuccessQuery;
 import com.qcloud.project.macaovehicle.service.HistoryUserRecordsService;
@@ -91,14 +91,21 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
 
         long id = autoIdGenerator.get(ID_KEY);
         processProgress.setId(id);
-        processProgressDao.add(processProgress);
         // 历史办理业务
         HistoryUserRecords historyUserRecords = new HistoryUserRecords();
         historyUserRecords.setVehicleId(processProgress.getVehicleId());
         historyUserRecords.setType(processProgress.getType());
         historyUserRecords.setApplyTime(new Date());
         historyUserRecords.setFormInstCode(processProgress.getFormInstCode());
-        return historyUserRecordsService.add(historyUserRecords);
+        historyUserRecordsService.add(historyUserRecords);
+        // 车辆入境状态修改
+        if (processProgress.getType() == ProgressType.APPLY.getKey()) {
+            Vehicle vehicle = vehicleDao.get(processProgress.getVehicleId());
+            AssertUtil.assertNotNull(vehicle, "车辆不存在." + processProgress.getVehicleId());
+            vehicle.setState(VehicleState.APPLYING.getKey());
+            vehicleDao.update(vehicle);
+        }
+        return processProgressDao.add(processProgress);
     }
 
     @Override
@@ -121,6 +128,17 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
             HistoryUserRecords historyUserRecords = historyUserRecordsDao.getByFormInstCode(processProgress.getFormInstCode());
             historyUserRecords.setFinishTime(new Date());
             historyUserRecordsDao.update(historyUserRecords);
+        }
+        // 车辆入境状态修改
+        if (processProgress.getType() == ProgressType.APPLY.getKey()) {
+            Vehicle vehicle = vehicleDao.get(processProgress.getVehicleId());
+            AssertUtil.assertNotNull(vehicle, "车辆不存在." + processProgress.getVehicleId());
+            if (processProgress.getProgressState() == ProgressState.WANCHENG.getKey()) {
+                vehicle.setState(VehicleState.PASS.getKey());
+            } else if (processProgress.getState() == ApplyType.REJECT.getKey()) {
+                vehicle.setState(VehicleState.NOTPASS.getKey());
+            }
+            vehicleDao.update(vehicle);
         }
         return processProgressDao.update(processProgress);
     }
@@ -147,7 +165,7 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
 
         return processProgressDao.listByCarOwnerId(carOwnerId);
     }
-    
+
     @Override
     public ProcessProgress getMaxByFormInstCode(String formInstCode) {
 
@@ -235,8 +253,8 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
                     // 驾驶员可用卡id
                     driver.setDriverIc(dv.getDriverIc());
                     driver.setDriverIcState(EnableType.ENABLE.getKey());
-//                    CarOwner carOwner = carOwnerDao.get(dv.getCarOwnerId());
-//                    profilesSuccess.setIdcardNumber(carOwner.getIdcardNumber());
+                    // CarOwner carOwner = carOwnerDao.get(dv.getCarOwnerId());
+                    // profilesSuccess.setIdcardNumber(carOwner.getIdcardNumber());
                     profilesSuccess.setDriverName(driver.getDriverName());
                     profilesSuccess.setDriverIdCard(driver.getDriverIdCard());
                     profilesSuccess.setSex(driver.getSex());

@@ -29,6 +29,7 @@ import com.qcloud.project.macaovehicle.model.ProcessProgress;
 import com.qcloud.project.macaovehicle.model.ProfilesSuccess;
 import com.qcloud.project.macaovehicle.model.Vehicle;
 import com.qcloud.project.macaovehicle.model.VehicleCancel;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.ApplyType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.CancelType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.CarModels;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.EnableType;
@@ -86,8 +87,10 @@ public class VehicleController {
 
     @Autowired
     private StateHelper             stateHelper;
+
     @Autowired
-    private ProcessProgressService processProgressService;
+    private ProcessProgressService  processProgressService;
+
     @RequestMapping
     public FrontAjaxView list(HttpServletRequest request, VehicleQuery query) {
 
@@ -120,13 +123,14 @@ public class VehicleController {
                 query.setVehicleId(vehicle.getId());
                 List<DriverVehicle> driverVehicles = driverVehicleService.listByQuery(query);
                 for (DriverVehicle dv : driverVehicles) {
-					ProcessProgress pp = processProgressService.getByFormInstanceId(dv.getFormInstanceId());
-					// 流程状态为“申请”并且状态为“通过”的车辆，不能再次申请入境
-					if (pp.getType() == ProgressState.SHENGQIN.getKey() && pp.getState() == 1) {
-						it.remove();
-						break;
-					}
-				}
+                    ProcessProgress pp = processProgressService.getByFormInstanceId(dv.getFormInstanceId());
+                    AssertUtil.assertNotNull(pp, "流程不存在." + dv.getFormInstanceId());
+                    // 流程状态为“申请”并且状态为“通过”的车辆，不能再次申请入境
+                    if (pp.getType() == ProgressState.SHENGQIN.getKey() && pp.getState() == ApplyType.PASS.getKey()) {
+                        it.remove();
+                        break;
+                    }
+                }
             }
             break;
         case 2: // 添加驾驶员

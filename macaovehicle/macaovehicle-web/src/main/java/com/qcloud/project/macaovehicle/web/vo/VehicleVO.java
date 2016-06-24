@@ -150,7 +150,11 @@ public class VehicleVO {
     // 保险单图片
     private String insuranceUrlUid;
 
+    // 0，未申请；1，正在审批；2，可入境；3，审批不通过
     private int    state;
+
+    // 0，未申请；1，正在审批；2，可入境；3，审批不通过
+    private String stateStr;
 
     // 时间有效期
     private String validDateStr;
@@ -729,5 +733,15 @@ public class VehicleVO {
     public void setIndicatorsTimeStr(String indicatorsTimeStr) {
 
         this.indicatorsTimeStr = indicatorsTimeStr;
+    }
+
+    public String getStateStr() {
+
+        return stateStr;
+    }
+
+    public void setStateStr(String stateStr) {
+
+        this.stateStr = stateStr;
     }
 }

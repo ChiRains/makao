@@ -14,6 +14,7 @@ import com.qcloud.project.macaovehicle.service.CarOwnerService;
 import com.qcloud.project.macaovehicle.web.handler.VehicleHandler;
 import com.qcloud.project.macaovehicle.model.CarOwner;
 import com.qcloud.project.macaovehicle.model.Vehicle;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.VehicleState;
 import com.qcloud.project.macaovehicle.web.vo.VehicleListVO;
 import com.qcloud.project.macaovehicle.web.vo.VehicleVO;
 import com.qcloud.project.macaovehicle.web.vo.admin.AdminVehicleVO;
@@ -90,6 +91,11 @@ public class VehicleHandlerImpl implements VehicleHandler {
         //
         if (StringUtils.isNotEmpty(vo.getInsuranceUrl())) {
             vo.setInsuranceUrl(vo.getInsuranceUrl());
+        }
+        for (VehicleState vehicleState : VehicleState.values()) {
+            if (vehicleState.getKey() == vehicle.getState()) {
+                vo.setStateStr(vehicleState.getName());
+            }
         }
         return vo;
     }

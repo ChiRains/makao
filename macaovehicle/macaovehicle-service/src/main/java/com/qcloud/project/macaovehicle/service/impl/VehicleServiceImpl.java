@@ -13,6 +13,7 @@ import com.qcloud.project.macaovehicle.model.CarOwner;
 import com.qcloud.project.macaovehicle.model.Vehicle;
 import com.qcloud.project.macaovehicle.service.CarOwnerService;
 import com.qcloud.project.macaovehicle.service.VehicleService;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.VehicleState;
 import com.qcloud.project.macaovehicle.model.query.VehicleQuery;
 
 @Service
@@ -44,6 +45,7 @@ public class VehicleServiceImpl implements VehicleService {
         vehicle.setFaceImage(fileSDKClient.uidToUrl(vehicle.getFaceImage()));
         vehicle.setInsuranceUrl(fileSDKClient.uidToUrl(vehicle.getInsuranceUrl()));
         vehicle.setId(id);
+        vehicle.setState(VehicleState.NONAPPLY.getKey());
         return vehicleDao.add(vehicle);
     }
 

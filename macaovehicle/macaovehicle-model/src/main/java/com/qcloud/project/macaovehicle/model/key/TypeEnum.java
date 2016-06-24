@@ -479,14 +479,14 @@ public class TypeEnum {
             return "";
         }
     }
-    public enum VehicleStateType {
+    public enum VehicleState {
         NONAPPLY(0, "未申请"), APPLYING(1, "正在审批"), PASS(2, "可入境"), NOTPASS(3, "审批不通过");
 
         private final int    key;
 
         private final String name;
 
-        private VehicleStateType(int key, String name) {
+        private VehicleState(int key, String name) {
 
             this.key = key;
             this.name = name;
