@@ -146,7 +146,7 @@ public class CarOwnerController {
 		boolean writable = true;
 		for (ProcessProgress processProgress : progressList) {
 			// 申请步骤中，只要未完成且没有被拒绝，就不可以编辑个人资料
-			if (processProgress.getProgressState() != ProgressState.WANCHENG.getKey() && processProgress.getState() == 1) {
+			if (processProgress.getState() == 1) {
 				writable = false;
 				break;
 			}
