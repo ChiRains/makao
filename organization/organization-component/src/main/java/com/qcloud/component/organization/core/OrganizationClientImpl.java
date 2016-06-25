@@ -550,4 +550,18 @@ public class OrganizationClientImpl implements OrganizationClient {
         clerk.setEnable(enable);
         return clerkService.update(clerk);
     }
+
+    @Override
+    public QClerk getByMobile(String mobile) {
+
+        Clerk clerk = clerkService.getByMobile(mobile);
+        AssertUtil.assertNotNull(clerk, "用户不存在." + mobile);
+        return toEntity(clerk);
+    }
+
+    @Override
+    public List<DepartmentClerk> listDepartmentClerk(Long departmentId) {
+
+        return departmentClerkService.listByDepartmentId(departmentId);
+    }
 }

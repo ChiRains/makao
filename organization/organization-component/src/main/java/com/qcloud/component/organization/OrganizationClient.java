@@ -73,4 +73,8 @@ public interface OrganizationClient {
     public Page<QClerk> page(ClerkQuery query, int start, int count);
 
     public boolean updateClerk(ClerkForm clerkForm, Long departmentId);
+
+    QClerk getByMobile(String mobile);
+
+    List<DepartmentClerk> listDepartmentClerk(Long departmentId);
 }

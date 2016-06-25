@@ -78,4 +78,10 @@ public class AccountRoleDaoCacheImpl implements AccountRoleDao {
 
         return accountRoleDaoMysqlImpl.unbindAccountGrant(accountId);
     }
+
+    @Override
+    public List<AccountRole> listByRoleId(Long roleId) {
+
+        return accountRoleDaoMysqlImpl.listByRoleId(roleId);
+    }
 }

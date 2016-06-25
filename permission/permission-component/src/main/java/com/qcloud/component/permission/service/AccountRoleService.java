@@ -21,4 +21,6 @@ public interface AccountRoleService {
     List<AccountRole> list(Long accountId);
 
     public boolean unbindAccountGrant(long accountId);
+
+    public List<AccountRole> listByRoleId(Long roleId);
 }

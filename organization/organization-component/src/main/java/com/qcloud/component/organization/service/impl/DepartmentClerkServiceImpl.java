@@ -90,4 +90,10 @@ public class DepartmentClerkServiceImpl implements DepartmentClerkService {
 
         return departmentClerkDao.getBelongsDepartment(clerkId);
     }
+
+    @Override
+    public List<DepartmentClerk> listByDepartmentId(Long departmentId) {
+
+        return departmentClerkDao.listByDepartment(departmentId);
+    }
 }

@@ -89,4 +89,10 @@ public class AccountRoleDaoMysqlImpl implements AccountRoleDao {
 
         return sqlOperator.delete("com.qcloud.component.permission.dao.mysql.mapper.AccountRoleMapper.unbindAccountGrant", accountId) > 0;
     }
+
+    @Override
+    public List<AccountRole> listByRoleId(Long roleId) {
+
+        return sqlOperator.selectList("com.qcloud.component.permission.dao.mysql.mapper.AccountRoleMapper.listByRoleId", roleId);
+    }
 }

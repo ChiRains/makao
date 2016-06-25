@@ -35,4 +35,8 @@ public interface AccountRoleMapper {
 
     @Delete("delete from `permission_account_role` where `accountId`=#{accountId}")
     public void unbindAccountGrant(Long accountId);
+    
+    @Select("select * from `permission_account_role` where `roleId`=#{roleId}")
+    public List<AccountRole> listByRoleId(Long roleId);
+    
 }

@@ -73,4 +73,10 @@ public class AccountRoleServiceImpl implements AccountRoleService {
 
         return accountRoleDao.unbindAccountGrant(accountId);
     }
+
+    @Override
+    public List<AccountRole> listByRoleId(Long roleId) {
+
+        return accountRoleDao.listByRoleId(roleId);
+    }
 }

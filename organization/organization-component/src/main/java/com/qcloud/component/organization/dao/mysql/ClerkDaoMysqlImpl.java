@@ -79,6 +79,25 @@ public class ClerkDaoMysqlImpl implements ClerkDao {
         param.put("name", StringUtil.emptyToNull(query.getName()));
         param.put("type", query.getType());
         param.put("laborNumber", StringUtil.emptyToNull(query.getLaborNumber()));
+        StringBuilder ids4Role = new StringBuilder();
+        for (Long clerkId : query.getIds4Role()) {
+            ids4Role.append(clerkId);
+            ids4Role.append(",");
+        }
+        if (query.getIds4Role().size() > 0) {
+            ids4Role.deleteCharAt(ids4Role.length() - 1);
+        }
+        param.put("ids4Role", StringUtil.emptyToNull(ids4Role.toString()));
+        //
+        StringBuilder ids4Department = new StringBuilder();
+        for (Long clerkId : query.getIds4Department()) {
+            ids4Department.append(clerkId);
+            ids4Department.append(",");
+        }
+        if (query.getIds4Department().size() > 0) {
+            ids4Department.deleteCharAt(ids4Department.length() - 1);
+        }
+        param.put("ids4Department", StringUtil.emptyToNull(ids4Department.toString()));
         List<Clerk> list = sqlOperator.selectList("com.qcloud.component.organization.dao.mysql.mapper.ClerkMapper.list4query", param);
         int total = sqlOperator.selectOne("com.qcloud.component.organization.dao.mysql.mapper.ClerkMapper.count4query", param);
         Page<Clerk> page = new Page<Clerk>();

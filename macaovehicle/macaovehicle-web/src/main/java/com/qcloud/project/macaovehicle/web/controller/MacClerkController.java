@@ -1,6 +1,10 @@
 package com.qcloud.project.macaovehicle.web.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +16,7 @@ import com.qcloud.component.organization.QDepartment;
 import com.qcloud.component.organization.common.ClerkConstant;
 import com.qcloud.component.organization.form.ClerkForm;
 import com.qcloud.component.organization.model.Clerk;
+import com.qcloud.component.organization.model.DepartmentClerk;
 import com.qcloud.component.organization.model.key.TypeEnum.ClerkType;
 import com.qcloud.component.organization.model.key.TypeEnum.EnableType;
 import com.qcloud.component.organization.model.query.ClerkQuery;
@@ -89,13 +94,31 @@ public class MacClerkController {
      * @return
      */
     @RequestMapping
-    public FrontPagingView list(HttpServletRequest request, Integer pageNum, Integer pageSize, ClerkQuery query) {
+    public FrontPagingView list(HttpServletRequest request, Integer pageNum, Integer pageSize, ClerkQuery clerkQuery) {
 
         final int PAGE_SIZE = pageSize == null || pageSize <= 0 ? 10 : pageSize;
         pageNum = RequestUtil.getPageid(pageNum);
         int start = NumberUtil.getPageStart(pageNum, PAGE_SIZE);
-        ClerkQuery clerkQuery = new ClerkQuery();
         clerkQuery.setType(ClerkType.SHENPI.getKey());
+        List<Long> ids4Role = new ArrayList<Long>();
+        List<Long> ids4Department = new ArrayList<Long>();
+        if (clerkQuery.getRoleId() > 0) {
+            List<Account> accounts = accountClient.listByRoleId(clerkQuery.getRoleId());
+            for (Account account : accounts) {
+                QClerk qClerk = organizationClient.getByMobile(account.getCode().replace(ClerkConstant.CLERKPREFIXCODE, ""));
+                ids4Role.add(qClerk.getId());
+            }
+            ids4Role.add(0L);
+        }
+        if (clerkQuery.getDepartmentId() > 0) {
+            List<DepartmentClerk> departmentClerks = organizationClient.listDepartmentClerk(clerkQuery.getDepartmentId());
+            for (DepartmentClerk departmentClerk : departmentClerks) {
+                ids4Department.add(departmentClerk.getClerkId());
+            }
+            ids4Department.add(0L);
+        }
+        clerkQuery.setIds4Role(ids4Role);
+        clerkQuery.setIds4Department(ids4Department);
         Page<QClerk> page = organizationClient.page(clerkQuery, start, PAGE_SIZE);
         FrontPagingView view = new FrontPagingView(pageNum, PAGE_SIZE, page.getCount());
         view.setList(page.getData());

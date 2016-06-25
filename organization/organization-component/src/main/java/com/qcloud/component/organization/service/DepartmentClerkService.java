@@ -25,4 +25,6 @@ public interface DepartmentClerkService {
     List<DepartmentClerk> listByDepartment(Long departmentId);
 
     DepartmentClerk getBelongsDepartment(Long clerkId);
+
+    public List<DepartmentClerk> listByDepartmentId(Long departmentId);
 }

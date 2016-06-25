@@ -14,6 +14,12 @@
         <if test="laborNumber != null">
         	and `laborNumber` like concat('%',#{laborNumber},'%') 
         </if>
+         <if test="ids4Role != null">
+        	and `id` in(${ids4Role})
+        </if>
+        <if test="ids4Department != null">
+        	and `id` in(${ids4Department})
+        </if>
         limit #{start},#{count}
     </select>  
     
@@ -27,6 +33,12 @@
         </if>
         <if test="laborNumber != null">
         	and `laborNumber` like concat('%',#{laborNumber},'%')
+        </if>
+        <if test="ids4Role != null">
+        	and `id` in(${ids4Role})
+        </if>
+        <if test="ids4Department != null">
+        	and `id` in(${ids4Department})
         </if>
     </select>
     

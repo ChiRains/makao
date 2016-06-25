@@ -28,4 +28,6 @@ public interface AccountRoleDao extends ISimpleDao<AccountRole, Long> {
     AccountRole get(Long accountId, Long roleId);
 
     public boolean unbindAccountGrant(long accountId);
+
+    public List<AccountRole> listByRoleId(Long roleId);
 }
