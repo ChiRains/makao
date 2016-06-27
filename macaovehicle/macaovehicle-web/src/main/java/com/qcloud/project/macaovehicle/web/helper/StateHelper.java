@@ -81,6 +81,10 @@ public class StateHelper {
                         availTypeList.remove((Object) ProgressType.ZXCL.getKey());
                     }
                 }
+                // 注销车辆，其他业务不允许申请
+                if (type == ProgressType.ZXCL.getKey()) {
+                    availTypeList.clear();
+                }
             }
         } else {
             typeList.add(new TypeInterface() {
@@ -160,16 +164,11 @@ public class StateHelper {
                     availTypeList.remove((Object) ProgressType.ZXCL.getKey());
                 }
             }
+            // 注销车辆，其他业务不允许申请
+            if (type == ProgressType.ZXCL.getKey()) {
+                availTypeList.clear();
+            }
         }
         return availTypeList.contains(pt.getKey());
-    }
-
-    public static void main(String[] args) {
-
-        int i = 1;
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(Integer.valueOf(1));
-        list.add(Integer.valueOf(2));
-        System.out.println(list.remove(i));
     }
 }
