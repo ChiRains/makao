@@ -158,7 +158,7 @@ public class DriverLossController {
         processProgress.setVehicleId(-1);
         processProgressService.add(processProgress);
         FrontAjaxView view = new FrontAjaxView();
-        view.setMessage("挂失司机卡成功");
+        view.setMessage("补办司机卡成功");
         return view;
     }
 
