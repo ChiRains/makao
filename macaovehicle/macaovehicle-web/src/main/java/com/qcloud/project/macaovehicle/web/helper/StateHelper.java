@@ -75,7 +75,7 @@ public class StateHelper {
         // 注销车辆：如果对应存在续期申请、补办电子车卡、补办临时号牌、添加驾驶员申请，那么不显示该按钮
         if (availTypeList.contains(ProgressType.TJJSY.getKey()) || availTypeList.contains(ProgressType.BBDZCK.getKey()) || availTypeList.contains(ProgressType.BBLSHP.getKey()) || availTypeList.contains(ProgressType.XQSQ.getKey())) {
             if (availTypeList.contains(ProgressType.ZXCL.getKey())) {
-                availTypeList.remove(ProgressType.ZXCL.getKey());
+                availTypeList.remove((Object)ProgressType.ZXCL.getKey());
             }
         }
     }

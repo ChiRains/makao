@@ -309,15 +309,15 @@ public class VehicleController {
         vehicle.setRicState(EnableType.DISABLE.getKey());
         // 注销车辆卡id
         if (vehicleService.update(vehicle)) {
-            ProfilesSuccessQuery query = new ProfilesSuccessQuery();
-            query.setVehicleId(vehicleId);
-            query.setvEnable(EnableType.ENABLE.getKey());
-            //
-            List<ProfilesSuccess> profilesSuccesses = profilesSuccessService.listByQuery(query);
-            for (ProfilesSuccess profilesSuccess : profilesSuccesses) {
-                profilesSuccess.setvEnable(EnableType.DISABLE.getKey());
-                profilesSuccessService.update(profilesSuccess);
-            }
+            // ProfilesSuccessQuery query = new ProfilesSuccessQuery();
+            // query.setVehicleId(vehicleId);
+            // query.setvEnable(EnableType.ENABLE.getKey());
+            // //
+            // List<ProfilesSuccess> profilesSuccesses = profilesSuccessService.listByQuery(query);
+            // for (ProfilesSuccess profilesSuccess : profilesSuccesses) {
+            // profilesSuccess.setvEnable(EnableType.DISABLE.getKey());
+            // profilesSuccessService.update(profilesSuccess);
+            // }
         }
         // 注销车辆列表
         VehicleCancel vehicleCancel = new VehicleCancel();
