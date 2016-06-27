@@ -155,6 +155,7 @@ public class DriverLossController {
         processProgress.setDateStr(DateUtil.date2String(new Date()));
         processProgress.setProgressState(ProgressState.SHENGQIN.getKey());
         processProgress.setType(ProgressType.BBSJK.getKey());
+        processProgress.setVehicleId(-1);
         processProgressService.add(processProgress);
         FrontAjaxView view = new FrontAjaxView();
         view.setMessage("挂失司机卡成功");

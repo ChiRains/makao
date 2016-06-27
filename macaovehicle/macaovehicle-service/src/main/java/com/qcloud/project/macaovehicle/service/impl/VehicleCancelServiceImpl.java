@@ -45,6 +45,7 @@ public class VehicleCancelServiceImpl implements VehicleCancelService {
         processProgress.setDateStr(DateUtil.date2String(new Date()));
         processProgress.setProgressState(ProgressState.SHENGQIN.getKey());
         processProgress.setType(ProgressType.ZXCL.getKey());
+        processProgress.setVehicleId(vehicleCancel.getVehicleId());
         processProgressService.add(processProgress);
         return vehicleCancelDao.add(vehicleCancel);
     }

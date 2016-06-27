@@ -73,18 +73,45 @@ public class StateHelper {
             }
         }
         // 注销车辆：如果对应存在续期申请、补办电子车卡、补办临时号牌、添加驾驶员申请，那么不显示该按钮
-        if (availTypeList.contains(ProgressType.TJJSY.getKey()) || availTypeList.contains(ProgressType.BBDZCK.getKey()) || availTypeList.contains(ProgressType.BBLSHP.getKey()) || availTypeList.contains(ProgressType.XQSQ.getKey())) {
-            if (availTypeList.contains(ProgressType.ZXCL.getKey())) {
-                availTypeList.remove((Object)ProgressType.ZXCL.getKey());
+        if (typeList.size() > 0) {
+            for (TypeInterface typeInterface : typeList) {
+                int type = typeInterface.getType();
+                if (type == ProgressType.TJJSY.getKey() || type == ProgressType.BBDZCK.getKey() || type == ProgressType.BBLSHP.getKey() || type == ProgressType.XQSQ.getKey()) {
+                    if (availTypeList.contains(ProgressType.ZXCL.getKey())) {
+                        availTypeList.remove((Object) ProgressType.ZXCL.getKey());
+                    }
+                }
             }
+        } else {
+            typeList.add(new TypeInterface() {
+
+                @Override
+                public int getType() {
+
+                    return -1;
+                }
+
+                @Override
+                public String getTypeName() {
+
+                    return "无";
+                }
+            });
         }
     }
 
+    /**
+     * 针对某一个业务判断是否可用
+     * @param vehicleId
+     * @param pt
+     * @return
+     */
     public boolean checkAvailType(Long vehicleId, ProgressType pt) {
 
         List<HistoryUserRecords> hurList = historyUserRecordsService.listByVehicleId(vehicleId);
         // 显示的按钮,未办理的业务
         List<Integer> availTypeList = new ArrayList<Integer>();
+        List<TypeInterface> typeList = new ArrayList<TypeInterface>();
         for (final ProgressType progressType : ProgressType.values()) {
             boolean doFlag = false;
             for (HistoryUserRecords historyUserRecords : hurList) {
@@ -94,6 +121,20 @@ public class StateHelper {
                 }
                 // 当前办理业务
                 if (progressType.getKey() == historyUserRecords.getType()) {
+                    typeList.add(new TypeInterface() {
+
+                        @Override
+                        public String getTypeName() {
+
+                            return progressType.getName();
+                        }
+
+                        @Override
+                        public int getType() {
+
+                            return progressType.getKey();
+                        }
+                    });
                     doFlag = true;
                     break;
                 }
@@ -112,9 +153,12 @@ public class StateHelper {
             }
         }
         // 注销车辆：如果对应存在续期申请、补办电子车卡、补办临时号牌、添加驾驶员申请，那么不显示该按钮
-        if (availTypeList.contains(ProgressType.TJJSY.getKey()) || availTypeList.contains(ProgressType.BBDZCK.getKey()) || availTypeList.contains(ProgressType.BBLSHP.getKey()) || availTypeList.contains(ProgressType.XQSQ.getKey())) {
-            if (availTypeList.contains(ProgressType.ZXCL.getKey())) {
-                availTypeList.remove((Object) ProgressType.ZXCL.getKey());
+        for (TypeInterface typeInterface : typeList) {
+            int type = typeInterface.getType();
+            if (type == ProgressType.TJJSY.getKey() || type == ProgressType.BBDZCK.getKey() || type == ProgressType.BBLSHP.getKey() || type == ProgressType.XQSQ.getKey()) {
+                if (availTypeList.contains(ProgressType.ZXCL.getKey())) {
+                    availTypeList.remove((Object) ProgressType.ZXCL.getKey());
+                }
             }
         }
         return availTypeList.contains(pt.getKey());
