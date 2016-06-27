@@ -26,6 +26,7 @@ import com.qcloud.project.macaovehicle.model.DriverVehicle;
 import com.qcloud.project.macaovehicle.model.IllegalCarRecord;
 import com.qcloud.project.macaovehicle.model.ProcessProgress;
 import com.qcloud.project.macaovehicle.model.Vehicle;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
 import com.qcloud.project.macaovehicle.service.CarOwnerService;
 import com.qcloud.project.macaovehicle.service.DriverService;
 import com.qcloud.project.macaovehicle.service.DriverVehicleService;
@@ -96,6 +97,16 @@ public class ProcessProgressHandlerImpl implements ProcessProgressHandler {
         }
         if (!StringUtils.isEmpty(driverInfo)) {
             driverInfo = driverInfo.substring(0, driverInfo.length() - 1);
+        }
+        // 异常流程,有些类型无车辆、驾驶员信息
+        if (processProgress.getType() == ProgressType.BBLSHP.getKey() || processProgress.getType() == ProgressType.XQSQ.getKey() 
+                || processProgress.getType() == ProgressType.ZXCL.getKey() 
+                || processProgress.getType() == ProgressType.BBDZCK.getKey()) {
+            Vehicle vehicle = vehicleService.get(processProgress.getVehicleId());
+            AssertUtil.assertNotNull(vehicle, "车辆不存在.");
+            vehicleInfo = vehicle.getPlateNumber() + "," + vehicle.getColor() + "," + vehicle.getBrand() + "," + vehicle.getSpecification();
+            ownName = vehicle.getOwnerName();
+            driverInfo = "-";
         }
         // CarOwner carOwner = carOwnerService.get(processProgress.getCarOwnerId());
         returnMap.put("ownerName", ownName);

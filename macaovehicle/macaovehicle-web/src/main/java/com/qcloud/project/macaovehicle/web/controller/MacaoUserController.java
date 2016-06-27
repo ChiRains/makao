@@ -124,7 +124,11 @@ public class MacaoUserController {
         if (form.getCertificateUrls().size() > 0) {
             String certificateUrls = "";
             for (String certificateUrl : form.getCertificateUrls()) {
-                certificateUrls = certificateUrls + fileSDKClient.uidToUrl(certificateUrl) + ",";
+                String url = fileSDKClient.uidToUrl(certificateUrl);
+                if (StringUtils.isEmpty(url)) {
+                    continue;
+                }
+                certificateUrls = certificateUrls + url + ",";
             }
             if (!StringUtils.isEmpty(certificateUrls)) {
                 certificateUrls = certificateUrls.substring(0, certificateUrls.length() - 1);
