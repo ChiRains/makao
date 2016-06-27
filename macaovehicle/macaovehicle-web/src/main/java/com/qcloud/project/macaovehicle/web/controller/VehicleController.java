@@ -37,6 +37,7 @@ import com.qcloud.project.macaovehicle.model.key.TypeEnum.FuelType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressState;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.SteeringWheel;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.VehicleState;
 import com.qcloud.project.macaovehicle.model.query.DriverVehicleQuery;
 import com.qcloud.project.macaovehicle.model.query.ProfilesSuccessQuery;
 import com.qcloud.project.macaovehicle.model.query.VehicleQuery;
@@ -170,6 +171,7 @@ public class VehicleController {
         AssertUtil.assertNotNull(carOwner, "用户信息不完整." + user.getId());
         Vehicle vehicle = vehicleService.get(vehicleId);
         AssertUtil.assertNotNull(vehicle, "车辆信息不存在." + vehicleId);
+        AssertUtil.assertTrue(vehicle.getState() == VehicleState.NONAPPLY.getKey(), "只有未申请的车辆才允许删除.");
         AssertUtil.assertTrue(carOwner.getId() == vehicle.getCarOwnerId(), "只能删除自己的资料");
         if (carOwner.getId() != vehicle.getCarOwnerId()) {
             throw new MacaovehicleException("只能删除自己的资料");
@@ -195,8 +197,10 @@ public class VehicleController {
         AssertUtil.assertNotNull(carOwner, "用户信息不完整." + user.getId());
         Vehicle temp = vehicleService.get(vehicle.getId());
         AssertUtil.assertTrue(temp.getCarOwnerId() == carOwner.getId(), "只能修改自己的资料");
+        AssertUtil.assertTrue(temp.getState() == VehicleState.NONAPPLY.getKey() || temp.getState() == VehicleState.NOTPASS.getKey(), "只有未申请或被拒绝的车辆才允许修改.");
         // 不允许修改车牌号
         vehicle.setCarOwnerId(carOwner.getId());
+        vehicle.setApproveTime(temp.getApproveTime());
         // vehicle.setPlateNumber(temp.getPlateNumber());
         vehicleService.update(vehicle);
         FrontAjaxView view = new FrontAjaxView();
