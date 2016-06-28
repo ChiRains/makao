@@ -85,7 +85,7 @@ public class ProcessProgressDaoCacheImpl implements ProcessProgressDao {
 
         return processProgressDaoMysqlImpl.listByCarOwnerId(carOwnerId);
     }
-    
+
     @Override
     public ProcessProgress getMaxByFormInstCode(String formInstCode) {
 
@@ -114,5 +114,11 @@ public class ProcessProgressDaoCacheImpl implements ProcessProgressDao {
     public ProcessProgress get(Long carOwnerId, Long formInstanceId) {
 
         return processProgressDaoMysqlImpl.get(carOwnerId, formInstanceId);
+    }
+
+    @Override
+    public ProcessProgress get(Long carOwnerId, String formInstCode) {
+
+        return processProgressDaoMysqlImpl.get(carOwnerId, formInstCode);
     }
 }

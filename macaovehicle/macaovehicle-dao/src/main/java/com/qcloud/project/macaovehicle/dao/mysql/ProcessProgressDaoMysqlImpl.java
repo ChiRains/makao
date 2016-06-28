@@ -103,9 +103,10 @@ public class ProcessProgressDaoMysqlImpl implements ProcessProgressDao {
         List<ProcessProgress> list = sqlOperator.selectList("com.qcloud.project.macaovehicle.dao.mysql.mapper.ProcessProgressMapper.listByCarOwnerId", param);
         return list;
     }
-    
+
     @Override
     public List<ProcessProgress> listByCarOwnerId(Long carOwnerId) {
+
         Map<String, Object> param = new HashMap<String, Object>();
         param.put("carOwnerId", carOwnerId);
         List<ProcessProgress> list = sqlOperator.selectList("com.qcloud.project.macaovehicle.dao.mysql.mapper.ProcessProgressMapper.getListByCarOwnerId", param);
@@ -164,6 +165,19 @@ public class ProcessProgressDaoMysqlImpl implements ProcessProgressDao {
         param.put("carOwnerId", carOwnerId);
         param.put("formInstanceId", formInstanceId);
         param.put("type", -1);
+        return sqlOperator.selectOne("com.qcloud.project.macaovehicle.dao.mysql.mapper.ProcessProgressMapper.getMap", param);
+    }
+
+    @Override
+    public ProcessProgress get(Long carOwnerId, String formInstCode) {
+
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("start", 0);
+        param.put("count", 1);
+        param.put("carOwnerId", carOwnerId);
+        param.put("formInstCode", formInstCode);
+        param.put("type", -1);
+        param.put("formInstanceId", -1);
         return sqlOperator.selectOne("com.qcloud.project.macaovehicle.dao.mysql.mapper.ProcessProgressMapper.getMap", param);
     }
 }

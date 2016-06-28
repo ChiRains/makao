@@ -382,4 +382,10 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
 
         return processProgressDao.get(carOwnerId, formInstanceId);
     }
+
+    @Override
+    public ProcessProgress get(long carOwnerId, String formInstCode) {
+
+        return processProgressDao.get(carOwnerId, formInstCode);
+    }
 }

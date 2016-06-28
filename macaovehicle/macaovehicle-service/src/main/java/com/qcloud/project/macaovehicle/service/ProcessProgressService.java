@@ -22,7 +22,7 @@ public interface ProcessProgressService {
     public List<ProcessProgress> listAll();
 
     public List<ProcessProgress> listByCarOwnerId(Long carOwnerId, int start, int count);
-    
+
     public List<ProcessProgress> listByCarOwnerId(Long carOwnerId);
 
     public ProcessProgress getMaxByFormInstCode(String formInstCode);
@@ -44,4 +44,6 @@ public interface ProcessProgressService {
     public boolean changeState(Long formInstanceId, int applyType, int progressState, Long creator, MessageEntity messageEntity);
 
     public ProcessProgress get(Long carOwnerId, Long formInstanceId);
+
+    public ProcessProgress get(long carOwnerId, String formInstCode);
 }

@@ -28,7 +28,7 @@ public interface ProcessProgressDao extends ISimpleDao<ProcessProgress, Long> {
     public List<ProcessProgress> listAll();
 
     List<ProcessProgress> listByCarOwnerId(Long carOwnerId, int start, int count);
-    
+
     List<ProcessProgress> listByCarOwnerId(Long carOwnerId);
 
     public ProcessProgress getMaxByFormInstCode(String formInstCode);
@@ -40,4 +40,6 @@ public interface ProcessProgressDao extends ISimpleDao<ProcessProgress, Long> {
     public ProcessProgress getByFormInstanceId(Long formInstanceId);
 
     public ProcessProgress get(Long carOwnerId, Long formInstanceId);
+
+    public ProcessProgress get(Long carOwnerId, String formInstCode);
 }

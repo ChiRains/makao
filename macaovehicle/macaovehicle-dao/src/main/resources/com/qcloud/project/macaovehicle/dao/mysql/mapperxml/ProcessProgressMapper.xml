@@ -43,6 +43,9 @@
         <if test="formInstanceId > 0">
         and `formInstanceId`=#{formInstanceId}
         </if>
+        <if test="formInstCode != null">
+        and `formInstCode`=#{formInstCode}
+        </if>
         <if test="carOwnerId > 0">
         and `carOwnerId`=#{carOwnerId}
         </if>
