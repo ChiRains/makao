@@ -75,8 +75,14 @@ public class DriverLossDaoCacheImpl implements DriverLossDao {
     }
 
     @Override
-    public DriverLoss getByDriverId(Long driverId) {
+    public List<DriverLoss> listByDriver(Long driverId) {
 
-        return driverLossDaoMysqlImpl.getByDriverId(driverId);
+        return driverLossDaoMysqlImpl.listByDriver(driverId);
+    }
+
+    @Override
+    public DriverLoss getByFormInstCode(String formInstCode) {
+
+        return driverLossDaoMysqlImpl.getByFormInstCode(formInstCode);
     }
 }

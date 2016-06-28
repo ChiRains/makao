@@ -95,8 +95,14 @@ public class DriverLossDaoMysqlImpl implements DriverLossDao {
     }
 
     @Override
-    public DriverLoss getByDriverId(Long driverId) {
+    public List<DriverLoss> listByDriver(Long driverId) {
 
-        return sqlOperator.selectOne("com.qcloud.project.macaovehicle.dao.mysql.mapper.DriverLossMapper.getByDriverId", driverId);
+        return sqlOperator.selectList("com.qcloud.project.macaovehicle.dao.mysql.mapper.DriverLossMapper.listByDriverId", driverId);
+    }
+
+    @Override
+    public DriverLoss getByFormInstCode(String formInstCode) {
+
+        return sqlOperator.selectOne("com.qcloud.project.macaovehicle.dao.mysql.mapper.DriverLossMapper.getByFormInstCode", formInstCode);
     }
 }

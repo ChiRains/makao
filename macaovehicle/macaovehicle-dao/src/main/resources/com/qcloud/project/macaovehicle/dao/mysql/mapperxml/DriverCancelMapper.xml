@@ -29,4 +29,12 @@
        		and recordTime BETWEEN #{applyTimeFront} AND #{applyTimeBack}
         </if>
     </select> 
+    
+    <select id="listByDriver" parameterType="java.util.HashMap" resultType="DriverCancel">  
+        select * from `macaovehicle_driver_cancel` where 1=1 and `driverId` = #{driverId}
+    </select>  
+    
+    <select id="getByFormInstCode" parameterType="java.util.HashMap" resultType="DriverCancel">  
+        select * from `macaovehicle_driver_cancel` where 1=1 and `formInstCode` = #{formInstCode} limit 1
+    </select> 
 </mapper>

@@ -73,7 +73,13 @@ public class DriverLossDaoRedisImpl implements DriverLossDao {
     }
 
     @Override
-    public DriverLoss getByDriverId(Long driverId) {
+    public List<DriverLoss> listByDriver(Long driverId) {
+
+        throw new NotImplementedException();
+    }
+
+    @Override
+    public DriverLoss getByFormInstCode(String formInstCode) {
 
         throw new NotImplementedException();
     }

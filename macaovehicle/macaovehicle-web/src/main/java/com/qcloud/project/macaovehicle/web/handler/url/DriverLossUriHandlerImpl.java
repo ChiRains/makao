@@ -16,7 +16,6 @@ public class DriverLossUriHandlerImpl extends AbstractUriHandler {
         list.add("/admin/driverLoss/add.do");
         list.add("/admin/driverLoss/edit.do");
         //
-        list.add("/driverLoss/lossDriver.do");
         list.add("/driverLoss/fillDriver.do");
         list.add("/driverLoss/sign.do");
         list.add("/driverLoss/list.do");

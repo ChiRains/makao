@@ -18,15 +18,18 @@ import com.qcloud.project.macaovehicle.exception.MacaovehicleException;
 import com.qcloud.project.macaovehicle.model.CarOwner;
 import com.qcloud.project.macaovehicle.model.Driver;
 import com.qcloud.project.macaovehicle.model.DriverCancel;
+import com.qcloud.project.macaovehicle.model.DriverLoss;
 import com.qcloud.project.macaovehicle.model.DriverVehicle;
 import com.qcloud.project.macaovehicle.model.ProfilesSuccess;
 import com.qcloud.project.macaovehicle.model.Vehicle;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.CancelType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.EnableType;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.LossType;
 import com.qcloud.project.macaovehicle.model.query.DriverVehicleQuery;
 import com.qcloud.project.macaovehicle.model.query.ProfilesSuccessQuery;
 import com.qcloud.project.macaovehicle.service.CarOwnerService;
 import com.qcloud.project.macaovehicle.service.DriverCancelService;
+import com.qcloud.project.macaovehicle.service.DriverLossService;
 import com.qcloud.project.macaovehicle.service.DriverService;
 import com.qcloud.project.macaovehicle.service.DriverVehicleService;
 import com.qcloud.project.macaovehicle.service.ProfilesSuccessService;
@@ -69,6 +72,9 @@ public class DriverController {
 
     @Autowired
     private VehicleService         vehicleService;
+
+    @Autowired
+    private DriverLossService      driverLossService;
 
     @RequestMapping
     public FrontAjaxView add(HttpServletRequest request, Driver driver) {
@@ -266,6 +272,20 @@ public class DriverController {
         } else {
             carOwner = carOwnerService.get(driver.getCarOwnerId());
         }
+        // 补办驾驶员卡
+        List<DriverLoss> driverLosses = driverLossService.listByDriver(driverId);
+        for (DriverLoss driverLoss : driverLosses) {
+            if (driverLoss.getType() == LossType.BB.getKey()) {
+                throw new MacaovehicleException("该司机卡在处理中，注销申请失败.");
+            }
+        }
+        // 注销驾驶员
+        List<DriverCancel> driverCancels = driverCancelService.listByDriver(driverId);
+        for (DriverCancel driverCancel : driverCancels) {
+            if (driverCancel.getState() == CancelType.UNDO.getKey()) {
+                throw new MacaovehicleException("该驾驶员已申请注销.");
+            }
+        }
         String formInstCode = uniqueCodeGenerator.generate("pirates-form-loss-code", new HashMap<String, String>());
         driver.setDriverIcState(EnableType.DISABLE.getKey());
         Date nowDate = new Date();
@@ -278,8 +298,8 @@ public class DriverController {
             List<ProfilesSuccess> profilesSuccesses = profilesSuccessService.listByQuery(query);
             for (ProfilesSuccess profilesSuccess : profilesSuccesses) {
                 Vehicle vehicle = vehicleService.get(profilesSuccess.getVehicleId());
-                profilesSuccess.setdEnable(EnableType.DISABLE.getKey());
-                profilesSuccessService.update(profilesSuccess);
+                // profilesSuccess.setdEnable(EnableType.DISABLE.getKey());
+                // profilesSuccessService.update(profilesSuccess);
                 // 注销驾驶员列表
                 DriverCancel driverCancel = new DriverCancel();
                 driverCancel.setFormInstCode(formInstCode);
@@ -298,7 +318,7 @@ public class DriverController {
             }
         }
         FrontAjaxView view = new FrontAjaxView();
-        view.setMessage("注销驾驶员成功.");
+        view.setMessage("申请注销驾驶员成功.");
         return view;
     }
 }

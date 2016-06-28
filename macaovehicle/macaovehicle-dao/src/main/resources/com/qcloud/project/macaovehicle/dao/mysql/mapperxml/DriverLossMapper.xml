@@ -30,7 +30,12 @@
         </if>
     </select> 
     
-    <select id="getByDriverId" parameterType="java.util.HashMap" resultType="DriverLoss">  
-        select * from `macaovehicle_driver_loss` where `driverId`=#{driverId} limit 1
-    </select>  
+    <select id="listByDriverId" parameterType="java.util.HashMap" resultType="DriverLoss">  
+        select * from `macaovehicle_driver_loss` where `driverId`=#{driverId}
+    </select> 
+    
+    <select id="getByFormInstCode" parameterType="java.util.HashMap" resultType="DriverLoss">  
+        select * from `macaovehicle_driver_loss` where `formInstCode`=#{formInstCode} limit 1
+    </select> 
+     
 </mapper>

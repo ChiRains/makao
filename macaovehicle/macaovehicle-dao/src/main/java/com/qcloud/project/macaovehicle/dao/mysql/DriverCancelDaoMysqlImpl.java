@@ -93,4 +93,16 @@ public class DriverCancelDaoMysqlImpl implements DriverCancelDao {
         List<DriverCancel> list = sqlOperator.selectList("com.qcloud.project.macaovehicle.dao.mysql.mapper.DriverCancelMapper.listAll");
         return list;
     }
+
+    @Override
+    public List<DriverCancel> listByDriver(Long driverId) {
+
+        return sqlOperator.selectList("com.qcloud.project.macaovehicle.dao.mysql.mapper.DriverCancelMapper.listByDriver", driverId);
+    }
+
+    @Override
+    public DriverCancel getByFormInstCode(String formInstCode) {
+
+        return sqlOperator.selectOne("com.qcloud.project.macaovehicle.dao.mysql.mapper.DriverCancelMapper.getByFormInstCode", formInstCode);
+    }
 }

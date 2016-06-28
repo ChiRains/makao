@@ -22,12 +22,16 @@ import com.qcloud.pirates.util.AssertUtil;
 import com.qcloud.pirates.util.DateUtil;
 import com.qcloud.project.macaovehicle.model.CarOwner;
 import com.qcloud.project.macaovehicle.model.Driver;
+import com.qcloud.project.macaovehicle.model.DriverCancel;
+import com.qcloud.project.macaovehicle.model.DriverLoss;
 import com.qcloud.project.macaovehicle.model.DriverVehicle;
 import com.qcloud.project.macaovehicle.model.IllegalCarRecord;
 import com.qcloud.project.macaovehicle.model.ProcessProgress;
 import com.qcloud.project.macaovehicle.model.Vehicle;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
 import com.qcloud.project.macaovehicle.service.CarOwnerService;
+import com.qcloud.project.macaovehicle.service.DriverCancelService;
+import com.qcloud.project.macaovehicle.service.DriverLossService;
 import com.qcloud.project.macaovehicle.service.DriverService;
 import com.qcloud.project.macaovehicle.service.DriverVehicleService;
 import com.qcloud.project.macaovehicle.service.VehicleService;
@@ -64,6 +68,12 @@ public class ProcessProgressHandlerImpl implements ProcessProgressHandler {
     @Autowired
     private VehicleGetter        vehicleGetter;
 
+    @Autowired
+    private DriverLossService    driverLossService;
+
+    @Autowired
+    private DriverCancelService  driverCancelService;
+
     @Override
     public List<ProcessProgressVO> toVOList(List<ProcessProgress> list) {
 
@@ -99,14 +109,24 @@ public class ProcessProgressHandlerImpl implements ProcessProgressHandler {
             driverInfo = driverInfo.substring(0, driverInfo.length() - 1);
         }
         // 异常流程,有些类型无车辆、驾驶员信息
-        if (processProgress.getType() == ProgressType.BBLSHP.getKey() || processProgress.getType() == ProgressType.XQSQ.getKey() 
-                || processProgress.getType() == ProgressType.ZXCL.getKey() 
-                || processProgress.getType() == ProgressType.BBDZCK.getKey()) {
+        if (processProgress.getType() == ProgressType.BBLSHP.getKey() || processProgress.getType() == ProgressType.XQSQ.getKey() || processProgress.getType() == ProgressType.ZXCL.getKey() || processProgress.getType() == ProgressType.BBDZCK.getKey()) {
             Vehicle vehicle = vehicleService.get(processProgress.getVehicleId());
             AssertUtil.assertNotNull(vehicle, "车辆不存在.");
             vehicleInfo = vehicle.getPlateNumber() + "," + vehicle.getColor() + "," + vehicle.getBrand() + "," + vehicle.getSpecification();
             ownName = vehicle.getOwnerName();
             driverInfo = "-";
+        } else if (processProgress.getType() == ProgressType.BBSJK.getKey()) { // 补办司机卡
+            DriverLoss driverLoss = driverLossService.getByFormInstCode(processProgress.getFormInstCode());
+            Driver driver = driverService.get(driverLoss.getDriverId());
+            ownName = "-";
+            vehicleInfo = "-";
+            driverInfo = driver != null ? driver.getDriverName() : "-";
+        } else if (processProgress.getType() == ProgressType.ZXJSY.getKey()) { // 注销驾驶员
+            DriverCancel driverCancel = driverCancelService.getByFormInstCode(processProgress.getFormInstCode());
+            Driver driver = driverService.get(driverCancel.getDriverId());
+            ownName = "-";
+            vehicleInfo = "-";
+            driverInfo = driver != null ? driver.getDriverName() : "-";
         }
         // CarOwner carOwner = carOwnerService.get(processProgress.getCarOwnerId());
         returnMap.put("ownerName", ownName);

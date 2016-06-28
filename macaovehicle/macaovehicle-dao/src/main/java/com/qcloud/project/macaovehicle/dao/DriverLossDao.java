@@ -26,5 +26,7 @@ public interface DriverLossDao extends ISimpleDao<DriverLoss, Long> {
 
     public List<DriverLoss> listAll();
 
-    public DriverLoss getByDriverId(Long driverId);
+    public List<DriverLoss> listByDriver(Long driverId);
+
+    public DriverLoss getByFormInstCode(String formInstCode);
 }
