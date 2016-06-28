@@ -30,6 +30,7 @@ import com.qcloud.project.macaovehicle.model.ProfilesSuccess;
 import com.qcloud.project.macaovehicle.model.Vehicle;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ApplyType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ApprovalResultState;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.DriverState;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.EnableType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.MessageType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressState;
@@ -206,9 +207,9 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
                 }
             }
             // 申请成功
+            List<DriverVehicle> driverVehiclelist = driverVehicleDao.getListByFormInstanceId(formInstanceId);
             if (progressState == ProgressState.WANCHENG.getKey()) {
                 //
-                List<DriverVehicle> driverVehiclelist = driverVehicleDao.getListByFormInstanceId(formInstanceId);
                 if (driverVehiclelist.size() == 0) {
                     throw new MacaovehicleException("此流程无车辆和驾驶员数据." + formInstanceId);
                 }
@@ -263,6 +264,25 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
                         profilesSuccessService.update(profilesSuccess);
                     } else {
                         profilesSuccessService.add(profilesSuccess);
+                    }
+                    driver.setState(DriverState.PASS.getKey());
+                    driverDao.update(driver);
+                }
+            } else {
+                // 驾驶员入境资格状态
+                for (DriverVehicle dv : driverVehiclelist) {
+                    if (dv.getState() == ProgressState.WANCHENG.getKey()) {
+                        continue;
+                    }
+                    Driver driver = driverDao.get(dv.getDriverId());
+                    if (driver.getState() == DriverState.PASS.getKey()) {
+                        continue;
+                    }
+                    // 拒绝
+                    if (applyType == ApplyType.REJECT.getKey()) {
+                        driver.setState(DriverState.NOTPASS.getKey());
+                    } else {
+                        driver.setState(DriverState.APPLYING.getKey());
                     }
                     driverDao.update(driver);
                 }

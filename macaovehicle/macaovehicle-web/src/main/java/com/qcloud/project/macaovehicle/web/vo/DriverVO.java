@@ -124,6 +124,32 @@ public class DriverVO {
     // 卡id是否可用
     private int    driverIcState;
 
+    // 0，未申请；1，正在审批；2，可入境；3，审批不通过
+    private int    state;
+
+    // 0，未申请；1，正在审批；2，可入境；3，审批不通过
+    private String stateStr;
+
+    public int getState() {
+
+        return state;
+    }
+
+    public void setState(int state) {
+
+        this.state = state;
+    }
+
+    public String getStateStr() {
+
+        return stateStr;
+    }
+
+    public void setStateStr(String stateStr) {
+
+        this.stateStr = stateStr;
+    }
+
     public DriverVO() {
 
     }

@@ -24,9 +24,7 @@ import com.qcloud.pirates.util.RequestUtil;
 import com.qcloud.project.macaovehicle.exception.MacaovehicleException;
 import com.qcloud.project.macaovehicle.model.CarOwner;
 import com.qcloud.project.macaovehicle.model.DriverVehicle;
-import com.qcloud.project.macaovehicle.model.OnestopCarRecord;
 import com.qcloud.project.macaovehicle.model.ProcessProgress;
-import com.qcloud.project.macaovehicle.model.ProfilesSuccess;
 import com.qcloud.project.macaovehicle.model.Vehicle;
 import com.qcloud.project.macaovehicle.model.VehicleCancel;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ApplyType;
@@ -39,13 +37,10 @@ import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.SteeringWheel;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.VehicleState;
 import com.qcloud.project.macaovehicle.model.query.DriverVehicleQuery;
-import com.qcloud.project.macaovehicle.model.query.ProfilesSuccessQuery;
 import com.qcloud.project.macaovehicle.model.query.VehicleQuery;
 import com.qcloud.project.macaovehicle.service.CarOwnerService;
 import com.qcloud.project.macaovehicle.service.DriverVehicleService;
-import com.qcloud.project.macaovehicle.service.OnestopCarRecordService;
 import com.qcloud.project.macaovehicle.service.ProcessProgressService;
-import com.qcloud.project.macaovehicle.service.ProfilesSuccessService;
 import com.qcloud.project.macaovehicle.service.VehicleCancelService;
 import com.qcloud.project.macaovehicle.service.VehicleService;
 import com.qcloud.project.macaovehicle.web.handler.VehicleHandler;
@@ -57,40 +52,34 @@ import com.qcloud.project.macaovehicle.web.vo.VehicleVO;
 @RequestMapping(value = VehicleController.DIR)
 public class VehicleController {
 
-    public static final String      DIR = "/vehicle";
+    public static final String     DIR = "/vehicle";
 
     @Autowired
-    private VehicleService          vehicleService;
+    private VehicleService         vehicleService;
 
     @Autowired
-    private VehicleHandler          vehicleHandler;
+    private VehicleHandler         vehicleHandler;
 
     @Autowired
-    private CarOwnerService         carOwnerService;
+    private CarOwnerService        carOwnerService;
 
     @Autowired
-    private ClerkHelper             clerkHelper;
+    private ClerkHelper            clerkHelper;
 
     @Autowired
-    private ProfilesSuccessService  profilesSuccessService;
+    private DriverVehicleService   driverVehicleService;
 
     @Autowired
-    private DriverVehicleService    driverVehicleService;
+    private VehicleCancelService   vehicleCancelService;
 
     @Autowired
-    private VehicleCancelService    vehicleCancelService;
+    private UniqueCodeGenerator    uniqueCodeGenerator;
 
     @Autowired
-    private UniqueCodeGenerator     uniqueCodeGenerator;
+    private StateHelper            stateHelper;
 
     @Autowired
-    private OnestopCarRecordService onestopCarRecordService;
-
-    @Autowired
-    private StateHelper             stateHelper;
-
-    @Autowired
-    private ProcessProgressService  processProgressService;
+    private ProcessProgressService processProgressService;
 
     @RequestMapping
     public FrontAjaxView list(HttpServletRequest request, VehicleQuery query) {
@@ -127,7 +116,7 @@ public class VehicleController {
                     ProcessProgress pp = processProgressService.getByFormInstanceId(dv.getFormInstanceId());
                     AssertUtil.assertNotNull(pp, "流程不存在." + dv.getFormInstanceId());
                     // 流程状态为“申请”并且状态为“通过”的车辆，不能再次申请入境
-                    if (pp.getType() == ProgressState.SHENGQIN.getKey() && pp.getState() == ApplyType.PASS.getKey()) {
+                    if (pp.getType() == ProgressType.APPLY.getKey() && pp.getState() == ApplyType.PASS.getKey()) {
                         it.remove();
                         break;
                     }

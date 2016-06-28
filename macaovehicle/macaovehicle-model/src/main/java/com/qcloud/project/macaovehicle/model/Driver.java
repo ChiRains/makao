@@ -117,11 +117,14 @@ public class Driver {
 
     private Date   updateTime;
 
+    private int    state;
+
     public Driver() {
 
     }
 
-    public Driver(long id, long carOwnerId, String licenseNumber, String licenseStartTime, String licenseImage, String driverName, String seconddrivername, String driverPhone, String driverIdCard, String driverAddress, String idcardValidTime, String licenseValidTime, String quasi, String idcardFace, String idcardBack, int certificateType, String certificateNo, String certificateDate, String certificateUrl, String inchImage, String birthday, String secondbirthday, int sex, int nation, int endorsementType, String endorsementOrgCode, String endorsementValidtime, int endorsementStay, String gotoCountry, String comefromCountry, String nationCode, String endorsementCode, String healthCard, String healthCardImg, String driverworkplace, String driverIc, int driverIcState, Date updateTime) {
+    public Driver(long id, long carOwnerId, String licenseNumber, String licenseStartTime, String licenseImage, String driverName, String seconddrivername, String driverPhone, String driverIdCard, String driverAddress, String idcardValidTime, String licenseValidTime, String quasi, String idcardFace, String idcardBack, int certificateType, String certificateNo, String certificateDate, String certificateUrl, String inchImage, String birthday, String secondbirthday, int sex, int nation, int endorsementType, String endorsementOrgCode, String endorsementValidtime, int endorsementStay, String gotoCountry, String comefromCountry, String nationCode, String endorsementCode, String healthCard, String healthCardImg, String driverworkplace, String driverIc, int driverIcState, Date updateTime,
+            int state) {
 
         this.id = id;
         this.carOwnerId = carOwnerId;
@@ -161,6 +164,17 @@ public class Driver {
         this.driverIc = driverIc;
         this.driverIcState = driverIcState;
         this.updateTime = updateTime;
+        this.state = state;
+    }
+
+    public int getState() {
+
+        return state;
+    }
+
+    public void setState(int state) {
+
+        this.state = state;
     }
 
     public void setId(long id) {

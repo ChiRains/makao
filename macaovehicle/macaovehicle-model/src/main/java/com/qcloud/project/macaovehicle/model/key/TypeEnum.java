@@ -502,6 +502,29 @@ public class TypeEnum {
             return name;
         }
     }
+    public enum DriverState {
+        NONAPPLY(0, "未申请"), APPLYING(1, "正在审批"), PASS(2, "可入境"), NOTPASS(3, "审批不通过");
+
+        private final int    key;
+
+        private final String name;
+
+        private DriverState(int key, String name) {
+
+            this.key = key;
+            this.name = name;
+        }
+
+        public int getKey() {
+
+            return key;
+        }
+
+        public String getName() {
+
+            return name;
+        }
+    }
     public enum ProgressType {
         APPLY(1, "入境申请"), TJJSY(2, "添加驾驶员"), ZXCL(3, "注销车辆"), BBDZCK(4, "补办电子车卡"), BBSJK(5, "补办司机卡"),
         //

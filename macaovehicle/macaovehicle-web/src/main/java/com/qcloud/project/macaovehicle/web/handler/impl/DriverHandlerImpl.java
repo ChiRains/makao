@@ -7,8 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import com.qcloud.component.filesdk.FileSDKClient;
 import com.qcloud.pirates.core.json.Json;
+import com.qcloud.project.macaovehicle.service.ProfilesSuccessService;
 import com.qcloud.project.macaovehicle.web.handler.DriverHandler;
 import com.qcloud.project.macaovehicle.model.Driver;
+import com.qcloud.project.macaovehicle.model.ProfilesSuccess;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.DriverState;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.EnableType;
 import com.qcloud.project.macaovehicle.web.vo.DriverVO;
 import com.qcloud.project.macaovehicle.web.vo.admin.AdminDriverVO;
 
@@ -16,7 +20,10 @@ import com.qcloud.project.macaovehicle.web.vo.admin.AdminDriverVO;
 public class DriverHandlerImpl implements DriverHandler {
 
     @Autowired
-    private FileSDKClient fileSDKClient;
+    private FileSDKClient          fileSDKClient;
+
+    @Autowired
+    private ProfilesSuccessService profilesSuccessService;
 
     @Override
     public List<DriverVO> toVOList(List<Driver> list) {
@@ -57,6 +64,11 @@ public class DriverHandlerImpl implements DriverHandler {
         }
         if (StringUtils.isNotEmpty(vo.getHealthCardImg())) {
             vo.setHealthCardImg(vo.getHealthCardImg());
+        }
+        for (DriverState driverState : DriverState.values()) {
+            if (driverState.getKey() == driver.getState()) {
+                vo.setStateStr(driverState.getName());
+            }
         }
         return vo;
     }

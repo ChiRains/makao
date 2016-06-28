@@ -287,7 +287,7 @@ public class DriverController {
             }
         }
         String formInstCode = uniqueCodeGenerator.generate("pirates-form-loss-code", new HashMap<String, String>());
-        driver.setDriverIcState(EnableType.DISABLE.getKey());
+        // driver.setDriverIcState(EnableType.DISABLE.getKey());
         Date nowDate = new Date();
         // 注销驾驶员卡id
         if (driverService.update(driver)) {

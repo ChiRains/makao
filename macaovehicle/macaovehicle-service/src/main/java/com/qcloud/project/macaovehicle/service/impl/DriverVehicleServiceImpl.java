@@ -5,9 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.qcloud.component.autoid.AutoIdGenerator;
 import com.qcloud.pirates.data.Page;
+import com.qcloud.pirates.util.AssertUtil;
+import com.qcloud.project.macaovehicle.dao.DriverDao;
 import com.qcloud.project.macaovehicle.dao.DriverVehicleDao;
+import com.qcloud.project.macaovehicle.model.Driver;
 import com.qcloud.project.macaovehicle.model.DriverVehicle;
 import com.qcloud.project.macaovehicle.service.DriverVehicleService;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.DriverState;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
 import com.qcloud.project.macaovehicle.model.query.DriverVehicleQuery;
 
@@ -20,12 +24,21 @@ public class DriverVehicleServiceImpl implements DriverVehicleService {
     @Autowired
     private AutoIdGenerator     autoIdGenerator;
 
+    @Autowired
+    private DriverDao           driverDao;
+
     private static final String ID_KEY = "macaovehicle_driver_vehicle";
 
     @Override
     public boolean add(DriverVehicle driverVehicle) {
 
         long id = autoIdGenerator.get(ID_KEY);
+        Driver driver = driverDao.get(driverVehicle.getDriverId());
+        AssertUtil.assertNotNull(driver, "驾驶员不存在." + driverVehicle.getDriverId());
+        if (driver.getState() != DriverState.PASS.getKey()) {
+            driver.setState(DriverState.APPLYING.getKey());
+            driverDao.update(driver);
+        }
         driverVehicle.setId(id);
         return driverVehicleDao.add(driverVehicle);
     }

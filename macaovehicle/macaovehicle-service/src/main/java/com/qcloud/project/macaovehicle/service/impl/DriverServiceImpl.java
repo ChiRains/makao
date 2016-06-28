@@ -9,6 +9,7 @@ import com.qcloud.component.filesdk.FileSDKClient;
 import com.qcloud.pirates.data.Page;
 import com.qcloud.project.macaovehicle.dao.DriverDao;
 import com.qcloud.project.macaovehicle.model.Driver;
+import com.qcloud.project.macaovehicle.model.key.TypeEnum.DriverState;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.EnableType;
 import com.qcloud.project.macaovehicle.model.query.DriverQuery;
 import com.qcloud.project.macaovehicle.service.DriverService;
@@ -39,6 +40,7 @@ public class DriverServiceImpl implements DriverService {
         driver.setCertificateUrl(fileSDKClient.uidToUrl(driver.getCertificateUrl()));
         driver.setHealthCardImg(fileSDKClient.uidToUrl(driver.getHealthCardImg()));
         driver.setUpdateTime(new Date());
+        driver.setState(DriverState.NONAPPLY.getKey());
         return driverDao.add(driver);
     }
 
