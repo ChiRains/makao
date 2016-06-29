@@ -130,6 +130,7 @@ public class CreateTaskFormEvent4Submit implements FormEvent {
                 tasking.setApplyType(typeStr);
                 Integer clerkType = (Integer) context.getParameter("clerkType");
                 String clerkTypeStr = "";
+                String ownerName = (String) context.getParameter("vehicle[0].ownerName");
                 switch (clerkType) {
                 case 1:
                     clerkTypeStr = "个人";
@@ -143,6 +144,7 @@ public class CreateTaskFormEvent4Submit implements FormEvent {
                     clerkTypeStr = "企业";
                     tasking.setCode("--");
                     tasking.setIdCard("--");
+                    ownerName = "--";
                     tasking.setCompanyName((String) context.getParameter("enterprisers[0].company"));
                     tasking.setCompanyCode((String) context.getParameter("enterprisers[0].code"));
                     break;
@@ -151,7 +153,7 @@ public class CreateTaskFormEvent4Submit implements FormEvent {
                 }
                 tasking.setClerkType(clerkTypeStr);
                 tasking.setPlateNumber((String) context.getParameter("vehicle[0].plateNumber"));
-                tasking.setOwnerName((String) context.getParameter("vehicle[0].ownerName"));
+                tasking.setOwnerName(ownerName);
                 tasking.setVehicleType((String) context.getParameter("vehicle[0].models"));
                 tasking.setSpecification((String) context.getParameter("vehicle[0].specification"));
                 tasking.setEngineNo((String) context.getParameter("vehicle[0].engineNo"));
