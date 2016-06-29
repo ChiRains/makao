@@ -84,4 +84,10 @@ public class OnestopCarRecordDaoCacheImpl implements OnestopCarRecordDao {
 
         return onestopCarRecordDaoMysqlImpl.getCountByMap(query);
     }
+
+    @Override
+    public List<OnestopCarRecord> listByQuery(OnestopCarRecordQuery query) {
+
+        return onestopCarRecordDaoMysqlImpl.listByQuery(query);
+    }
 }

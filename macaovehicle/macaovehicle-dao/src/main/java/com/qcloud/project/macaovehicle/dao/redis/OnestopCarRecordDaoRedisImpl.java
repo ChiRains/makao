@@ -83,4 +83,10 @@ public class OnestopCarRecordDaoRedisImpl implements OnestopCarRecordDao {
 
         throw new NotImplementedException();
     }
+
+    @Override
+    public List<OnestopCarRecord> listByQuery(OnestopCarRecordQuery query) {
+
+        throw new NotImplementedException();
+    }
 }

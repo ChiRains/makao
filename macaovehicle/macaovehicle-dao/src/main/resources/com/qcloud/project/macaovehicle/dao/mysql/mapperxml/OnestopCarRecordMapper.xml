@@ -65,4 +65,14 @@
     	</if>
     </select>  
     
+    <select id="listByQuery" parameterType="java.util.HashMap" resultType="OnestopCarRecord">  
+        select * from `macaovehicle_onestop_car_record` where 1=1
+        <if test="type > 0">
+    		and `type`=#{type}
+    	</if>
+    	<if test="date != null">
+    		and DATE_FORMAT(date,'%Y-%m-%d')=#{date}
+    	</if>
+    </select>  
+    
 </mapper>

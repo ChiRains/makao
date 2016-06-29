@@ -58,7 +58,7 @@ public class ProcesstaskClientImpl implements ProcesstaskClient {
     // return tasking.getId();
     // }
     @Override
-    public Long doTask(Long taskId, Long formHistId, boolean pass) {
+    public Long doTask(Long taskId, Long formHistId, boolean pass, Long operatorClerkId) {
 
         // TODO
         Tasking tasking = taskingService.get(taskId);
@@ -105,7 +105,7 @@ public class ProcesstaskClientImpl implements ProcesstaskClient {
         //
         tasked.setStatus(pass ? ProcessStateType.PASS.getKey() : ProcessStateType.REFUSE.getKey());
         // tasking.getClerkId()后面修改成部门的形式，不能采用此代码.
-        tasked.setOperatorClerkId(tasking.getClerkId());
+        tasked.setOperatorClerkId(operatorClerkId);
         tasked.setRecordTime(new Date());
         tasked.setTemporaryplate(tasking.getTemporaryplate());
         taskedService.add(tasked);

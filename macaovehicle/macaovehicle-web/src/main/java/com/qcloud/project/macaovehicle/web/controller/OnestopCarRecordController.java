@@ -28,6 +28,7 @@ import com.qcloud.project.macaovehicle.service.DriverVehicleService;
 import com.qcloud.project.macaovehicle.service.OnestopCarRecordService;
 import com.qcloud.project.macaovehicle.service.VehicleService;
 import com.qcloud.project.macaovehicle.web.handler.OnestopCarRecordHandler;
+import com.qcloud.project.macaovehicle.web.vo.StatisticRecordVO;
 
 /**
  * 车辆入境记录
@@ -155,6 +156,7 @@ public class OnestopCarRecordController {
         CarOwner carOwner = carOwnerService.getByClerk(clerk.getId());
         AssertUtil.assertTrue(carOwner == null, "门户网用户无访问权限.");
         query.setType(OnestopCarRecordType.ENTER.getKey());
+        query.setDate(DateUtil.date2String(new Date(), "yyyy-MM-dd"));
         int enterCount = onestopCarRecordService.getCountByMap(query);
         query.setType(OnestopCarRecordType.OUT.getKey());
         int outCount = onestopCarRecordService.getCountByMap(query);
@@ -243,6 +245,21 @@ public class OnestopCarRecordController {
         }
         FrontPagingView view = new FrontPagingView(pPage.getPageNum(), pPage.getPageSize(), enterPage.getCount());
         view.addObject("mapList", mapList);
+        return view;
+    }
+
+    // 入境统计
+    @RequestMapping
+    public FrontAjaxView statisticInRecord(Integer statisType) {
+
+        OnestopCarRecordQuery query = new OnestopCarRecordQuery();
+        query.setType(OnestopCarRecordType.ENTER.getKey());
+        query.setDate(DateUtil.date2String(new Date(), "yyyy-MM-dd"));
+        List<OnestopCarRecord> list = onestopCarRecordService.listByQuery(query);
+        int enterCount = onestopCarRecordService.getCountByMap(query);
+        List<StatisticRecordVO> voList = new ArrayList<StatisticRecordVO>();
+        FrontAjaxView view = new FrontAjaxView();
+        view.addObject("result", voList);
         return view;
     }
 }

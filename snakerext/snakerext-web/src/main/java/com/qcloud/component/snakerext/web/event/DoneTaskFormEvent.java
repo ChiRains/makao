@@ -73,7 +73,7 @@ public class DoneTaskFormEvent implements FormEvent {
                 pass = true;
             }
         }
-        Long taskedId = processtaskClient.doTask(taskId, formHistId, pass);
+        Long taskedId = processtaskClient.doTask(taskId, formHistId, pass, context.getClerkId());
         context.addReturnResult(EventContext.TASKED_ID, taskedId);
     }
 }

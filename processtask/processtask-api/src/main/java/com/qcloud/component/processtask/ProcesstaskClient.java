@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface ProcesstaskClient {
 
-    Long doTask(Long taskId, Long formHistId, boolean pass);
+    Long doTask(Long taskId, Long formHistId, boolean pass, Long operatorClerkId);
 
     QTask getTask(Long id);
 

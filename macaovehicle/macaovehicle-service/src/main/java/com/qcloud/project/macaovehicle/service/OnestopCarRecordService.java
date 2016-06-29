@@ -23,4 +23,6 @@ public interface OnestopCarRecordService {
     public OnestopCarRecord getByMap(Map<String, Object> map);
 
     public int getCountByMap(OnestopCarRecordQuery query);
+
+    public List<OnestopCarRecord> listByQuery(OnestopCarRecordQuery query);
 }

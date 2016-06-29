@@ -112,4 +112,13 @@ public class OnestopCarRecordDaoMysqlImpl implements OnestopCarRecordDao {
         param.put("date", StringUtil.emptyToNull(query.getDate()));
         return sqlOperator.selectOne("com.qcloud.project.macaovehicle.dao.mysql.mapper.OnestopCarRecordMapper.getCountByMap", param);
     }
+
+    @Override
+    public List<OnestopCarRecord> listByQuery(OnestopCarRecordQuery query) {
+
+        Map<String, Object> param = new HashMap<String, Object>();
+        param.put("type", query.getType());
+        param.put("date", StringUtil.emptyToNull(query.getDate()));
+        return sqlOperator.selectList("com.qcloud.project.macaovehicle.dao.mysql.mapper.OnestopCarRecordMapper.listByQuery", param);
+    }
 }

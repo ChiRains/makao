@@ -70,4 +70,10 @@ public class OnestopCarRecordServiceImpl implements OnestopCarRecordService {
 
         return onestopCarRecordDao.getCountByMap(query);
     }
+
+    @Override
+    public List<OnestopCarRecord> listByQuery(OnestopCarRecordQuery query) {
+
+        return onestopCarRecordDao.listByQuery(query);
+    }
 }
