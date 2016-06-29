@@ -38,12 +38,12 @@ public class ApproveTaskUserChecker implements FormEvent {
         if (!task.isTasking()) {
             throw new SnakerExtException("已办任务不允许操作数据." + taskId);
         }
-        if (task.getClerk().longValue() != context.getClerkId()) {
-            QClerk clerk = organizationClient.getClerk(task.getClerk());
-            AssertUtil.assertNotNull(clerk, "用户不存在." + task.getClerk());
-            if (macaoGhwDepartmentId != clerk.getDepartmentId()) {
-                throw new SnakerExtException("不允许处理其他用户的待办表单数据." + clerk.getName());
-            }
-        }
+//        if (task.getClerk().longValue() != context.getClerkId()) {
+//            QClerk clerk = organizationClient.getClerk(task.getClerk());
+//            AssertUtil.assertNotNull(clerk, "用户不存在." + task.getClerk());
+//            if (macaoGhwDepartmentId != clerk.getDepartmentId()) {
+//                throw new SnakerExtException("不允许处理其他用户的待办表单数据." + clerk.getName());
+//            }
+//        }
     }
 }

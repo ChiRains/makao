@@ -148,6 +148,7 @@ public class AdminProcessExecutorController {
         model.addObject("clerkMap", organizationClient.mapClerkAll(clerkQuery));
         model.addObject("departmentMap", organizationClient.mapDepartmentAll());
         model.addObject("departmentClerkList", processGroupService.listByName(name));
+        System.out.println(processGroupService.listByName(name));
         model.addObject("interfaceList", processExecutorInterfaceService.listAll(map));
         model.addObject("query", query);
         return model;

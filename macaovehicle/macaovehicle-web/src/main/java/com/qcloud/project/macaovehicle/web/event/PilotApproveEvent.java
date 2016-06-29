@@ -1,5 +1,6 @@
 package com.qcloud.project.macaovehicle.web.event;
 
+import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,6 +22,7 @@ import com.qcloud.project.macaovehicle.model.CarOwnerHousers;
 import com.qcloud.project.macaovehicle.model.CarOwnerTalent;
 import com.qcloud.project.macaovehicle.model.CarOwnerWorkers;
 import com.qcloud.project.macaovehicle.model.Driver;
+import com.qcloud.project.macaovehicle.model.DriverVehicle;
 import com.qcloud.project.macaovehicle.model.TaskingBorder;
 import com.qcloud.project.macaovehicle.model.TaskingCiq;
 import com.qcloud.project.macaovehicle.model.TaskingCustoms;
@@ -30,6 +32,7 @@ import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressState;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.ProgressType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.StatusType;
 import com.qcloud.project.macaovehicle.model.key.TypeEnum.UserType;
+import com.qcloud.project.macaovehicle.model.query.DriverVehicleQuery;
 import com.qcloud.project.macaovehicle.service.CarOwnerAcquisitionService;
 import com.qcloud.project.macaovehicle.service.CarOwnerEnterprisersService;
 import com.qcloud.project.macaovehicle.service.CarOwnerHousersService;
@@ -313,7 +316,13 @@ public class PilotApproveEvent implements FormEvent {
                 context.addReturnResult("vehicle[0].indicatorsTime", DateUtil.date2String(v.getIndicatorsTime()));
             }
             if (StringUtils.isNotEmpty(driverIds)) {
+                DriverVehicleQuery query = new DriverVehicleQuery();
+                query.setVehicleId(Long.valueOf(vehicleId));
+                query.setGroupByStr("driverId");
+                List<DriverVehicle> driverVehicles = driverVehicleService.listByQuery(query);
+                //
                 String[] strs = driverIds.split(",");
+                AssertUtil.assertTrue((strs.length + driverVehicles.size()) <= 5, "一辆车绑定的驾驶员不能超过5辆.");
                 context.addReturnResult("driver.qc_inner_number", "" + strs.length);
                 for (int index = 0; index < strs.length; index++) {
                     String str = strs[index];

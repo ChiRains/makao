@@ -319,6 +319,7 @@ public class VehicleApproveEvent implements FormEvent {
             }
             if (StringUtils.isNotEmpty(drivers)) {
                 String[] strs = drivers.split(",");
+                AssertUtil.assertTrue(strs.length <= 5, "一辆车绑定的驾驶员不能超过5辆.");
                 context.addReturnResult("driver.qc_inner_number", "" + strs.length);
                 for (int index = 0; index < strs.length; index++) {
                     String str = strs[index];
