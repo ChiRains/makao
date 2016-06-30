@@ -283,27 +283,25 @@ public class ProcessProgressHandlerImpl implements ProcessProgressHandler {
                     returnMap.put("formInstanceId", tasked.getFormInstanceId());
                     returnMap.put("formInstCode", tasked.getFormInstCode());
                     returnMap.put("brand", tasked.getBrand());
-                    returnMap.put("ownerName", tasked.getOwnerName());
-                    returnMap.put("plateNumber", tasked.getPlateNumber());
-                    returnMap.put("vehicleType", tasked.getVehicleType());
-                    returnMap.put("specification", tasked.getSpecification());
-                    returnMap.put("engineNo", tasked.getEngineNo());
-                    returnMap.put("frameNumber", tasked.getFrameNumber());
-                    returnMap.put("permittedWeight", tasked.getPermittedWeight());
-                    returnMap.put("passengers", tasked.getPassengers());
+                    returnMap.put("ownerName", !StringUtils.isEmpty(tasked.getOwnerName()) ? tasked.getOwnerName() : "--");
+                    returnMap.put("idCard", !StringUtils.isEmpty(tasked.getIdCard()) ? tasked.getIdCard() : "--");
+                    returnMap.put("companyName", !StringUtils.isEmpty(tasked.getCompanyName()) ? tasked.getCompanyName() : "--");
+                    returnMap.put("companyCode", !StringUtils.isEmpty(tasked.getCompanyCode()) ? tasked.getCompanyCode() : "--");
+                    Date validDate = vehicleGetter.getValidDate(tasked.getPlateNumber());
+                    returnMap.put("validDateStr", validDate != null ? DateUtil.date2String(validDate) : "");
+                    returnMap.put("applyTimeStr", tasked.getApplyTime() != null ? DateUtil.date2String(tasked.getApplyTime()) : "--");
                 }
             } else {
                 returnMap.put("formInstanceId", tasking.getFormInstanceId());
                 returnMap.put("formInstCode", formClient.getFormInstCode(tasking.getFormInstanceId()));
                 returnMap.put("brand", tasking.getBrand());
-                returnMap.put("ownerName", tasking.getOwnerName());
-                returnMap.put("plateNumber", tasking.getPlateNumber());
-                returnMap.put("vehicleType", tasking.getVehicleType());
-                returnMap.put("specification", tasking.getSpecification());
-                returnMap.put("engineNo", tasking.getEngineNo());
-                returnMap.put("frameNumber", tasking.getFrameNumber());
-                returnMap.put("permittedWeight", tasking.getPermittedWeight());
-                returnMap.put("passengers", tasking.getPassengers());
+                returnMap.put("ownerName", !StringUtils.isEmpty(tasking.getOwnerName()) ? tasking.getOwnerName() : "--");
+                returnMap.put("idCard", !StringUtils.isEmpty(tasking.getIdCard()) ? tasking.getIdCard() : "--");
+                returnMap.put("companyName", !StringUtils.isEmpty(tasking.getCompanyName()) ? tasking.getCompanyName() : "--");
+                returnMap.put("companyCode", !StringUtils.isEmpty(tasking.getCompanyCode()) ? tasking.getCompanyCode() : "--");
+                Date validDate = vehicleGetter.getValidDate(tasking.getPlateNumber());
+                returnMap.put("validDateStr", validDate != null ? DateUtil.date2String(validDate) : "");
+                returnMap.put("applyTimeStr", tasking.getApplyTime() != null ? DateUtil.date2String(tasking.getApplyTime()) : "--");
             }
             vo.setReturnMap(returnMap);
             voList.add(vo);
