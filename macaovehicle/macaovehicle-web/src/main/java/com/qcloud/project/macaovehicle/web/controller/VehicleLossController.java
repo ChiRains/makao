@@ -132,7 +132,7 @@ public class VehicleLossController {
             }
             // TODO 交通物联网给的数据,同时更新车辆表
             v.setNewRic("1000001");
-            v.setOldRic(vehicle.getRic());
+            v.setOldRic("1000002");
             v.setLossTime(new Date());
             vehicleLossService.update(v);
         } else {
@@ -142,7 +142,7 @@ public class VehicleLossController {
             vehicleLoss.setVehicleId(vehicleId);
             // TODO 交通物联网给的数据,同时更新车辆表
             vehicleLoss.setNewRic("100001");
-            vehicleLoss.setOldRic(vehicle.getRic());
+            vehicleLoss.setOldRic("100002");
             vehicleLoss.setLossTime(new Date());
             vehicleLoss.setType(LossType.BB.getKey());
             vehicleLoss.setPlateNumber(vehicle.getPlateNumber());
