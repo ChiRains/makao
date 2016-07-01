@@ -24,6 +24,7 @@
     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
     http://www.qi-cloud.com/schema/pirates 
     http://www.qi-cloud.com/schema/pirates-0.1.xsd">
+    <tx:annotation-driven/>
 
 	<import resource="classpath:application-context-service.xml"></import>
 	<import resource="classpath*:errorpage.xml" />
