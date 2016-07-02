@@ -20,6 +20,7 @@ public class OnestopCarRecordUriHandlerImpl extends AbstractUriHandler {
         list.add("/onestopCarRecord/countAll.do");
         list.add("/onestopCarRecord/realList.do");
         list.add("/onestopCarRecord/listRecord.do");
+        list.add("/onestopCarRecord/statisticInRecord.do");
         return list;
     }
 }

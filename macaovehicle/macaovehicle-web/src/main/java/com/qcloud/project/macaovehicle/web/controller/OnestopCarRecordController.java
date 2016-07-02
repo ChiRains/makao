@@ -255,11 +255,46 @@ public class OnestopCarRecordController {
         OnestopCarRecordQuery query = new OnestopCarRecordQuery();
         query.setType(OnestopCarRecordType.ENTER.getKey());
         query.setDate(DateUtil.date2String(new Date(), "yyyy-MM-dd"));
-        List<OnestopCarRecord> list = onestopCarRecordService.listByQuery(query);
-        int enterCount = onestopCarRecordService.getCountByMap(query);
-        List<StatisticRecordVO> voList = new ArrayList<StatisticRecordVO>();
+        List<OnestopCarRecord> enterCarRecords = onestopCarRecordService.listByQuery(query);
+        query.setType(OnestopCarRecordType.OUT.getKey());
+        List<OnestopCarRecord> outCarRecords = onestopCarRecordService.listByQuery(query);
+        List<Map<String, Integer>> chartInfos = chartInfos();
+        if (statisType == OnestopCarRecordType.ENTER.getKey()) {
+            for (OnestopCarRecord onestopCarRecord : enterCarRecords) {
+                String hour = DateUtil.date2String(onestopCarRecord.getDate(), "HH");
+                for (Map<String, Integer> map : chartInfos) {
+                    if (Integer.valueOf(hour) < map.get("name")) {
+                        map.put("number", map.get("number") + 1);
+                        break;
+                    }
+                }
+            }
+        } else if (statisType == OnestopCarRecordType.OUT.getKey()) {
+            for (OnestopCarRecord outCarRecord : outCarRecords) {
+                String hour = DateUtil.date2String(outCarRecord.getDate(), "HH");
+                for (Map<String, Integer> map : chartInfos) {
+                    if (Integer.valueOf(hour) < map.get("name")) {
+                        map.put("number", map.get("number") + 1);
+                        break;
+                    }
+                }
+            }
+        }
         FrontAjaxView view = new FrontAjaxView();
-        view.addObject("result", voList);
+        view.addObject("result", chartInfos);
         return view;
+    }
+
+    private List<Map<String, Integer>> chartInfos() {
+
+        List<Map<String, Integer>> chartInfos = new ArrayList<Map<String, Integer>>();
+        int hours[] = { 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24};
+        for (int hour : hours) {
+            Map<String, Integer> map = new HashMap<String, Integer>();
+            map.put("name", hour);
+            map.put("number", 0);
+            chartInfos.add(map);
+        }
+        return chartInfos;
     }
 }
