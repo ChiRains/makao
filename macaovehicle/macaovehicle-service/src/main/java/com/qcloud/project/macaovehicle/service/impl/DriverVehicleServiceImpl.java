@@ -3,6 +3,7 @@ package com.qcloud.project.macaovehicle.service.impl;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.qcloud.component.autoid.AutoIdGenerator;
 import com.qcloud.pirates.data.Page;
 import com.qcloud.pirates.util.AssertUtil;
@@ -50,8 +51,16 @@ public class DriverVehicleServiceImpl implements DriverVehicleService {
     }
 
     @Override
+    @Transactional
     public boolean delete(Long id) {
 
+        DriverVehicle driverVehicle = driverVehicleDao.get(id);
+        List<DriverVehicle> list = driverVehicleDao.getListByDriverId(driverVehicle.getDriverId(), ProgressType.APPLY);
+        if (list.size() <= 1) {
+            Driver driver = driverDao.get(driverVehicle.getDriverId());
+            driver.setState(DriverState.NONAPPLY.getKey());
+            driverDao.update(driver);
+        }
         return driverVehicleDao.delete(id);
     }
 

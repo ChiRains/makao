@@ -30,7 +30,8 @@ public class DriverVehicleDaoCacheImpl implements DriverVehicleDao {
     @Override
     public DriverVehicle get(Long id) {
 
-        return CacheLoader.get(driverVehicleDaoRedisImpl, driverVehicleDaoMysqlImpl, id);
+        return driverVehicleDaoMysqlImpl.get(id);
+        // return CacheLoader.get(driverVehicleDaoRedisImpl, driverVehicleDaoMysqlImpl, id);
     }
 
     @Override

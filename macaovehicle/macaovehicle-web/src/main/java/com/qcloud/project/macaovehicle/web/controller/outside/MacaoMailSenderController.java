@@ -70,7 +70,44 @@ public class MacaoMailSenderController {
         content = content.replaceAll("\\{time\\}", DateUtil.date2String(new Date(), "yyyy年MM月dd日"));
         FrontAjaxView view = new FrontAjaxView();
         try {
-            if (this.sendHtmlMail(email, content)) {
+            if (this.sendHtmlMail(email, "註冊通關門戶網帳號", content)) {
+                smsMessageLimitClient.send(email, "macao-email", 1);
+                view.setMessage("发送成功");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            view.setMessage("发送失败");
+            throw new PublicdataException("邮箱验证码发送失败");
+        }
+        // view.addObject("code", code);
+        return view;
+    }
+
+    @RequestMapping
+    public FrontAjaxView sendMail4Reset(String email) {
+
+        // String title="横琴通关系统";
+        SmsMessageStateType type = smsMessageLimitClient.canSend(email, "macao-email");
+        if (SmsMessageStateType.NUMBER_LIMIT.equals(type)) {
+            throw new PublicdataException("短信发送失败,已经超出今天发送最大数量.");
+        }
+        if (SmsMessageStateType.TIME_LIMIT.equals(type)) {
+            throw new PublicdataException("短信发送失败,发送太频繁,请稍等.");
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append("您好！您申請重置通關門戶網帳號密碼，本次請求的驗證碼為：{code}（請在{minute}分鐘內完成驗證，逾時該驗證碼失效。）");
+        sb.append("<br/><br/><br/><br/>");
+        sb.append("橫琴新區管委會");
+        sb.append("<br/>");
+        sb.append("{time}");
+        String content = sb.toString();
+        String code = verificationCodeClient.create(email, 30);
+        content = content.replaceAll("\\{code\\}", code);
+        content = content.replaceAll("\\{minute\\}", "30");
+        content = content.replaceAll("\\{time\\}", DateUtil.date2String(new Date(), "yyyy年MM月dd日"));
+        FrontAjaxView view = new FrontAjaxView();
+        try {
+            if (this.sendHtmlMail(email, "重置通關門戶網帳號", content)) {
                 smsMessageLimitClient.send(email, "macao-email", 1);
                 view.setMessage("发送成功");
             }
@@ -127,12 +164,12 @@ public class MacaoMailSenderController {
         return this.sendTextMail(info);
     }
 
-    private boolean sendHtmlMail(String receiveEmail, String content) {
+    private boolean sendHtmlMail(String receiveEmail, String subject, String content) {
 
         MailSenderInfo info = init();
         info.setToAddress(receiveEmail);
         info.setContent(content);
-        info.setSubject("註冊通關門戶網帳號");
+        info.setSubject(subject);
         return this.sendHtmlMail(info);
     }
 

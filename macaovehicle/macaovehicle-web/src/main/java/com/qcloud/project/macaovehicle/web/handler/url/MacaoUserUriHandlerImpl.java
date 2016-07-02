@@ -13,6 +13,7 @@ public class MacaoUserUriHandlerImpl extends AbstractUriHandler {
         list.add("/macaoUser/login.do");
         list.add("/macaoUser/register.do");
         list.add("/macaoMail/sendMail.do");
+        list.add("/macaoMail/sendMail4Reset.do");
         //
         list.add("/macaoUser/reset.do");
         list.add("/macaoUser/logout.do");
