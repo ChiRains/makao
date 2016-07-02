@@ -564,4 +564,10 @@ public class OrganizationClientImpl implements OrganizationClient {
 
         return departmentClerkService.listByDepartmentId(departmentId);
     }
+
+    @Override
+    public boolean changePwd(Long clerkId, String pwd) {
+
+        return clerkService.changePwd(clerkId, pwd);
+    }
 }

@@ -77,4 +77,6 @@ public interface OrganizationClient {
     QClerk getByMobile(String mobile);
 
     List<DepartmentClerk> listDepartmentClerk(Long departmentId);
+
+    public boolean changePwd(Long clerkId, String pwd);
 }

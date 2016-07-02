@@ -191,4 +191,37 @@ public class MacaoUserController {
         view.addObject("departmentList", departmentMap.values());
         return view;
     }
+
+    /**
+     * 根据邮箱重置密码
+     * @return
+     */
+    @RequestMapping
+    public FrontAjaxView reset(Integer clerkType, String email, String code, String pwd1, String pwd2, String mobile) {
+
+        AssertUtil.assertNotNull(email, "邮箱不能为空");
+        AssertUtil.assertNotNull(mobile, "电话不能为空");
+        AssertUtil.greatZero(clerkType, "类型不能为空.");
+        AssertUtil.assertTrue(pwd1 != null && pwd1.equals(pwd2), "密码不一致，请重新输入.");
+        // 验证码是否有效
+        boolean verification = verificationCodeClient.verification(email, code);
+        AssertUtil.assertTrue(verification, "验证码错误.");
+        // 注册类型 :1个人2企业
+        if (OwnerType.BUSINESS.getKey() == clerkType) {
+            mobile = mobile + OwnerType.BUSINESS.getKey();
+            email = email + OwnerType.BUSINESS.getKey();
+        } else if (OwnerType.PERSON.getKey() == clerkType) {
+            mobile = mobile + OwnerType.PERSON.getKey();
+            email = email + OwnerType.PERSON.getKey();
+        } else {
+            throw new MacaovehicleException("类型不正确");
+        }
+        QClerk qClerk = organizationClient.getByMobile(mobile);
+        AssertUtil.assertTrue(email.equals(qClerk.getJobEmail()), "用户邮箱不正确.");
+        organizationClient.changePwd(qClerk.getId(), pwd1);
+        verificationCodeClient.remove(email, code);
+        FrontAjaxView view = new FrontAjaxView();
+        view.setMessage("更改密码成功.");
+        return view;
+    }
 }

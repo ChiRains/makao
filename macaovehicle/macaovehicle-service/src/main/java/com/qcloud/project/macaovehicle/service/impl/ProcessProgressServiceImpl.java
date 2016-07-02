@@ -118,6 +118,14 @@ public class ProcessProgressServiceImpl implements ProcessProgressService {
     @Override
     public boolean delete(Long id) {
 
+        ProcessProgress processProgress = get(id);
+        // 车辆入境状态修改
+        if (processProgress.getType() == ProgressType.APPLY.getKey()) {
+            Vehicle vehicle = vehicleDao.get(processProgress.getVehicleId());
+            AssertUtil.assertNotNull(vehicle, "车辆不存在." + processProgress.getVehicleId());
+            vehicle.setState(VehicleState.NONAPPLY.getKey());
+            vehicleDao.update(vehicle);
+        }
         return processProgressDao.delete(id);
     }
 

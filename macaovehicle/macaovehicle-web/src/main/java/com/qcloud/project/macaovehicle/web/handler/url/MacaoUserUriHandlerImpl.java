@@ -12,10 +12,9 @@ public class MacaoUserUriHandlerImpl extends AbstractUriHandler {
         List<String> list = new ArrayList<String>();
         list.add("/macaoUser/login.do");
         list.add("/macaoUser/register.do");
-      
         list.add("/macaoMail/sendMail.do");
-        
         //
+        list.add("/macaoUser/reset.do");
         list.add("/macaoUser/logout.do");
         return list;
     }
