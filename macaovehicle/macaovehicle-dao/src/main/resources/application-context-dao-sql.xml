@@ -55,7 +55,7 @@
 		
 	<pirates:sql-z id="sqlOperator-organization" name="macaovehicle" type="mybatis" mybatisMapper="com.qcloud.component.organization.dao.mysql.mapper" modelPackage="com.qcloud.component.organization.model" tx="true"></pirates:sql-z>
 	
-	<pirates:sql-z id="sqlOperator-piratesship" name="callme" type="mybatis" mybatisMapper="com.qcloud.component.piratesship.dao.mysql.mapper" modelPackage="com.qcloud.component.piratesship.model" tx="true"></pirates:sql-z>
+	<pirates:sql-z id="sqlOperator-piratesship" name="macaovehicle" type="mybatis" mybatisMapper="com.qcloud.component.piratesship.dao.mysql.mapper" modelPackage="com.qcloud.component.piratesship.model" tx="true"></pirates:sql-z>
 	
 	<pirates:sql-z id="sqlOperator-filestorage" name="macaovehicle" type="mybatis" mybatisMapper="com.qcloud.component.filestorage.dao.mysql.mapper" modelPackage="com.qcloud.component.filestorage.model" tx="true"></pirates:sql-z>
 </beans>
