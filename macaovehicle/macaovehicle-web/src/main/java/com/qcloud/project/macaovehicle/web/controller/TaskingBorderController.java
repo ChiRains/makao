@@ -13,14 +13,19 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.apache.tools.zip.ZipEntry;
 import org.apache.tools.zip.ZipOutputStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.ContextLoader;
+import org.springframework.web.context.WebApplicationContext;
 import com.qcloud.component.file.exception.FileException;
 import com.qcloud.component.filesdk.FileSDKClient;
 import com.qcloud.component.form.FormClient;
@@ -279,9 +284,11 @@ public class TaskingBorderController {
         }
         map.put("result", list);
         //
-        String templateFileDir = request.getSession().getServletContext().getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR;
+        WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+        ServletContext servletContext = webApplicationContext.getServletContext();
+        String templateFileDir = servletContext.getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR;
         String filename = "车辆资料_" + DateUtil.date2String(now, "yyyyMMddHHmmss") + ".xls";
-        String exportExcelDir = request.getSession().getServletContext().getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE + "/" + filename;
+        String exportExcelDir = servletContext.getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE + "/" + filename;
         File myFile = new File(exportExcelDir);
         if (!myFile.exists()) {
             myFile.createNewFile();
@@ -316,7 +323,7 @@ public class TaskingBorderController {
                 Long driverId = driverVehicle.getDriverId();
                 Driver driver = driverService.get(driverId);
                 Map<String, Object> dataMap = new LinkedHashMap<String, Object>();
-                dataMap.put("driverIc", driver.getDriverIc());
+                dataMap.put("driverIc", "DRIVER0000000002");
                 dataMap.put("driverIdCard", driver.getDriverIdCard() + "\t");
                 dataMap.put("driverName", driver.getDriverName());
                 dataMap.put("certificateType", 10);
@@ -342,9 +349,12 @@ public class TaskingBorderController {
         }
         map.put("result", list);
         //
-        String templateFileDir = request.getSession().getServletContext().getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR;
+        WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+        ServletContext servletContext = webApplicationContext.getServletContext();
+        // ServletContext servletContext = request.getSession().getServletContext();
+        String templateFileDir = servletContext.getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR;
         String filename = "司机资料_" + DateUtil.date2String(now, "yyyyMMddHHmmss") + ".xls";
-        String exportExcelDir = request.getSession().getServletContext().getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE + "/" + filename;
+        String exportExcelDir = servletContext.getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE + "/" + filename;
         File myFile = new File(exportExcelDir);
         if (!myFile.exists()) {
             myFile.createNewFile();
@@ -387,9 +397,11 @@ public class TaskingBorderController {
         }
         map.put("result", list);
         //
-        String templateFileDir = request.getSession().getServletContext().getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR;
+        WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+        ServletContext servletContext = webApplicationContext.getServletContext();
+        String templateFileDir = servletContext.getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR;
         String filename = "车辆司机关联关系_" + DateUtil.date2String(now, "yyyyMMddHHmmss") + ".xls";
-        String exportExcelDir = request.getSession().getServletContext().getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE + "/" + filename;
+        String exportExcelDir = servletContext.getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE + "/" + filename;
         File myFile = new File(exportExcelDir);
         if (!myFile.exists()) {
             myFile.createNewFile();
@@ -416,7 +428,7 @@ public class TaskingBorderController {
         AssertUtil.assertTrue(checkType(type), "流程类型非法." + type);
         query.setStatus(StatusType.NOTDO.getKey());
         query.setType(type);
-        query.setClerkType(OwnerType.BUSINESS.getName());
+        // query.setClerkType(OwnerType.BUSINESS.getName());
         Page<TaskingBorder> page = taskingBorderService.page(query, 0, Integer.MAX_VALUE);
         query.setClerkType(null);
         for (TaskingBorder taskingBorder : page.getData()) {
@@ -432,9 +444,11 @@ public class TaskingBorderController {
         }
         map.put("result", list);
         //
-        String templateFileDir = request.getSession().getServletContext().getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR;
+        WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+        ServletContext servletContext = webApplicationContext.getServletContext();
+        String templateFileDir = servletContext.getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR;
         String filename = "公司资料_" + DateUtil.date2String(now, "yyyyMMddHHmmss") + ".xls";
-        String exportExcelDir = request.getSession().getServletContext().getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE + "/" + filename;
+        String exportExcelDir = servletContext.getRealPath("/WEB-INF") + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE + "/" + filename;
         File myFile = new File(exportExcelDir);
         if (!myFile.exists()) {
             myFile.createNewFile();
@@ -449,7 +463,9 @@ public class TaskingBorderController {
     @RequestMapping
     public void downloadImage(TaskingBorderQuery query, HttpServletRequest request, HttpServletResponse response, String type) throws Exception {
 
-        String sourceFilePath = request.getSession().getServletContext().getRealPath("/WEB-INF") + "/" + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE;
+        WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+        ServletContext servletContext = webApplicationContext.getServletContext();
+        String sourceFilePath = servletContext.getRealPath("/WEB-INF") + "/" + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE;
         String clzpPath = sourceFilePath + "/CLZP";
         String sjzpPath = sourceFilePath + "/SJZP";
         File clzpFile = new File(clzpPath);
@@ -474,16 +490,16 @@ public class TaskingBorderController {
         for (TaskingBorder taskingBorder : page.getData()) {
             Vehicle vehicle = vehicleService.getByPlateNumber(taskingBorder.getPlateNumber());
             List<DriverVehicle> driverVehicles = driverVehicleService.getListByVehicleId(vehicle.getId(), ProgressType.APPLY);
-            String faceImageUrl = vehicle.getFaceImage();
-            String leftfaceImageUrl = vehicle.getLeftfaceImage();
+            String faceImageUrl = fileSDKClient.getFileServerUrl() + vehicle.getFaceImage();
+            String leftfaceImageUrl = fileSDKClient.getFileServerUrl() + vehicle.getLeftfaceImage();
             // 下载车辆图片
             HttpUtils.httpDownload(faceImageUrl, clzpPath + "/" + vehicle.getPlateNumber() + "_ZM.jpg");
             HttpUtils.httpDownload(leftfaceImageUrl, clzpPath + "/" + vehicle.getPlateNumber() + "_ZMZC45.jpg");
             for (DriverVehicle driverVehicle : driverVehicles) {
                 Long driverId = driverVehicle.getDriverId();
                 Driver driver = driverService.get(driverId);
-                String idcardFaceUrl = driver.getIdcardFace();
-                String idcardBackUrl = driver.getIdcardBack();
+                String idcardFaceUrl = fileSDKClient.getFileServerUrl() + driver.getIdcardFace();
+                String idcardBackUrl = fileSDKClient.getFileServerUrl() + driver.getIdcardBack();
                 // 下载司机证件图片
                 HttpUtils.httpDownload(idcardFaceUrl, sjzpPath + "/" + driver.getCertificateNo() + "_ZM.jpg");
                 HttpUtils.httpDownload(idcardBackUrl, sjzpPath + "/" + driver.getCertificateNo() + "_FM.jpg");
@@ -503,10 +519,12 @@ public class TaskingBorderController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String sourceFilePath = resuest.getSession().getServletContext().getRealPath("/WEB-INF") + "/" + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE;
+        WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+        ServletContext servletContext = webApplicationContext.getServletContext();
+        String sourceFilePath = servletContext.getRealPath("/WEB-INF") + "/" + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE;
         List<String> sourceFileList = new ArrayList<String>();
         sourceFileList.add(sourceFilePath);
-        String zipFilePath = resuest.getSession().getServletContext().getRealPath("/WEB-INF") + "/" + TypeEnum.EXCEL_TEMPLATE_DIR_EXPORT;
+        String zipFilePath = servletContext.getRealPath("/WEB-INF") + "/" + TypeEnum.EXCEL_TEMPLATE_DIR_EXPORT;
         FileInputStream fis = null;
         BufferedInputStream bis = null;
         FileOutputStream fos = null;
@@ -606,7 +624,9 @@ public class TaskingBorderController {
     // 导出压缩文件后删掉原始文件
     public void deleteOriginalFiles(HttpServletRequest resuest, HttpServletResponse response) throws IOException {
 
-        String originalFilePath = resuest.getSession().getServletContext().getRealPath("/WEB-INF") + "/" + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE;
+        WebApplicationContext webApplicationContext = ContextLoader.getCurrentWebApplicationContext();
+        ServletContext servletContext = webApplicationContext.getServletContext();
+        String originalFilePath = servletContext.getRealPath("/WEB-INF") + "/" + TypeEnum.EXCEL_TEMPLATE_DIR_SOURCE;
         File originalFile = new File(originalFilePath);
         File[] originalFiles = originalFile.listFiles();
         for (int j = 0; j < originalFiles.length; j++) {
